@@ -15,8 +15,10 @@ title: Project Template
 
 ## Team
 -  e19133, A.Harishanth, [email](mailto:e19133@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
+-  e19137, Hayanan T., [email](mailto:e19137@email.com)
+-  e19247, S.M. Musthak, [email](mailto:e19247@email.com)
+-  e19371, Shantosh M., [email](mailto:e19371@email.com)
+-  e19455, Yashan W.V. , [email](mailto:e19455@email.com)
 
 <!-- Image (photo/drawing of the final hardware) should be here -->
 

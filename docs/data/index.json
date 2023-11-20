@@ -29,12 +29,9 @@
     "supervisors": [
         {
             "name": "Dr. Isuru Nawinne",
-            "email": "email@eng.pdn.ac.lk"
-        },
-        {
-            "name": "Supervisor 2",
-            "email": "email@eng.pdn.ac.lk"
+            
+            "email": "isurunawinne@eng.pdn.ac.lk"
         }
     ],
-    "tags": ["Web", "Embedded Systems"]
+    "tags": ["Web", "Embedded Systems", "CO321", "Network and Web Application Design", "CO324", "Computer and Network Security", "CO325" ]
 }

@@ -52,6 +52,8 @@ In conclusion, our School Van Monitoring System combines cutting-edge technology
 ## Solution Architecture
 
 <!--  High level diagram + description -->
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Screenshot%202023-12-11%20084138.png?raw=true)
+
 
 ## Hardware and Software Designs
 

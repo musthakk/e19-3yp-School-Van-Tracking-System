@@ -9,7 +9,7 @@ title: School van Tracking & Monitoring System
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
 <h1>
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/Logo.jpg" alt="Logo" width="50" height="50" style="border-radius: 50%; margin-right: 15px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/Logo.jpg" alt="Logo" width="70" height="70" style="border-radius: 50%; margin-right: 15px;">
   School Van Tracking & Monitoring System
 </h1>
 

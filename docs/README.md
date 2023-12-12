@@ -209,6 +209,33 @@ Software testing is equally important to ensure that our tracking system works s
 Through rigorous hardware and software testing, we aim to provide a reliable and efficient school van tracking system.
 
 
+### Hardware Testing
+
+Hardware testing is a crucial aspect of our development process. We conduct rigorous testing to ensure that all components of our school van tracking system function as expected under various conditions.
+
+- **Component Testing**: Each hardware component, such as the GPS, accelerometer, and push button, is tested individually for functionality and performance.
+
+- **Integration Testing**: After individual testing, we integrate all the components and test the system as a whole. This helps us identify any issues that arise when the components interact with each other.
+
+- **Stress Testing**: We subject our hardware to extreme conditions to ensure it can withstand high temperatures, vibrations, and other harsh environmental factors.
+
+- **Safety Testing**: Safety is our top priority. We conduct thorough safety tests to ensure our system poses no hazards.
+
+### Software Testing
+
+Software testing is equally important to ensure that our tracking system works seamlessly.
+
+- **Unit Testing**: We test individual units of our software separately to ensure each part is working correctly.
+
+- **Integration Testing**: After unit testing, we combine the software units and test them as a group. This allows us to identify and fix any issues that occur during the interaction of different software units.
+
+- **System Testing**: We test our software as a complete system to ensure it meets all specified requirements.
+
+- **Usability Testing**: We conduct usability tests to ensure our software is user-friendly and intuitive. This involves testing the user interface and the user experience.
+
+Through rigorous hardware and software testing, we aim to provide a reliable and efficient school van tracking system.
+
+
 ## Detailed budget
 ![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Screenshot%202023-12-11%20084902.png?raw=true)
 <!--  All items and costs -->

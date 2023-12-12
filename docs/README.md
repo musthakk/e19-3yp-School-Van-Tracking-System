@@ -18,7 +18,7 @@ title: School van Tracking & Monitoring System
 
 ## Get to know SUREWAY!!
 <!-- Thumbnail image with play button overlay -->
-[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=kSWzrJRMY2I){:target="_blank"}
+[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=kSWzrJRMY2I)
 
 
 ## Team

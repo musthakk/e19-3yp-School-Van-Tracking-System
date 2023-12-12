@@ -135,22 +135,30 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
 
 <!-- Video Section -->
 <!-- Video Section -->
-<div style="display: flex; justify-content: space-between;">
+## Embark on a Visual Journey
 
-  <!-- Video 1 -->
-  <div style="width: 48%;">
-    <a href="https://www.youtube.com/watch?v=TFKJW1s2-AE" target="_blank">
-      <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/full.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
-    </a>
-  </div>
+Embark on a visual journey with this video that showcases the outline design and structure of our product. Experience firsthand how our school van tracking system is not just about advanced technology, but also about easy handling and user-friendly features. This video highlights the thoughtful design that makes our product accessible to users while packing in a host of powerful features. It's a testament to our commitment to delivering a product that marries simplicity with functionality.
 
-  <!-- Video 2 -->
-  <div style="width: 48%;">
-    <a href="https://www.youtube.com/watch?v=OFZYYbICIK4" target="_blank">
-      <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/transparent.jpg?raw=true" alt="Video 2 Thumbnail" style="width: 100%;">
-    </a>
-  </div>
+<!-- Video 1 -->
+<div style="width: 48%;">
+  <a href="https://www.youtube.com/watch?v=TFKJW1s2-AE" target="_blank">
+    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/full.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
+  </a>
+  <p>**Embark on a Visual Journey**</p>
+  <p>Embark on a visual journey with this video that showcases the outline design and structure of our product. Experience firsthand how our school van tracking system is not just about advanced technology, but also about easy handling and user-friendly features. This video highlights the thoughtful design that makes our product accessible to users while packing in a host of powerful features. It's a testament to our commitment to delivering a product that marries simplicity with functionality.</p>
+</div>
 
+## Dive into the Intricate Details
+
+Dive into the intricate details of our product with this transparent view design video. Witness how every component comes together to create a system that's efficient, reliable, and user-friendly. From hardware assembly to software integration, get a behind-the-scenes look at what makes our school van tracking system stand out. It's not just about understanding our product; it's about appreciating the thought, innovation, and dedication that goes into building it.
+
+<!-- Video 2 -->
+<div style="width: 48%;">
+  <a href="https://www.youtube.com/watch?v=OFZYYbICIK4" target="_blank">
+    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/transparent.jpg?raw=true" alt="Video 2 Thumbnail" style="width: 100%;">
+  </a>
+  <p>**Dive into the Intricate Details**</p>
+  <p>Dive into the intricate details of our product with this transparent view design video. Witness how every component comes together to create a system that's efficient, reliable, and user-friendly. From hardware assembly to software integration, get a behind-the-scenes look at what makes our school van tracking system stand out. It's not just about understanding our product; it's about appreciating the thought, innovation, and dedication that goes into building it.</p>
 </div>
 
 
@@ -202,7 +210,12 @@ We see these limitations not as roadblocks, but as stepping stones towards makin
 
 ## Conclusion
 
-<!-- What was achieved, future developments, commercialization plans -->
+In conclusion, our school van tracking system, "SureWay," represents a significant advancement in ensuring the safety and efficiency of school transportation. By leveraging state-of-the-art technology and user-friendly design, we've created a system that not only addresses the challenges of tracking school vans but also provides peace of mind to parents and school administrators.
+
+From real-time tracking to accident detection, every feature of "SureWay" has been meticulously designed with the end-user in mind. However, we understand that there's always room for improvement. We're committed to continuously refining our system based on user feedback and technological advancements.
+
+We believe that "SureWay" is more than just a product; it's a testament to our dedication to enhancing safety and accountability in school transportation. We're excited about the journey ahead and look forward to making "SureWay" an integral part of school transportation systems worldwide.
+
 
 ## Links
 

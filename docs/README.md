@@ -8,6 +8,8 @@ title: School van Tracking & Monitoring System
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Logo.jpg?raw=true)
+
 # School Van Tracking & Monitoring System
 
 ---
@@ -57,7 +59,17 @@ In conclusion, our School Van Monitoring System combines cutting-edge technology
 
 ## Hardware and Software Designs
 
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/product_transperent.mp4?raw=true)
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/IMG-20231209-WA0013.jpg?raw=true)
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/tree/main/docs/images/IMG-20231209-WA0014.jpg?raw=true)
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/tree/main/docs/images/IMG-20231209-WA0015.jpg?raw=true)
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/tree/main/docs/images/IMG-20231209-WA0016.jpg?raw=true)
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/tree/main/docs/images/IMG-20231209-WA0017.jpg?raw=true)
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/tree/main/docs/images/IMG-20231209-WA0018.jpg?raw=true)
  <!-- Detailed designs with many sub-sections -->
+
+## Hardware Circuit Diagram
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Circuit.jpg?raw=true)
 
 ## Testing
 <!-- Testing done on hardware and software, detailed + summarized results --> 

@@ -9,7 +9,7 @@ title: School van Tracking & Monitoring System
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
 <h1>
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/Logo.jpg" alt="Logo" width="70" height="70" style="border-radius: 50%; margin-right: 15px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/Logo.jpg" alt="Logo" width="90" height="90" style="border-radius: 50%; margin-right: 15px;">
   School Van Tracking & Monitoring System
 </h1>
 
@@ -87,12 +87,28 @@ This architecture allows for efficient tracking and monitoring of school vans, e
 
 
 
-
 ## Hardware and Software Designs
 
- <video width="320" height="240" controls>
-  <source src="https://raw.githubusercontent.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/main/docs/images/product_transparent.mp4" type="video/mp4">
-</video>
+<!-- First row of images -->
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0013.jpg" alt="Image 1" width="200" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0014.jpg" alt="Image 2" width="200" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0015.jpg" alt="Image 3" width="200" style="margin: 5px;">
+</div>
+
+<!-- Second row of images -->
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0016.jpg" alt="Image 4" width="200" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0017.jpg" alt="Image 5" width="200" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0018.jpg" alt="Image 6" width="200" style="margin: 5px;">
+</div>
+
+<!-- Video -->
+<div align="center">
+  <video width="400" height="300" controls>
+    <source src="https://raw.githubusercontent.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/main/docs/images/product_transparent.mp4" type="video/mp4">
+  </video>
+</div>
 
 
 

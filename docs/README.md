@@ -90,16 +90,16 @@ This architecture allows for efficient tracking and monitoring of school vans, e
 
 <!-- First row of images -->
 <div align="center">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0013.jpg" alt="Image 1" width="200" height="500" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0014.jpg" alt="Image 2" width="200" height="500" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0015.jpg" alt="Image 3" width="200" height="500" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0013.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0014.jpg" alt="Image 2" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0015.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
 </div>
 
 <!-- Second row of images -->
 <div align="center">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0016.jpg" alt="Image 4" width="200" height="500" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0017.jpg" alt="Image 5" width="200" height="500" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0018.jpg" alt="Image 6" width="200" height="500" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0016.jpg" alt="Image 4" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0017.jpg" alt="Image 5" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0018.jpg" alt="Image 6" width="200" height="400" style="margin: 5px;">
 </div>
 
 ### SureWay: A User-Friendly Mobile App for School Van Tracking

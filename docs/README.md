@@ -86,22 +86,48 @@ On the client side, users can access real-time information about the van’s rou
 This architecture allows for efficient tracking and monitoring of school vans, enhancing the safety and reliability of school transportation.
 
 
-
 ## Hardware and Software Designs
 
 <!-- First row of images -->
 <div align="center">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0013.jpg" alt="Image 1" width="200" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0014.jpg" alt="Image 2" width="200" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0015.jpg" alt="Image 3" width="200" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0013.jpg" alt="Image 1" width="200" height="150" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0014.jpg" alt="Image 2" width="200" height="150" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0015.jpg" alt="Image 3" width="200" height="150" style="margin: 5px;">
 </div>
 
 <!-- Second row of images -->
 <div align="center">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0016.jpg" alt="Image 4" width="200" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0017.jpg" alt="Image 5" width="200" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0018.jpg" alt="Image 6" width="200" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0016.jpg" alt="Image 4" width="200" height="150" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0017.jpg" alt="Image 5" width="200" height="150" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0018.jpg" alt="Image 6" width="200" height="150" style="margin: 5px;">
 </div>
+
+### SureWay: A User-Friendly Mobile App for School Van Tracking
+
+Introducing "SureWay," our mobile app designed with a focus on user-friendliness and intuitive navigation. The app features a clean and vibrant interface with an eye-catching orange color scheme that enhances user engagement.
+
+#### Key Features
+
+- **Real-Time Tracking**: The app provides real-time tracking of your child's school van. The map interface at the top allows you to monitor the van's current location, ensuring your child's safety.
+
+- **Detailed Information**: With just a tap on the "Tap for Details" button, you can access more detailed information about the van's route, speed, and more.
+
+- **Easy Access to Features**: The app's home screen provides quick access to its key features—Tracking, Attendance, Configure, and Stream—through large, easy-to-tap icons.
+
+- **Settings**: The gear icon at the bottom right corner takes you to the app's settings, allowing you to customize the app according to your preferences.
+
+#### Enhancing Usability
+
+While the current design is efficient and user-friendly, there's always room for improvement. Here are some suggestions:
+
+- **Contrasting Colors for Text**: To improve readability, consider using contrasting colors for text.
+
+- **Enlarge 'Tap for Details' Button**: To make the app more touch-friendly, consider increasing the size of the "Tap for Details" button.
+
+- **Labels or Tooltips for Icons**: To provide clarity on the functions of different icons, consider adding labels or tooltips.
+
+SureWay is not just an app; it's a commitment to ensuring the safety and well-being of your child during their school commute.
+
 
 <!-- Video -->
 <div align="center">
@@ -109,7 +135,6 @@ This architecture allows for efficient tracking and monitoring of school vans, e
     <source src="https://raw.githubusercontent.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/main/docs/images/product_transparent.mp4" type="video/mp4">
   </video>
 </div>
-
 
 
  <!-- Detailed designs with many sub-sections -->

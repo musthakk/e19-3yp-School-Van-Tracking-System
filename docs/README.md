@@ -99,6 +99,9 @@ This architecture allows for efficient tracking and monitoring of school vans, e
 ## Hardware Circuit Diagram
 ![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Circuit.jpg?raw=true)
 
+Presenting our meticulously engineered hardware design! This compact yet powerful setup integrates the SIM 800L, NEO 6M, ADXL, and an I2C module, all powered by a 9V battery. The design ensures seamless connectivity and optimal performance, making it the heart of our school van tracking system. It's not just a schematic; it's the blueprint of safety and reliability!
+
+
 ## Testing
 <!-- Testing done on hardware and software, detailed + summarized results --> 
 

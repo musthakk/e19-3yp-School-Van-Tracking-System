@@ -133,11 +133,20 @@ While the current design is efficient and user-friendly, there's always room for
 SureWay is not just an app; it's a commitment to ensuring the safety and well-being of your child during their school commute.
 
 
-<!-- Video -->
-<!-- HTML video container with embedded YouTube video -->
-[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=TFKJW1s2-AE)
+<!-- Video Section -->
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
 
-[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=OFZYYbICIK4)
+  <!-- Video 1 -->
+  <div style="width: 48%;">
+    [![Video 1 Thumbnail](URL_TO_VIDEO_1_THUMBNAIL)](https://www.youtube.com/watch?v=TFKJW1s2-AE)
+  </div>
+
+  <!-- Video 2 -->
+  <div style="width: 48%;">
+    [![Video 2 Thumbnail](URL_TO_VIDEO_2_THUMBNAIL)](https://www.youtube.com/watch?v=OFZYYbICIK4)
+  </div>
+
+</div>
 
  <!-- Detailed designs with many sub-sections -->
 

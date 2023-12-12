@@ -18,65 +18,7 @@ title: School van Tracking & Monitoring System
 
 ## Get to know SUREWAY!!
 <!-- Thumbnail image with play button overlay -->
-<div class="video-thumbnail" onclick="playVideo('kSWzrJRMY2I')">
-  <img src="https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg" alt="Video Thumbnail">
-  <div class="play-button"></div>
-</div>
-
-<!-- JavaScript function to play the video -->
-<script>
-  function playVideo(videoId) {
-    var iframe = document.createElement("iframe");
-    iframe.setAttribute("width", "560");
-    iframe.setAttribute("height", "315");
-    iframe.setAttribute("src", "https://www.youtube.com/embed/" + videoId + "?autoplay=1");
-    iframe.setAttribute("frameborder", "0");
-    iframe.setAttribute("allowfullscreen", "");
-
-    document.querySelector(".video-thumbnail").innerHTML = "";
-    document.querySelector(".video-thumbnail").appendChild(iframe);
-  }
-</script>
-
-<!-- CSS styles for the thumbnail and play button -->
-<style>
-  .video-thumbnail {
-    position: relative;
-    width: 560px;
-    height: 315px;
-    cursor: pointer;
-    overflow: hidden;
-  }
-
-  .video-thumbnail img {
-    width: 100%;
-    height: auto;
-  }
-
-  .play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .play-button::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-style: solid;
-    border-width: 15px 0 15px 25px;
-    border-color: transparent transparent transparent #fff;
-  }
-</style>
-
+[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=kSWzrJRMY2I)
 
 <!-- CSS styles for responsive video container -->
 <style>

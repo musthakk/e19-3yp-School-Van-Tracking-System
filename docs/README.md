@@ -34,14 +34,24 @@ title: School van Tracking & Monitoring System
 
 <!-- ![Sample Image](./images/sample.png) -->
 
-#### Table of Contents
-1. [Introduction](#introduction)
-2. [Solution Architecture](#solution-architecture )
-3. [Hardware & Software Designs](#hardware-and-software-designs)
-4. [Testing](#testing)
-5. [Detailed budget](#detailed-budget)
-6. [Conclusion](#conclusion)
-7. [Links](#links)
+## Table of Contents
+1. [Get to know SUREWAY!!](#get-to-know-sureway)
+2. [Team](#team)
+3. [Introduction](#introduction)
+4. [Solution Architecture](#solution-architecture)
+   1. [Hardware Components](#hardware-components)
+   2. [Data Processing and Transmission](#data-processing-and-transmission)
+   3. [Server and Client Application](#server-and-client-application)
+5. [Hardware and Software Designs](#hardware-and-software-designs)
+   - [SureWay: A User-Friendly Mobile App for School Van Tracking](#sureway-a-user-friendly-mobile-app-for-school-van-tracking)
+   1. [Key Features](#key-features)
+   2. [Enhancing Usability](#enhancing-usability)
+   - [Detailed designs with many sub-sections](#detailed-designs-with-many-sub-sections)
+6. [Testing](#testing)
+7. [Detailed budget](#detailed-budget)
+8. [Navigating the Challenges: Limitations of Our System](#navigating-the-challenges-limitations-of-our-system)
+9. [Conclusion](#conclusion)
+10. [Links](#links)
 
 ## Introduction
 
@@ -134,24 +144,25 @@ While the current design is efficient and user-friendly, there's always room for
 SureWay is not just an app; it's a commitment to ensuring the safety and well-being of your child during their school commute.
 
 
-  <!-- Video 1 -->
+<!-- Video 1 -->
+<div style="display: flex; justify-content: space-between; gap: 20px;">
   <div style="width: 48%; text-align: justify;">
     <a href="https://www.youtube.com/watch?v=TFKJW1s2-AE" target="_blank">
-      <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/full.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
+      <img src="{{ site.baseurl }}/docs/images/full.jpg" alt="Video 1 Thumbnail" style="width: 100%;">
     </a>
     <h4 style="margin-bottom: 0;">Embark on a Visual Journey</h4>
-    <p>Embark on a visual journey with this video that showcases the outline design and structure of our product. Experience firsthand how our school van tracking system is not just about advanced technology, but also about easy handling and user-friendly features. This video highlights the thoughtful design that makes our product accessible to users while packing in a host of powerful features. It's a testament to our commitment to delivering a product that marries simplicity with functionality.</p>
+    <p>Your description here...</p>
   </div>
 
   <!-- Video 2 -->
   <div style="width: 48%; text-align: justify;">
     <a href="https://www.youtube.com/watch?v=OFZYYbICIK4" target="_blank">
-      <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/transparent.jpg?raw=true" alt="Video 2 Thumbnail" style="width: 100%;">
+      <img src="{{ site.baseurl }}/docs/images/transparent.jpg" alt="Video 2 Thumbnail" style="width: 100%;">
     </a>
     <h4 style="margin-bottom: 0;">Dive into the Intricate Details</h4>
-    <p>Dive into the intricate details of our product with this transparent view design video. Witness how every component comes together to create a system that's efficient, reliable, and user-friendly. From hardware assembly to software integration, get a behind-the-scenes look at what makes our school van tracking system stand out. It's not just about understanding our product; it's about appreciating the thought, innovation, and dedication that goes into building it.</p>
+    <p>Your description here...</p>
   </div>
-
+</div>
 
  <!-- Detailed designs with many sub-sections -->
 

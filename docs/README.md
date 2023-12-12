@@ -144,6 +144,12 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
 
 Presenting our meticulously engineered hardware design! This compact yet powerful setup integrates the SIM 800L, NEO 6M, ADXL, and an I2C module, all powered by a 9V battery. The design ensures seamless connectivity and optimal performance, making it the heart of our school van tracking system. It's not just a schematic; it's the blueprint of safety and reliability!
 
+# Data Security in Our System
+
+In our school van tracking system, we prioritize data security as a fundamental aspect. We understand the importance of protecting sensitive information, such as the real-time location of school vans and student attendance records. Our system employs advanced security measures, including data encryption and secure transmission protocols, to ensure that this data remains confidential and secure. We're committed to continuously updating our security practices to safeguard against emerging threats and vulnerabilities.
+
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/data%20security.jpg?raw=true)
+
 
 ## Testing
 <!-- Testing done on hardware and software, detailed + summarized results --> 

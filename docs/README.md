@@ -85,9 +85,10 @@ This architecture allows for efficient tracking and monitoring of school vans, e
 
 ## Hardware and Software Designs
 
-<video width="320" height="240" controls>
+ <video width="320" height="240" controls>
   <source src="https://raw.githubusercontent.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/main/docs/images/product_transparent.mp4" type="video/mp4">
- </video>
+</video>
+
 
 
  <!-- Detailed designs with many sub-sections -->

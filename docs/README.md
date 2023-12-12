@@ -158,6 +158,25 @@ Presenting our meticulously engineered hardware design! This compact yet powerfu
 | Sample item   | 5         | 10 LKR     | 50 LKR |
 -->
 
+# Navigating the Challenges: Limitations of Our System
+
+While our school van tracking system, "SureWay," is designed with meticulous attention to detail, we believe in transparency and acknowledge that there are certain limitations. Here's a candid look at them:
+
+- **Camera Visibility**: Like all camera-based systems, our dash cam's performance can be affected by factors such as lighting conditions and obstructions. We're continually working on enhancing its capabilities to provide clear visibility under various conditions.
+
+- **False Alarm Detection**: Our system relies on the driver's manual response to false alarms. While this allows for human discretion, it also introduces the possibility of delays or errors in response.
+
+- **Manual Marking of Student Attendance**: The driver manually marks student attendance, which could lead to human errors. We're exploring automated solutions to minimize this.
+
+- **Admin Responsibility**: The system's effectiveness depends on the admin's active role in checking and monitoring all system activities. We're developing features to streamline this process and reduce the admin's workload.
+
+- **Maintenance Downtime**: Like any tech solution, our system may require downtime for maintenance or face occasional device failures. We strive to keep these to a minimum and ensure they cause minimal disruption.
+
+- **Signal Reliability**: Weather conditions and the geographical area can affect the reliability of the signals. We're constantly optimizing our system to perform reliably under various conditions.
+
+We see these limitations not as roadblocks, but as stepping stones towards making "SureWay" the most reliable and efficient school van tracking system. Your feedback and suggestions are always welcome as we navigate these challenges together!
+
+
 ## Conclusion
 
 <!-- What was achieved, future developments, commercialization plans -->

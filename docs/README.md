@@ -17,28 +17,31 @@ title: School van Tracking & Monitoring System
 ---
 
 ## Get to know SUREWAY!!
-<div class="embed-container">
-  <iframe width="640" height="390" src="https://www.youtube.com/embed/{{ include.id }}" frameborder="0" allowfullscreen></iframe>
+
+<!-- HTML video container with embedded YouTube video -->
+<div class="video-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/kSWzrJRMY2I" frameborder="0" allowfullscreen></iframe>
 </div>
 
+<!-- CSS styles for responsive video container -->
 <style>
-.embed-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  max-width: 100%;
-}
-.embed-container iframe, .embed-container object, .embed-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-top: 25px;
+    height: 0;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
 
-{% include youtube.html id="kSWzrJRMY2I" %}
+
 
 ## Team
 -  e19133, A.Harishanth, [email](mailto:e19133@email.com)
@@ -154,8 +157,16 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
 
 
 <!-- Video -->
-{% include youtube.html id="TFKJW1s2-AE" %}
-{% include youtube.html id="OFZYYbICIK4" %}
+<!-- HTML video container with embedded YouTube video -->
+<div class="video-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/kSWzrJRMY2I" frameborder="0" allowfullscreen></iframe>
+</div>
+
+
+<!-- HTML video container with embedded YouTube video -->
+<div class="video-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/OFZYYbICIK4" frameborder="0" allowfullscreen></iframe>
+</div>
 
  <!-- Detailed designs with many sub-sections -->
 

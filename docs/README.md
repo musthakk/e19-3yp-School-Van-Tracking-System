@@ -135,18 +135,9 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
 
 <!-- Video -->
 <!-- HTML video container with embedded YouTube video -->
-<div class="video-thumbnail" onclick="playVideo('TFKJW1s2-AE')">
-  <img src="https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg" alt="Video Thumbnail">
-  <div class="play-button"></div>
-</div>
+[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=TFKJW1s2-AE)
 
-
-<div class="video-thumbnail" onclick="playVideo('OFZYYbICIK4')">
-  <img src="https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg" alt="Video Thumbnail">
-  <div class="play-button"></div>
-</div>
-
-
+[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=OFZYYbICIK4)
 
  <!-- Detailed designs with many sub-sections -->
 

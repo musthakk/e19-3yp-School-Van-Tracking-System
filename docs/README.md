@@ -20,26 +20,6 @@ title: School van Tracking & Monitoring System
 <!-- Thumbnail image with play button overlay -->
 [![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=kSWzrJRMY2I)
 
-<!-- CSS styles for responsive video container -->
-<style>
-  .video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    padding-top: 25px;
-    height: 0;
-  }
-
-  .video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
-
-
-
 ## Team
 -  e19133, A.Harishanth, [email](mailto:e19133@email.com)
 -  e19137, Hayanan T., [email](mailto:e19137@email.com)

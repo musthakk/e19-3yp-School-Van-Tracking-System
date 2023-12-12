@@ -16,6 +16,30 @@ title: School van Tracking & Monitoring System
 
 ---
 
+## Get to know SUREWAY!!
+<div class="embed-container">
+  <iframe width="640" height="390" src="https://www.youtube.com/embed/{{ include.id }}" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<style>
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.embed-container iframe, .embed-container object, .embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+
+{% include youtube.html id="kSWzrJRMY2I" %}
+
 ## Team
 -  e19133, A.Harishanth, [email](mailto:e19133@email.com)
 -  e19137, Hayanan T., [email](mailto:e19137@email.com)
@@ -130,12 +154,8 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
 
 
 <!-- Video -->
-<div align="center">
-  <video width="400" height="300" controls>
-    <source src="https://raw.githubusercontent.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/main/docs/images/product_transparent.mp4" type="video/mp4">
-  </video>
-</div>
-
+{% include youtube.html id="TFKJW1s2-AE" %}
+{% include youtube.html id="OFZYYbICIK4" %}
 
  <!-- Detailed designs with many sub-sections -->
 

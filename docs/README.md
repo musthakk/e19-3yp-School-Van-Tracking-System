@@ -148,7 +148,7 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
 <div style="display: flex; justify-content: space-between; gap: 20px;">
   <div style="width: 48%; text-align: justify;">
     <a href="https://www.youtube.com/watch?v=TFKJW1s2-AE" target="_blank">
-      <img src="{{ site.baseurl }}/docs/images/full.jpg" alt="Video 1 Thumbnail" style="width: 100%;">
+      <img src="{{ site.baseurl }}/docs/images/full.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
     </a>
     <h4 style="margin-bottom: 0;">Embark on a Visual Journey</h4>
     <p>Your description here...</p>
@@ -157,7 +157,7 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
   <!-- Video 2 -->
   <div style="width: 48%; text-align: justify;">
     <a href="https://www.youtube.com/watch?v=OFZYYbICIK4" target="_blank">
-      <img src="{{ site.baseurl }}/docs/images/transparent.jpg" alt="Video 2 Thumbnail" style="width: 100%;">
+      <img src="{{ site.baseurl }}/docs/images/transparent.jpg?raw=true" alt="Video 2 Thumbnail" style="width: 100%;">
     </a>
     <h4 style="margin-bottom: 0;">Dive into the Intricate Details</h4>
     <p>Your description here...</p>

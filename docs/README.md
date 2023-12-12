@@ -140,7 +140,7 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
   <!-- Video 1 -->
   <div style="width: 48%;">
     <a href="https://www.youtube.com/watch?v=TFKJW1s2-AE" target="_blank">
-      <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/full.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
+      <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/tree/main/docs/images/full.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
     </a>
   </div>
 

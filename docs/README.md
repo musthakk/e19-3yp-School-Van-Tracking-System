@@ -59,7 +59,8 @@ In conclusion, our School Van Monitoring System combines cutting-edge technology
 
 ## Hardware and Software Designs
 
-![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/product_transperent.mp4?raw=true)
+[![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/product_transperent.mp4?raw=true)](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/product_transperent.mp4)
+
 
  <!-- Detailed designs with many sub-sections -->
 

@@ -55,6 +55,32 @@ In conclusion, our School Van Monitoring System combines cutting-edge technology
 
 <!--  High level diagram + description -->
 ![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Screenshot%202023-12-11%20084138.png?raw=true)
+This diagram represents the solution architecture for our school van tracking system. The system is designed to provide real-time tracking and safety features for school vans.
+
+### Hardware Components
+
+The system uses various hardware components installed in the school van. These include:
+
+- **Push Button**: Allows manual input from the van driver or other personnel.
+- **Dash Cam**: Provides visual monitoring of the van's interior and exterior.
+- **Accelerometer**: Monitors the van's speed and movement.
+- **GPS**: Tracks the van's geographical location.
+- **LEDs**: Provide visual indicators for various system states.
+
+These components are connected to an Arduino board, which processes the data they generate.
+
+### Data Processing and Transmission
+
+The Arduino board processes the data from the hardware components. If an accident is detected, it sends a control signal to a buzzer alarm and neutralizes the threat. The processed data is then transmitted to an EC2 virtual server via the MQTT protocol.
+
+### Server and Client Application
+
+The EC2 virtual server, running Node.js, receives the data from the Arduino board. It processes this data and makes it accessible through an API.
+
+On the client side, users can access real-time information about the van’s route, speed, and location through a mobile app developed with React Native. The app also provides live updates on speed exceptions and alerts.
+
+This architecture allows for efficient tracking and monitoring of school vans, enhancing the safety and reliability of school transportation.
+
 
 
 ## Hardware and Software Designs

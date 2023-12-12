@@ -18,7 +18,8 @@ title: School van Tracking & Monitoring System
 
 ## Get to know SUREWAY!!
 <!-- Thumbnail image with play button overlay -->
-[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=kSWzrJRMY2I)
+[![Video Thumbnail](https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg)](https://www.youtube.com/watch?v=kSWzrJRMY2I){:target="_blank"}
+
 
 ## Team
 -  e19133, A.Harishanth, [email](mailto:e19133@email.com)
@@ -133,8 +134,6 @@ While the current design is efficient and user-friendly, there's always room for
 SureWay is not just an app; it's a commitment to ensuring the safety and well-being of your child during their school commute.
 
 
-<div style="display: flex; justify-content: space-between; gap: 20px;">
-
   <!-- Video 1 -->
   <div style="width: 48%; text-align: justify;">
     <a href="https://www.youtube.com/watch?v=TFKJW1s2-AE" target="_blank">
@@ -152,8 +151,6 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
     <h4 style="margin-bottom: 0;">Dive into the Intricate Details</h4>
     <p>Dive into the intricate details of our product with this transparent view design video. Witness how every component comes together to create a system that's efficient, reliable, and user-friendly. From hardware assembly to software integration, get a behind-the-scenes look at what makes our school van tracking system stand out. It's not just about understanding our product; it's about appreciating the thought, innovation, and dedication that goes into building it.</p>
   </div>
-
-</div>
 
 
  <!-- Detailed designs with many sub-sections -->

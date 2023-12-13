@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Viewer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <button onclick="fetchData('users')">Get Users</button>
+    <button onclick="fetchData('drivers')">Get Drivers</button>
+    <button onclick="fetchData('vehicles')">Get Vehicles</button>
+
+    <div id="result"></div>
+
+    <script>
+      async function fetchData(category) {
+        try {
+          const response = await fetch(`http://localhost:3001/${category}`);
+          const data = await response.json();
+          displayData(data, category);
+        } catch (error) {
+          console.error(`Error fetching ${category} data:`, error);
+        }
+      }
+
+      function displayData(data, category) {
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = `<h2>${
+          category.charAt(0).toUpperCase() + category.slice(1)
+        }</h2>`;
+
+        if (data && data[category]) {
+          const categoryData = data[category];
+          categoryData.forEach((item) => {
+            resultDiv.innerHTML += `<pre>${JSON.stringify(
+              item,
+              null,
+              2
+            )}</pre>`;
+          });
+        } else {
+          resultDiv.innerHTML += `<p>No data available for ${category}</p>`;
+        }
+      }
+    </script>
+  </body>
+</html>

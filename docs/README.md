@@ -8,9 +8,20 @@ title: School van Tracking & Monitoring System
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# School Van Tracking & Monitoring System
+<h1>
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/Logo.jpg" alt="Logo" width="90" height="90" style="border-radius: 50%; margin-right: 15px;">
+  School Van Tracking & Monitoring System
+</h1>
+
 
 ---
+
+## Get to know SUREWAY!!
+<!-- Thumbnail image with play button overlay -->
+<a href="https://www.youtube.com/watch?v=kSWzrJRMY2I" target="_blank" onclick="window.open(this.href,'_blank');return false;">
+  <img src="https://img.youtube.com/vi/kSWzrJRMY2I/maxresdefault.jpg" alt="Video Thumbnail">
+</a>
+
 
 ## Team
 -  e19133, A.Harishanth, [email](mailto:e19133@email.com)
@@ -25,14 +36,24 @@ title: School van Tracking & Monitoring System
 
 <!-- ![Sample Image](./images/sample.png) -->
 
-#### Table of Contents
-1. [Introduction](#introduction)
-2. [Solution Architecture](#solution-architecture )
-3. [Hardware & Software Designs](#hardware-and-software-designs)
-4. [Testing](#testing)
-5. [Detailed budget](#detailed-budget)
-6. [Conclusion](#conclusion)
-7. [Links](#links)
+## Table of Contents
+1. [Get to know SUREWAY!!](#get-to-know-sureway)
+2. [Team](#team)
+3. [Introduction](#introduction)
+4. [Solution Architecture](#solution-architecture)
+   1. [Hardware Components](#hardware-components)
+   2. [Data Processing and Transmission](#data-processing-and-transmission)
+   3. [Server and Client Application](#server-and-client-application)
+5. [Hardware and Software Designs](#hardware-and-software-designs)
+   - [SureWay: A User-Friendly Mobile App for School Van Tracking](#sureway-a-user-friendly-mobile-app-for-school-van-tracking)
+   1. [Key Features](#key-features)
+   2. [Enhancing Usability](#enhancing-usability)
+   - [Detailed designs with many sub-sections](#detailed-designs-with-many-sub-sections)
+6. [Testing](#testing)
+7. [Detailed budget](#detailed-budget)
+8. [Navigating the Challenges: Limitations of Our System](#navigating-the-challenges-limitations-of-our-system)
+9. [Conclusion](#conclusion)
+10. [Links](#links)
 
 ## Introduction
 
@@ -52,17 +73,171 @@ In conclusion, our School Van Monitoring System combines cutting-edge technology
 ## Solution Architecture
 
 <!--  High level diagram + description -->
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Screenshot%202023-12-11%20084138.png?raw=true)
+
+This diagram represents the solution architecture for our school van tracking system. The system is designed to provide real-time tracking and safety features for school vans.
+
+#### Hardware Components
+
+The system uses various hardware components installed in the school van. These include:
+
+- **Push Button**: Allows manual input from the van driver or other personnel. This button is used to stop the accident alert message from being sent to the admin if it is a false alarm within a 30-second time period.
+- **Dash Cam**: Provides visual monitoring of the van's interior and exterior.
+- **Accelerometer**: Monitors the van's speed and movement.
+- **GPS**: Tracks the van's geographical location.
+- **LEDs and LED Display**: Provide visual indicators for various system states and notify the driver when an accident has been detected.
+- **Buzzer**: Used to indicate to the driver when an accident is detected.
+
+These components are connected to an ESP32 board, which processes the data they generate.
+
+#### Data Processing and Transmission
+
+The ESP32 board processes the data from the hardware components. If an accident is detected, it sends a control signal to the buzzer to alert the driver and neutralizes the threat if the push button is pressed within 30 seconds. The processed data is then transmitted to an EC2 virtual server via the MQTT protocol.
+
+#### Server and Client Application
+
+The EC2 virtual server, running Node.js, receives the data from the ESP32 board. It processes this data and makes it accessible through an API.
+
+On the client side, users can access real-time information about the van’s route, speed, and location through a mobile app developed with React Native. The app also provides live updates on speed exceptions and alerts.
+
+This architecture allows for efficient tracking and monitoring of school vans, enhancing the safety and reliability of school transportation.
+
 
 ## Hardware and Software Designs
 
+<!-- First row of images -->
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0013.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0014.jpg" alt="Image 2" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0015.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
+</div>
+
+<!-- Second row of images -->
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0016.jpg" alt="Image 4" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0017.jpg" alt="Image 5" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0018.jpg" alt="Image 6" width="200" height="400" style="margin: 5px;">
+</div>
+
+### SureWay: A User-Friendly Mobile App for School Van Tracking
+
+Introducing "SureWay," our mobile app designed with a focus on user-friendliness and intuitive navigation. The app features a clean and vibrant interface with an eye-catching orange color scheme that enhances user engagement.
+
+#### Key Features
+
+- **Real-Time Tracking**: The app provides real-time tracking of your child's school van. The map interface at the top allows you to monitor the van's current location, ensuring your child's safety.
+
+- **Detailed Information**: With just a tap on the "Tap for Details" button, you can access more detailed information about the van's route, speed, and more.
+
+- **Easy Access to Features**: The app's home screen provides quick access to its key features—Tracking, Attendance, Configure, and Stream—through large, easy-to-tap icons.
+
+- **Settings**: The gear icon at the bottom right corner takes you to the app's settings, allowing you to customize the app according to your preferences.
+
+#### Enhancing Usability
+
+While the current design is efficient and user-friendly, there's always room for improvement. Here are some suggestions:
+
+- **Contrasting Colors for Text**: To improve readability, consider using contrasting colors for text.
+
+- **Enlarge 'Tap for Details' Button**: To make the app more touch-friendly, consider increasing the size of the "Tap for Details" button.
+
+- **Labels or Tooltips for Icons**: To provide clarity on the functions of different icons, consider adding labels or tooltips.
+
+SureWay is not just an app; it's a commitment to ensuring the safety and well-being of your child during their school commute.
+
+
+<!-- Video 1 -->
+<div style="width: 90%;">
+  <a href="https://www.youtube.com/watch?v=TFKJW1s2-AE" target="_blank">
+    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/full.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
+  </a>
+  <h4 style="margin-bottom: 0;">Embark on a Visual Journey</h4>
+  <p>Embark on a visual journey with this video that showcases the outline design and structure of our product. Experience firsthand how our school van tracking system is not just about advanced technology, but also about easy handling and user-friendly features. This video highlights the thoughtful design that makes our product accessible to users while packing in a host of powerful features. It's a testament to our commitment to delivering a product that marries simplicity with functionality.</p>
+</div>
+
+<!-- Video 2 -->
+<div style="width: 90%;">
+  <a href="https://www.youtube.com/watch?v=OFZYYbICIK4" target="_blank">
+    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/transparent.jpg?raw=true" alt="Video 2 Thumbnail" style="width: 100%;">
+  </a>
+  <h4 style="margin-bottom: 0;">Dive into the Intricate Details</h4>
+  <p>Dive into the intricate details of our product with this transparent view design video. Witness how every component comes together to create a system that's efficient, reliable, and user-friendly. From hardware assembly to software integration, get a behind-the-scenes look at what makes our school van tracking system stand out. It's not just about understanding our product; it's about appreciating the thought, innovation, and dedication that goes into building it.</p>
+</div>
+
+
+
  <!-- Detailed designs with many sub-sections -->
+
+## Hardware Circuit Diagram
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Circuit.jpg?raw=true)
+
+Presenting our meticulously engineered hardware design! This compact yet powerful setup integrates the SIM 800L, NEO 6M, ADXL, and an I2C module, all powered by a 9V battery. The design ensures seamless connectivity and optimal performance, making it the heart of our school van tracking system. It's not just a schematic; it's the blueprint of safety and reliability!
+
+# Data Security in Our System
+
+In our school van tracking system, we prioritize data security as a fundamental aspect. We understand the importance of protecting sensitive information, such as the real-time location of school vans and student attendance records. Our system employs advanced security measures, including data encryption and secure transmission protocols, to ensure that this data remains confidential and secure. We're committed to continuously updating our security practices to safeguard against emerging threats and vulnerabilities.
+
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/data%20security.jpg?raw=true)
+
 
 ## Testing
 
-<!-- Testing done on hardware and software, detailed + summarized results --> 
+### Hardware Testing
+
+Hardware testing is a crucial aspect of our development process. We conduct rigorous testing to ensure that all components of our school van tracking system function as expected under various conditions.
+
+- **Component Testing**: Each hardware component, such as the GPS, accelerometer, and push button, is tested individually for functionality and performance.
+
+- **Integration Testing**: After individual testing, we integrate all the components and test the system as a whole. This helps us identify any issues that arise when the components interact with each other.
+
+- **Stress Testing**: We subject our hardware to extreme conditions to ensure it can withstand high temperatures, vibrations, and other harsh environmental factors.
+
+- **Safety Testing**: Safety is our top priority. We conduct thorough safety tests to ensure our system poses no hazards.
+
+### Software Testing
+
+Software testing is equally important to ensure that our tracking system works seamlessly.
+
+- **Unit Testing**: We test individual units of our software separately to ensure each part is working correctly.
+
+- **Integration Testing**: After unit testing, we combine the software units and test them as a group. This allows us to identify and fix any issues that occur during the interaction of different software units.
+
+- **System Testing**: We test our software as a complete system to ensure it meets all specified requirements.
+
+- **Usability Testing**: We conduct usability tests to ensure our software is user-friendly and intuitive. This involves testing the user interface and the user experience.
+
+Through rigorous hardware and software testing, we aim to provide a reliable and efficient school van tracking system.
+
+
+### Hardware Testing
+
+Hardware testing is a crucial aspect of our development process. We conduct rigorous testing to ensure that all components of our school van tracking system function as expected under various conditions.
+
+- **Component Testing**: Each hardware component, such as the GPS, accelerometer, and push button, is tested individually for functionality and performance.
+
+- **Integration Testing**: After individual testing, we integrate all the components and test the system as a whole. This helps us identify any issues that arise when the components interact with each other.
+
+- **Stress Testing**: We subject our hardware to extreme conditions to ensure it can withstand high temperatures, vibrations, and other harsh environmental factors.
+
+- **Safety Testing**: Safety is our top priority. We conduct thorough safety tests to ensure our system poses no hazards.
+
+### Software Testing
+
+Software testing is equally important to ensure that our tracking system works seamlessly.
+
+- **Unit Testing**: We test individual units of our software separately to ensure each part is working correctly.
+
+- **Integration Testing**: After unit testing, we combine the software units and test them as a group. This allows us to identify and fix any issues that occur during the interaction of different software units.
+
+- **System Testing**: We test our software as a complete system to ensure it meets all specified requirements.
+
+- **Usability Testing**: We conduct usability tests to ensure our software is user-friendly and intuitive. This involves testing the user interface and the user experience.
+
+Through rigorous hardware and software testing, we aim to provide a reliable and efficient school van tracking system.
+
 
 ## Detailed budget
-
+![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Screenshot%202023-12-11%20084902.png?raw=true)
 <!--  All items and costs -->
 
 <!--
@@ -71,9 +246,33 @@ In conclusion, our School Van Monitoring System combines cutting-edge technology
 | Sample item   | 5         | 10 LKR     | 50 LKR |
 -->
 
+# Navigating the Challenges: Limitations of Our System
+
+While our school van tracking system, "SureWay," is designed with meticulous attention to detail, we believe in transparency and acknowledge that there are certain limitations. Here's a candid look at them:
+
+- **Camera Visibility**: Like all camera-based systems, our dash cam's performance can be affected by factors such as lighting conditions and obstructions. We're continually working on enhancing its capabilities to provide clear visibility under various conditions.
+
+- **False Alarm Detection**: Our system relies on the driver's manual response to false alarms. While this allows for human discretion, it also introduces the possibility of delays or errors in response.
+
+- **Manual Marking of Student Attendance**: The driver manually marks student attendance, which could lead to human errors. We're exploring automated solutions to minimize this.
+
+- **Admin Responsibility**: The system's effectiveness depends on the admin's active role in checking and monitoring all system activities. We're developing features to streamline this process and reduce the admin's workload.
+
+- **Maintenance Downtime**: Like any tech solution, our system may require downtime for maintenance or face occasional device failures. We strive to keep these to a minimum and ensure they cause minimal disruption.
+
+- **Signal Reliability**: Weather conditions and the geographical area can affect the reliability of the signals. We're constantly optimizing our system to perform reliably under various conditions.
+
+We see these limitations not as roadblocks, but as stepping stones towards making "SureWay" the most reliable and efficient school van tracking system. Your feedback and suggestions are always welcome as we navigate these challenges together!
+
+
 ## Conclusion
 
-<!-- What was achieved, future developments, commercialization plans -->
+In conclusion, our school van tracking system, "SureWay," represents a significant advancement in ensuring the safety and efficiency of school transportation. By leveraging state-of-the-art technology and user-friendly design, we've created a system that not only addresses the challenges of tracking school vans but also provides peace of mind to parents and school administrators.
+
+From real-time tracking to accident detection, every feature of "SureWay" has been meticulously designed with the end-user in mind. However, we understand that there's always room for improvement. We're committed to continuously refining our system based on user feedback and technological advancements.
+
+We believe that "SureWay" is more than just a product; it's a testament to our dedication to enhancing safety and accountability in school transportation. We're excited about the journey ahead and look forward to making "SureWay" an integral part of school transportation systems worldwide.
+
 
 ## Links
 

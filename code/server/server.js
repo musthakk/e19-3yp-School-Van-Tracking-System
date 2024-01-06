@@ -14,12 +14,14 @@ mongoose.connect('mongodb+srv://musthak:Mk741300@cluster0.zl8gzee.mongodb.net/Su
 const db = mongoose.connection;
 
 // Define a schema for the children
+// This childSchema will get data when user add children to his account..
 const childSchema = new mongoose.Schema({
   name: String,
   age: Number,
   school: String,
   pickupAddress: String,
   dropAddress: String,
+  vehicleID: String,
   travellingStatus: { type: Number},
 });
 

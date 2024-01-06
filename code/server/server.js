@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json()); // Enable parsing of JSON in requests
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://musthak:Mk741300@cluster0.zl8gzee.mongodb.net/');
+mongoose.connect('mongodb+srv://musthak:Mk741300@cluster0.zl8gzee.mongodb.net/SureWay2024');
 const db = mongoose.connection;
 
 // Define a schema for the children
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
   contactNumber: { type: String, required: true },
   email: { type: String, required: true },
   hashedPassword: { type: String, required: true },
-  verified: { type: Number, default: 1 },
+  verified: { type: Number, default: -1 },
   children: [childSchema], // An array of children objects
 });
 

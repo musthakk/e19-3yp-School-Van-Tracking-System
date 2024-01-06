@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json()); // Enable parsing of JSON in requests
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://musthak:Mk741300@cluster0.zl8gzee.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://musthak:Mk741300@cluster0.zl8gzee.mongodb.net/');
 const db = mongoose.connection;
 
 // Define a schema for the children

@@ -7,13 +7,13 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 const SignUp = () => {
 
   // Track the fullName state
-  const [fullname, Setfullname] = useState("");
+  const [fullName, Setfullname] = useState("");
 
   // Track the userName state
   const [username, Setusername] = useState("");
 
   // Track the firstname state
-  const [conNumber, SetConNumber] = useState("");
+  const [contactNumber, SetContactNumber] = useState("");
 
   // Tracking the Password
   const [password, SetPassword] = useState("");
@@ -58,15 +58,15 @@ const SignUp = () => {
       return;
 
     try {
-      const response = await fetch('http://localhost:3000/signup', {
+      const response = await fetch('http://52.66.141.134:3000/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          fullname,
+          fullName,
           username,
-          conNumber,
+          contactNumber,
           email,
           password,
         }),
@@ -133,7 +133,7 @@ const SignUp = () => {
 
               {/* Required Full name */}
               {                
-                (fullname !== "") ? (
+                (fullName !== "") ? (
                   isfullnameValid = 1,
                   <Ionicons name='checkmark-circle-outline' size={20} style={{color: colors.orange, position: 'absolute', right: 15}}/>
                 ):(
@@ -176,13 +176,13 @@ const SignUp = () => {
                 placeholder='Contact Number'
                 style={styles.textInput}
                 keyboardType='numeric'
-                onChangeText={(text)=>SetConNumber(text)}
+                onChangeText={(text)=>SetContactNumber(text)}
                 onSubmitEditing={()=> emailInputRef.current.focus()}
               />
 
               {/* Required Contact Number */}
               {                
-                !isNaN(conNumber) && ((conNumber !== "" && conNumber.length === 10 && conNumber[0] === "0") || (conNumber !== "" && conNumber.length === 9 && conNumber[0] !=="0"))? (
+                !isNaN(contactNumber) && ((contactNumber !== "" && contactNumber.length === 10 && contactNumber[0] === "0") || (contactNumber !== "" && contactNumber.length === 9 && contactNumber[0] !=="0"))? (
                   isConNumValid = 1,  
                   <Ionicons name='checkmark-circle-outline' size={20} style={{color: colors.orange, position: 'absolute', right: 15}}/>
                 ):(

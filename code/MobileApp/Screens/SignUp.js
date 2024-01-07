@@ -7,7 +7,7 @@ import colors from '../constants/colors';
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
 
   // Track the fullName state
   const [fullName, Setfullname] = useState("");

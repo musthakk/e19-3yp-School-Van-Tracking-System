@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 const cors = require('cors');
 
 const app = express();
@@ -32,7 +34,8 @@ const userSchema = new mongoose.Schema({
   contactNumber: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
-  verified: { type: Number, default: -1 },
+  isVerified: {type: Boolean, default: false},
+  ChildAddRequest: { type: Number, default: -1 },
   children: [childSchema], // An array of children objects
 });
 
@@ -103,18 +106,98 @@ app.post('/signup', async(req, res) => {
     await newUser.save();
 
     // You can print the data to the console, including the hashed password
-    console.log('Received signup data:', { fullName, username, contactNumber, email, hashedPassword });
+    // console.log('Received signup data:', { fullName, username, contactNumber, email, hashedPassword });
 
-    // Send a response to the client
-    res.json({ success: true, message: 'Signup successful' });
+
+    // Generate a verification token
+    const verificationToken = generateVerificationToken(newUser._id);
+
+    // Send verification email
+    sendVerificationEmail(newUser.email, verificationToken);
+
+    res.json({ success: true, message: 'Registration successful. Check your email for verification.' });
+
   }
   catch(error){
-    console.error('Error during signup:', error.message);
+    console.error('Error during reigstration:', error.message);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
 
+// Function to generate a JWT token
+const generateVerificationToken = (userId) => {
+  const secretKey = '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f';
+  return jwt.sign({ userId }, secretKey, { expiresIn: '1h' }); // Token expires in 1 hour
+};
 
+// Function to send an email using Nodemailer
+const sendEmail = async (to, subject, html) => {
+  // Replace with your actual email configuration
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'e19247@eng.pdn.ac.lk',
+      pass: 'Mke19247',
+    },
+  });
+
+  const mailOptions = {
+    from: 'e19247@eng.pdn.ac.lk',
+    to,
+    subject,
+    html,
+  };
+
+  // Send the email
+  await transporter.sendMail(mailOptions);
+};
+
+// Function to send a verification email
+const sendVerificationEmail = (userEmail, verificationToken) => {
+  const subject = 'Verify Your Email';
+  const verificationLink = `http://52.66.141.134:3000/verify-email?token=${verificationToken}`;
+
+  const htmlContent = `
+    <p>Thank you for registering. Please click the link below to verify your email:</p>
+    <a href="${verificationLink}">${verificationLink}</a>
+  `;
+
+  // Call the sendEmail function
+  sendEmail(userEmail, subject, htmlContent);
+};
+
+// verify-email route
+app.get('/verify-email', async (req, res) => {
+  const { token } = req.query;
+
+  try {
+    // Verify the token
+    const decodedToken = jwt.verify(token, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f'); // Use the same secret key used for token generation
+    const userId = decodedToken.userId;
+
+    // Update user's verification status in the database
+    const user = await User.findById(userId);
+    if (!user) {
+      console.log("Not found");
+      return res.status(404).json({ success: false, message: 'User not found.' });
+      
+    }
+
+    if (user.isVerified) {
+      console.log("Already Verified");
+      return res.status(400).json({ success: false, message: 'Email already verified.' });
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    console.log("Verified.")
+    res.json({ success: true, message: 'Email verification successful.' });
+  } catch (error) {
+    console.error('Error during email verification:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
 
 
 app.listen(port, '0.0.0.0',() => {

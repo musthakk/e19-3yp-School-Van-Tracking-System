@@ -65,7 +65,7 @@ class UserRecord extends Component {
     return (
       <div className="row">
         <div className="col-3">
-          <ul className="list-group">
+          <ul className="list-group" style={{ marginTop: 16 }}>
             {filteredUsers.map((user) => (
               <li
                 key={user._id}

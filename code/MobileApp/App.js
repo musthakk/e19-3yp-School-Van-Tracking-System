@@ -5,9 +5,10 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
+// import Screens
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
+
 
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
 
@@ -59,6 +60,7 @@ export default function App() {
           component={SignUp}
           options={{ headerShown: false }} 
         />  
+
       </Stack.Navigator>
     </NavigationContainer>
   );

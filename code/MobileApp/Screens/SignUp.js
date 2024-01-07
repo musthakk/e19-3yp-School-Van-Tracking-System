@@ -140,6 +140,7 @@ const SignUp = ({navigation}) => {
 
       if (data.success) {
         console.log('Signup successful');
+        alert("Registration Successfull. Check your email for Email varification.");
       } else {
         console.error('Signup failed:', data.message);
       }
@@ -349,7 +350,10 @@ const SignUp = ({navigation}) => {
           
 
             <TouchableOpacity 
-              onPress={handleSignUp}
+              onPress={() => {
+                handleSignUp();
+                navigation.navigate("login");
+              }}
               style={styles.RegisterButton}
             >
               <Text style={{ fontSize: 20, color: colors.black, fontFamily: 'NotoSansMono-Bold' }}>Register</Text>

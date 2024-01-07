@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Keyboard} from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer, useRef} from 'react'
 import colors from '../constants/colors';
 
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
@@ -9,7 +9,10 @@ const Login = ({navigation}) => {
     // Tracking Password visibility..
     const [isPasswordShown, SetPasswordShown] = useState(false);
 
-
+    // Element References..
+    const passwordRef = useRef(null);
+    const LoginButtonRef = useRef(null);
+    
     return (
     <SafeAreaView style = {styles.safearea}>
         <View style ={styles.container}>
@@ -31,20 +34,24 @@ const Login = ({navigation}) => {
                 <TextInput
                     placeholder='Username'
                     style = {styles.textInput}
+                    onSubmitEditing={()=>passwordRef.current.focus()}
                 />
             </View>
 
             <View style={styles.inputBox}>
                 <Ionicons name='lock-closed-outline' size={20} style={styles.icons}/>
                 <TextInput
+                    ref={passwordRef}
                     placeholder='Password'
                     secureTextEntry = {!isPasswordShown}
                     style = {styles.textInput}
+                    onSubmitEditing={()=>LoginButtonRef.current.focus()}
                 />
 
                 <TouchableOpacity 
                     onPress={()=>SetPasswordShown(!isPasswordShown)}    // set the inputted password field to be hided..
                     style={{position: 'absolute', right: 15}}
+                    ref={LoginButtonRef}
                 >
                     {
                         isPasswordShown == true ? (

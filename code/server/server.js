@@ -23,7 +23,7 @@ const childSchema = new mongoose.Schema({
   school: String,
   pickupAddress: String,
   dropAddress: String,
-  vehicleID: String,
+  vehicleID: {type: String, default: null},
   travellingStatus: { type: Number},
 });
 
@@ -180,7 +180,6 @@ app.get('/verify-email', async (req, res) => {
     // Update user's verification status in the database
     const user = await User.findById(userId);
     if (!user) {
-      console.log("Not found");
       return res.status(404).json({ success: false, message: 'User not found.' });
       
     }
@@ -188,7 +187,6 @@ app.get('/verify-email', async (req, res) => {
     user.isVerified = true;
     await user.save();
 
-    console.log("Verified.")
     res.json({ success: true, message: 'Email verification successful.' });
   } catch (error) {
     console.error('Error during email verification:', error);

@@ -7,22 +7,7 @@ class UserRecord extends Component {
   state = {
     users: [],
     selectedUser: "",
-    children: [
-      {
-        name: "John Doe",
-        age: 5,
-        school: "St. Mary's",
-        address: "123 Main St",
-        vehicle: "AA-1234",
-      },
-      {
-        name: "John Doe",
-        age: 5,
-        school: "St. Mary's",
-        address: "123 Main St",
-        vehicle: "AA-1234",
-      },
-    ],
+    children: [],
     searchQuery: "",
   };
 
@@ -41,7 +26,7 @@ class UserRecord extends Component {
   };
 
   handleSearch = (query) => {
-    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+    this.setState({ searchQuery: query });
   };
 
   filterUsers = () => {
@@ -59,7 +44,7 @@ class UserRecord extends Component {
     return [...filteredUsers, ...remainingUsers];
   };
 
-  render({ users, selectedUser, children, searchQuery } = this.state) {
+  render({ selectedUser, searchQuery } = this.state) {
     const filteredUsers = this.filterUsers();
 
     return (
@@ -100,13 +85,15 @@ class UserRecord extends Component {
                     Contact Number: {selectedUser.contactNumber} <br />
                     Email: {selectedUser.email} <br />
                     Children:{" "}
-                    {/* {selectedUser.children.map((child, index) => (
-                      <React.Fragment key={child._id}>
-                        {child.name}
-                        {index < selectedUser.children.length - 1 && ", "}
-                      </React.Fragment>
-                    ))}
-                    <br /> */}
+                    {selectedUser.children &&
+                      selectedUser.children.length > 0 &&
+                      selectedUser.children.map((child, index) => (
+                        <React.Fragment key={child._id}>
+                          {child.name}
+                          {index < selectedUser.children.length - 1 && ", "}
+                        </React.Fragment>
+                      ))}
+                    <br />
                   </p>
                   {/* <p class="card-text">
                     <small class="text-body-secondary">
@@ -118,36 +105,37 @@ class UserRecord extends Component {
             </div>
           </div>
           <div>
-            {children.map((child) => (
-              <div class="card mb-3" style={{ maxWidth: "540px" }}>
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img
-                      src={userbanner}
-                      class="img-fluid rounded-start"
-                      alt="..."
-                    />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">{child.name}</h5>
-                      <p class="card-text">
-                        Name: {child.name} <br />
-                        Age: {child.age} <br />
-                        School: {child.school} <br />
-                        Address: {child.address} <br />
-                        Vehicle: {child.vehicle} <br />
-                      </p>
-                      {/* <p class="card-text">
+            {selectedUser.children &&
+              selectedUser.children.length > 0 &&
+              selectedUser.children.map((child) => (
+                <div class="card mb-3" style={{ maxWidth: "540px" }}>
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img
+                        src={userbanner}
+                        class="img-fluid rounded-start"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">{child.name}</h5>
+                        <p class="card-text">
+                          Name: {child.name} <br />
+                          Age: {child.age} <br />
+                          School: {child.school} <br />
+                          Address: {child.pickupAddress} <br />
+                        </p>
+                        {/* <p class="card-text">
                         <small class="text-body-secondary">
                           Last updated 3 mins ago
                         </small>
                       </p> */}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

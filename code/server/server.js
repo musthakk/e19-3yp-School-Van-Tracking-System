@@ -28,9 +28,9 @@ const childSchema = new mongoose.Schema({
 // Define a schema for the user collection
 const userSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
-  username: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
   contactNumber: { type: String, required: true },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
   verified: { type: Number, default: -1 },
   children: [childSchema], // An array of children objects
@@ -39,6 +39,29 @@ const userSchema = new mongoose.Schema({
 // Create a User model based on the schema
 const User = mongoose.model('User', userSchema, 'Users');
 
+// Validate userName
+app.get('/validate-username', async (req, res) => {
+  const { username } = req.query;
+
+  if (!username) {
+    return res.status(400).json({ error: 'Username parameter is missing.' });
+  }
+
+  try {
+    // Check if the username already exists in the database
+    const existingUser = await User.findOne({ username });
+
+    const isUsernameExists = !!existingUser;
+
+    res.json({ exists: isUsernameExists });
+  } catch (error) {
+    console.error('Error validating username:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+// Handles Registration.. When register button is pressed, data is sent to the mongoDb Atlas
 app.post('/signup', async(req, res) => {
   const { fullName, username, contactNumber, email, password } = req.body;
 
@@ -69,6 +92,9 @@ app.post('/signup', async(req, res) => {
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
+
+
+
 
 app.listen(port, '0.0.0.0',() => {
   console.log(`Server is running on http://localhost:${port}`);

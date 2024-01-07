@@ -1,5 +1,8 @@
 import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Keyboard, ScrollView, TouchableWithoutFeedback, Alert } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
+import _ from 'lodash';
+import { debounce } from 'lodash';
+
 import colors from '../constants/colors';
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
@@ -11,6 +14,8 @@ const SignUp = () => {
 
   // Track the userName state
   const [username, Setusername] = useState("");
+  // Tracking Error for Validation of the username, already exists or not..
+  const [usernameError, setUsernameError] = useState('');
 
   // Track the firstname state
   const [contactNumber, SetContactNumber] = useState("");
@@ -51,8 +56,36 @@ const SignUp = () => {
     }
   }
 
-  const handleSignUp = async () => {
+  // Validate Username whether it's already exist or not..
+  const validateUsername = async (input) => {
+    // Call the server endpoint to check whether the username exists
+    // Replace 'your-api-endpoint' with the actual endpoint
+    try {
+      const response = await fetch(`http://52.66.141.134:3000/validate-username?username=${input}`);
+      const data = await response.json();
 
+      if (data.exists) {
+        setUsernameError('Username already exists');
+      }
+    } catch (error) {
+      console.error('Error validating username:', error);
+    }
+  };
+
+  const debouncedValidateUsername = debounce(validateUsername, 500); // Adjust the debounce delay as neededT
+
+  const handleUsernameChange = (text) => {
+    Setusername(text);
+    setUsernameError('');
+
+    // Debounce the username validation function
+    debouncedValidateUsername(text);
+  };
+
+
+
+  // HandleSignUp when the Register Button is pressed..
+  const handleSignUp = async () => {
     const validationStatus = Validate();
     if(validationStatus === 0)
       return;
@@ -151,10 +184,13 @@ const SignUp = () => {
                 ref={usernameInputRef}
                 placeholder='Username'
                 style={styles.textInput}
-                onChangeText={(text)=>Setusername(text)}
+                onChangeText={(text)=>handleUsernameChange(text)}
                 onSubmitEditing={()=> conNumberInputRef.current.focus()}
               />
 
+              {/* if username already exists show an error */}
+              {usernameError && <Text style={{ color: 'red' }}>{usernameError}</Text>}
+              
               {/* Required Last name */}
               {                
                 (username !== "") ? (

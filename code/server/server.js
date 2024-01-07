@@ -184,11 +184,6 @@ app.get('/verify-email', async (req, res) => {
       
     }
 
-    if (user.isVerified) {
-      console.log("Already Verified");
-      return res.status(400).json({ success: false, message: 'Email already verified.' });
-    }
-
     user.isVerified = true;
     await user.save();
 

@@ -57,7 +57,7 @@ const driverSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema, 'Users');
 
 // Create a Driver model based on the schema
-const Driver = mongoose.mongo.model('Driver', driverSchema, 'Drivers');
+const Driver = mongoose.model('Driver', driverSchema, 'Drivers');
 
 // Endpoint: Validate userName
 app.get('/validate-username', async (req, res) => {

@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
 // Create a User model based on the schema
 const User = mongoose.model('User', userSchema, 'Users');
 
-// Validate userName
+// Endpoint: Validate userName
 app.get('/validate-username', async (req, res) => {
   const { username } = req.query;
 
@@ -63,7 +63,7 @@ app.get('/validate-username', async (req, res) => {
   }
 });
 
-// Validate email
+// Endpoint: Validate email
 app.get('/validate-email', async (req, res) => {
   const { email } = req.query;
 
@@ -85,7 +85,7 @@ app.get('/validate-email', async (req, res) => {
 });
 
 
-// Handles Registration.. When register button is pressed, data is sent to the mongoDb Atlas
+// Endpoint: Handles Registration.. When register button is pressed, data is sent to the mongoDb Atlas
 app.post('/signup', async(req, res) => {
   const { fullName, username, contactNumber, email, password } = req.body;
 
@@ -168,7 +168,7 @@ const sendVerificationEmail = (userEmail, verificationToken) => {
   sendEmail(userEmail, subject, htmlContent);
 };
 
-// verify-email route
+// Endpoint: verify-email route
 app.get('/verify-email', async (req, res) => {
   const { token } = req.query;
 
@@ -192,6 +192,34 @@ app.get('/verify-email', async (req, res) => {
     console.error('Error during email verification:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
+});
+
+
+// Login endpoint
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  // Find the user in your database (replace with a database query)
+  const user = await User.findOne({ username });
+
+  if (!user) {
+    return res.status(401).json({ message: 'Invalid credentials' });
+  }
+
+  // Compare the entered password with the hashed password in the database
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
+    return res.status(401).json({ message: 'Invalid credentials' });
+  }
+  else if (passwordMatch && user.isVerified == false){
+    return res.status(401).json({ message: 'User is not verified' });
+  }
+
+  // Generate a JWT token
+  const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '2d' });
+
+  res.json({ token });
 });
 
 

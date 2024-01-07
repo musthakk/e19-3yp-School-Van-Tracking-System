@@ -76,7 +76,7 @@ const SignUp = () => {
     }
   };
 
-  const debouncedValidateUsername = debounce(validateUsername, 200); // Adjust the debounce delay as neededT
+  const debouncedValidateUsername = debounce(validateUsername, 100); // Adjust the debounce delay as neededT
 
   const handleUsernameChange = (text) => {
     Setusername(text);
@@ -95,6 +95,7 @@ const SignUp = () => {
 
       if (data.exists) {
         setEmailError(true);
+        console.log(data.exists);
       }else{
         setEmailError(false);
       }

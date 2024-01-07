@@ -8,6 +8,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import Screens
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
+import DriverHome from './Screens/DriverHome';
+import UserHome from './Screens/UserHome';
 
 
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
@@ -58,6 +60,20 @@ export default function App() {
         <Stack.Screen 
           name='SignUp' 
           component={SignUp}
+          options={{ headerShown: false }} 
+        />  
+
+        {/* DriverHome Screen */}
+        <Stack.Screen 
+          name='driverHome' 
+          component={DriverHome}
+          options={{ headerShown: false }} 
+        />  
+
+        {/* UserHome Screen */}
+        <Stack.Screen 
+          name='userHome' 
+          component={UserHome}
           options={{ headerShown: false }} 
         />  
 

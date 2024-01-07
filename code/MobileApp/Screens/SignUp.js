@@ -76,7 +76,7 @@ const SignUp = ({navigation}) => {
     }
   };
 
-  const debouncedValidateUsername = debounce(validateUsername, 100); // Adjust the debounce delay as neededT
+  const debouncedValidateUsername = debounce(validateUsername, 500); // Adjust the debounce delay as neededT
 
   const handleUsernameChange = (text) => {
     Setusername(text);
@@ -103,7 +103,7 @@ const SignUp = ({navigation}) => {
     }
   };
 
-  const debouncedValidateEmail = debounce(validateEmail, 100); // Adjust the debounce delay as neededT
+  const debouncedValidateEmail = debounce(validateEmail, 500); // Adjust the debounce delay as neededT
 
   const handleEmailChange = (text) => {
     SetEmail(text);

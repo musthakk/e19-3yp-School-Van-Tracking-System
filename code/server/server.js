@@ -76,7 +76,7 @@ app.get('/validate-email', async (req, res) => {
 
     res.json({ exists: isEmailExists });
   } catch (error) {
-    console.error('Error validating username:', error);
+    console.error('Error validating email:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

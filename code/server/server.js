@@ -60,6 +60,27 @@ app.get('/validate-username', async (req, res) => {
   }
 });
 
+// Validate email
+app.get('/validate-email', async (req, res) => {
+  const { email } = req.query;
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email parameter is missing.' });
+  }
+
+  try {
+    // Check if the username already exists in the database
+    const existingUser = await User.findOne({ email });
+
+    const isEmailExists = !!existingUser;
+
+    res.json({ exists: isUsernameExists });
+  } catch (error) {
+    console.error('Error validating username:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 // Handles Registration.. When register button is pressed, data is sent to the mongoDb Atlas
 app.post('/signup', async(req, res) => {

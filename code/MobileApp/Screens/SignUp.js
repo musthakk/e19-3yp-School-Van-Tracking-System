@@ -15,7 +15,7 @@ const SignUp = () => {
   // Track the userName state
   const [username, Setusername] = useState("");
   // Tracking Error for Validation of the username, already exists or not..
-  const [usernameError, setUsernameError] = useState('');
+  const [usernameError, setUsernameError] = useState(false);
 
   // Track the firstname state
   const [contactNumber, SetContactNumber] = useState("");
@@ -31,6 +31,8 @@ const SignUp = () => {
 
   // Track Email..
   const [email, SetEmail] = useState("");
+  // Tracking Error for Validation of the username, already exists or not..
+  const [emailError, setEmailError] = useState(false);
 
   // Weak password prompt
   function passwordPrompt() {
@@ -65,21 +67,50 @@ const SignUp = () => {
       const data = await response.json();
 
       if (data.exists) {
-        setUsernameError('Username already exists');
+        setUsernameError(true);
+      }else{
+        setUsernameError(false);
       }
     } catch (error) {
       console.error('Error validating username:', error);
     }
   };
 
-  const debouncedValidateUsername = debounce(validateUsername, 500); // Adjust the debounce delay as neededT
+  const debouncedValidateUsername = debounce(validateUsername, 200); // Adjust the debounce delay as neededT
 
   const handleUsernameChange = (text) => {
     Setusername(text);
-    setUsernameError('');
+    setUsernameError(false);
 
     // Debounce the username validation function
     debouncedValidateUsername(text);
+  };
+
+  // Validate email whether it's already exist or not..
+  const validateEmail = async (input) => {
+    // Call the server endpoint to check whether the email exists
+    try {
+      const response = await fetch(`http://52.66.141.134:3000/validate-email?email=${input}`);
+      const data = await response.json();
+
+      if (data.exists) {
+        setEmailError(true);
+      }else{
+        setEmailError(false);
+      }
+    } catch (error) {
+      console.error('Error validating email:', error);
+    }
+  };
+
+  const debouncedValidateEmail = debounce(validateEmail, 200); // Adjust the debounce delay as neededT
+
+  const handleEmailChange = (text) => {
+    SetEmail(text);
+    setEmailError(false);
+
+    // Debounce the username validation function
+    debouncedValidateEmail(text);
   };
 
 
@@ -188,12 +219,10 @@ const SignUp = () => {
                 onSubmitEditing={()=> conNumberInputRef.current.focus()}
               />
 
-              {/* if username already exists show an error */}
-              {usernameError && <Text style={{ color: 'red' }}>{usernameError}</Text>}
-              
+             
               {/* Required Last name */}
               {                
-                (username !== "") ? (
+                (username !== "" && usernameError === false) ? (
                   isusernameValid = 1,
                   <Ionicons name='checkmark-circle-outline' size={20} style={{color: colors.orange, position: 'absolute', right: 15}}/>
                 ):(
@@ -204,6 +233,10 @@ const SignUp = () => {
 
             </View>
 
+            {/* if username already exists show an error */}
+            {usernameError && <Text style={{ color: 'red', fontSize: 12, marginLeft: 10, marginTop: -12, marginBottom: 15 }}>Username already exists</Text>}
+
+              
             {/* contact Number */}
             <View style={styles.inputBox}>
               <Ionicons name='call-outline' size={20} style={styles.icons} />
@@ -235,13 +268,13 @@ const SignUp = () => {
                 ref={emailInputRef}
                 placeholder='Email'
                 style={styles.textInput}
-                onChangeText={(text)=>SetEmail(text)}
+                onChangeText={(text)=>handleEmailChange(text)}
                 onSubmitEditing={()=> passwordInputRef.current.focus()}
               />
               
               {/* verify @ symbol in Email */}
               {                
-                ((email.includes("@")) && email[email.length-1] != "@" && email[0] !== ".") ? (
+                ((email.includes("@")) && email[email.length-1] != "@" && email[0] !== "." && emailError === false) ? (
                   isEmailValid = 1,
                   <Ionicons name='checkmark-circle-outline' size={20} style={{color: colors.orange, position: 'absolute', right: 15}}/>
                 ):(
@@ -251,6 +284,9 @@ const SignUp = () => {
               }
 
             </View>
+
+            {/* if username already exists show an error */}
+            {emailError && <Text style={{ color: 'red', fontSize: 12, marginLeft: 10, marginTop: -12, marginBottom: 15 }}>Email already exists</Text>}
 
             {/* password */}
             <View style={styles.inputBox}>

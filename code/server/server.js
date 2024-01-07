@@ -236,7 +236,7 @@ app.post('/login', async (req, res) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '2d' });
+    const token = jwt.sign({ driverId: driver.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
     return res.json({ token, identification: "driver"});
   }
@@ -252,7 +252,7 @@ app.post('/login', async (req, res) => {
   }
 
   // Generate a JWT token
-  const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '2d' });
+  const token = jwt.sign({ userId: user.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
   res.json({ token, identification: "user"});
 });

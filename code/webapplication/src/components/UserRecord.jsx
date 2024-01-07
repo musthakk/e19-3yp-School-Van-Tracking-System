@@ -1,17 +1,29 @@
 import React, { Component } from "react";
 import { getUsers } from "../services/userRecordsService";
-import { Link } from "react-router-dom";
 import userbanner from "../images/userbanner.jpg";
+import SearchBox from "./common/searchBox";
 
 class UserRecord extends Component {
   state = {
     users: [],
     selectedUser: "",
-  };
-
-  handleUserSelect = (user) => {
-    this.setState({ selectedUser: user });
-    <Link to="/DriverRecord" />;
+    children: [
+      {
+        name: "John Doe",
+        age: 5,
+        school: "St. Mary's",
+        address: "123 Main St",
+        vehicle: "AA-1234",
+      },
+      {
+        name: "John Doe",
+        age: 5,
+        school: "St. Mary's",
+        address: "123 Main St",
+        vehicle: "AA-1234",
+      },
+    ],
+    searchQuery: "",
   };
 
   async componentDidMount() {
@@ -24,12 +36,37 @@ class UserRecord extends Component {
     }
   }
 
-  render({ users, selectedUser } = this.state) {
+  handleUserSelect = (user) => {
+    this.setState({ selectedUser: user });
+  };
+
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+  };
+
+  filterUsers = () => {
+    const { users, searchQuery } = this.state;
+    if (!searchQuery) return users;
+
+    const filteredUsers = users.filter((user) =>
+      user.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const remainingUsers = users.filter(
+      (user) => !filteredUsers.includes(user)
+    );
+
+    return [...filteredUsers, ...remainingUsers];
+  };
+
+  render({ users, selectedUser, children, searchQuery } = this.state) {
+    const filteredUsers = this.filterUsers();
+
     return (
       <div className="row">
         <div className="col-3">
           <ul className="list-group">
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <li
                 key={user._id}
                 className={
@@ -45,6 +82,7 @@ class UserRecord extends Component {
           </ul>
         </div>
         <div className="col">
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <div class="card mb-3" style={{ maxWidth: "540px" }}>
             <div class="row g-0">
               <div class="col-md-4">
@@ -78,6 +116,38 @@ class UserRecord extends Component {
                 </div>
               </div>
             </div>
+          </div>
+          <div>
+            {children.map((child) => (
+              <div class="card mb-3" style={{ maxWidth: "540px" }}>
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img
+                      src={userbanner}
+                      class="img-fluid rounded-start"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{child.name}</h5>
+                      <p class="card-text">
+                        Name: {child.name} <br />
+                        Age: {child.age} <br />
+                        School: {child.school} <br />
+                        Address: {child.address} <br />
+                        Vehicle: {child.vehicle} <br />
+                      </p>
+                      {/* <p class="card-text">
+                        <small class="text-body-secondary">
+                          Last updated 3 mins ago
+                        </small>
+                      </p> */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

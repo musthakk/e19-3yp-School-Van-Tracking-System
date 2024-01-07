@@ -114,6 +114,7 @@ app.post('/signup', async(req, res) => {
 
     // Send verification email
     sendVerificationEmail(newUser.email, verificationToken);
+    console.log("Email has been sent");
 
     res.json({ success: true, message: 'Registration successful. Check your email for verification.' });
 

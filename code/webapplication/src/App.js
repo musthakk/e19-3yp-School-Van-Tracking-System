@@ -9,6 +9,10 @@ import DriverRecord from "./components/DriverRecord";
 import ExtraService from "./components/ExtraService";
 import Home from "./components/home";
 import NotFound from "./components/notFound";
+import RegisterForm from "./components/driverRegisterForm";
+import AmbulanceRegisterForm from "./components/mbulanceRegisterForm";
+import AssignBusses from "./components/assignBusses";
+import LocationTracking from "./components/LocationTracking";
 
 class App extends Component {
   state = {};
@@ -25,6 +29,13 @@ class App extends Component {
             <Route path="/DriverRecord" component={DriverRecord} />
             <Route path="/ExtraService" component={ExtraService} />
             <Route path="/not-found" component={NotFound} />
+            <Route path="/driverRegisterForm" component={RegisterForm} />
+            <Route
+              path="/ambulanceRegisterForm"
+              component={AmbulanceRegisterForm}
+            />
+            <Route path="/assignBusses" component={AssignBusses} />
+            <Route path="/LocationTracking" component={LocationTracking} />
             <Route path="/home" component={Home} />
             <Redirect from="/" exact to="/home" />
             <Redirect to="/not-found" />

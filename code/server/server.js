@@ -222,7 +222,7 @@ app.post('/login', async (req, res) => {
   if (!user) {
 
     // If username is not in the User collection check it in the Driver collection..
-    const driver = await Driver.findOne({username});
+    const driver = await Driver.findOne({userDname: username});
 
     if(!driver){
       return res.status(401).json({ message: 'Invalid credentials' });

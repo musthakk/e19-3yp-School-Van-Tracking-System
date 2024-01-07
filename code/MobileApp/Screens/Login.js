@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Keyboard} from 'react-native'
+import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Keyboard, Alert} from 'react-native'
 import React, { useState, useEffect, useReducer, useRef} from 'react'
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
@@ -9,6 +9,12 @@ import {Ionicons, MaterialIcons} from '@expo/vector-icons'
 
 const Login = ({navigation}) => {
 
+    // Tracking username..
+    const [username, setUsername] = useState("");
+
+    // Track Password..
+    const [password, SetPassword] = useState("");
+
     // Tracking Password visibility..
     const [isPasswordShown, SetPasswordShown] = useState(false);
 
@@ -16,21 +22,33 @@ const Login = ({navigation}) => {
     // Login Authentication..
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://52.66.141.134:3000/login', {
-                username,
-                password,
+            const response = await fetch('http://52.66.141.134:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
             });
-        
-            const jwtToken = response.data.token;
-        
+
+            if (!response.ok) {
+                // Handle non-successful response
+                throw new Error('Invalid username or password.');
+            }
+
+            const responseData = await response.json();
+            const jwtToken = responseData.token;
+
             // Save the token securely using expo-secure-store
             await SecureStore.setItemAsync('jwtToken', jwtToken);
-        
+
             // Navigate to the next screen or perform other actions
             navigation.navigate('userHome');
         } catch (error) {
             console.error('Login failed:', error.message);
-            Alert.alert('Login failed', 'Invalid username or password.');
+            Alert.alert('Login failed', error.message);
         }
     };
 
@@ -58,8 +76,9 @@ const Login = ({navigation}) => {
             <View style={styles.inputBox}>
                 <Ionicons name='person-circle-outline' size={20} style={styles.icons}/>
                 <TextInput
-                    placeholder='Username'
+                    placeholder='username'
                     style = {styles.textInput}
+                    onChangeText={(text)=>setUsername(text)}
                     onSubmitEditing={()=>passwordRef.current.focus()}
                 />
             </View>
@@ -71,6 +90,7 @@ const Login = ({navigation}) => {
                     placeholder='Password'
                     secureTextEntry = {!isPasswordShown}
                     style = {styles.textInput}
+                    onChangeText={(text)=>SetPassword(text)}
                     onSubmitEditing={()=>LoginButtonRef.current.focus()}
                 />
 

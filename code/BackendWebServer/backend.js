@@ -31,10 +31,10 @@ const userSchema = new mongoose.Schema({
 // Create a User model based on the schema
 const User = mongoose.model("User", userSchema, "Users");
 
-app.get("/registration", async (req, res) => {
+app.get("/forRegistration", async (req, res) => {
   try {
     // Retrieve all users from the 'Sureway' collection
-    const usersNeedToRegister = await User.find({ verified: -1 }).select(
+    const usersNeedToRegister = await User.find({ verified: 0 }).select(
       "-hashedPassword"
     );
 
@@ -55,7 +55,7 @@ app.get("/registration", async (req, res) => {
 app.get("/registeredUsers", async (req, res) => {
   try {
     // Retrieve all users from the 'Sureway' collection
-    const registeredUsers = await User.find({ verified: 0 }).select(
+    const registeredUsers = await User.find({ verified: 1 }).select(
       "-hashedPassword"
     );
 

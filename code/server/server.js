@@ -158,6 +158,7 @@ const sendVerificationEmail = (userEmail, verificationToken) => {
   const verificationLink = `http://52.66.141.134:3000/verify-email?token=${verificationToken}`;
 
   const htmlContent = `
+    <h3>SureWay..</h3>
     <p>Thank you for registering. Please click the link below to verify your email:</p>
     <a href="${verificationLink}">${verificationLink}</a>
   `;

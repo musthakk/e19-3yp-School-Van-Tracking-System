@@ -18,6 +18,19 @@ const Login = ({navigation}) => {
     // Tracking Password visibility..
     const [isPasswordShown, SetPasswordShown] = useState(false);
 
+    // Function to check if the user is already logged in
+    const checkLoggedIn = async () => {
+        try {
+            // Retrieve the JWT token from SecureStore
+            const jwtToken = await SecureStore.getItemAsync('jwtToken');
+        
+            // Return true if the token exists, false otherwise
+            return !!jwtToken;
+        } catch (error) {
+            console.error('Error checking login state:', error);
+            return false;
+        }
+    };
 
     // Login Authentication..
     const handleLogin = async () => {
@@ -40,17 +53,33 @@ const Login = ({navigation}) => {
 
             const responseData = await response.json();
             const jwtToken = responseData.token;
+            const identity = responseData.identification;    // user or driver..
 
             // Save the token securely using expo-secure-store
             await SecureStore.setItemAsync('jwtToken', jwtToken);
 
             // Navigate to the next screen or perform other actions
+            if(identity === "driver")
+                navigation.navigate('driverHome')
+            else
             navigation.navigate('userHome');
+        
         } catch (error) {
-            console.error('Login failed:', error.message);
             Alert.alert('Login failed', error.message);
         }
     };
+
+    // Check login state and navigate accordingly
+    const checkLoginAndNavigate = async () => {
+        const isLoggedIn = await checkLoggedIn();
+        const initialRoute = isLoggedIn ? 'userHome' : 'login';
+        navigation.navigate(initialRoute);
+    };
+    
+    // Call checkLoginAndNavigate when the app starts
+    useEffect(() => {
+        checkLoginAndNavigate();
+    }, []);
 
 
     // Element References..

@@ -39,8 +39,25 @@ const userSchema = new mongoose.Schema({
   children: [childSchema], // An array of children objects
 });
 
+// Define a shema for the driver collection.
+const driverSchema = new mongoose.Schema({
+  firstName: { type: String, required: true },
+  lastDName: { type: String, required: true },
+  userDname: { type: String, required: true , unique: true},
+  hashedDPassword: { type: String, required: true },
+  contactDNumber: { type: String, required: true },
+  emailD: { type: String, required: true, unique: true },
+  addressD: { type: String, required: true },
+  nicD: { type: String, required: true , unique: true},
+  licensenumberD: { type: String, required: true , unique: true},
+  assignedVehicleIdD: { type: String},
+});
+
 // Create a User model based on the schema
 const User = mongoose.model('User', userSchema, 'Users');
+
+// Create a Driver model based on the schema
+const Driver = mongoose.mongo.model('Driver', driverSchema, 'Drivers');
 
 // Endpoint: Validate userName
 app.get('/validate-username', async (req, res) => {
@@ -203,7 +220,25 @@ app.post('/login', async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    return res.status(401).json({ message: 'Invalid credentials' });
+
+    // If username is not in the User collection check it in the Driver collection..
+    const driver = await Driver.findOne({username});
+
+    if(!driver){
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    
+    // Compare the entered password with the hashed password in the database
+    const passwordMatch = await bcrypt.compare(password, driver.hashedDPassword )
+
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '2d' });
+
+    return res.json({ token, identification: "driver"});
   }
 
   // Compare the entered password with the hashed password in the database
@@ -219,7 +254,7 @@ app.post('/login', async (req, res) => {
   // Generate a JWT token
   const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '2d' });
 
-  res.json({ token });
+  res.json({ token, identification: "user"});
 });
 
 

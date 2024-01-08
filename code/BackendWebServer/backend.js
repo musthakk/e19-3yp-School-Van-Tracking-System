@@ -260,6 +260,26 @@ app.get("/registeredVehicles", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
+//------------------------------------methods for vehicle showing which are not having drivers (read)-----------------------
+
+app.get("/notAssignedDriversVehicles", async (req, res) => {
+  try {
+    // Retrieve all registered-vehicles from the 'Sureway' collection
+    const notAssignedDriversVehicles = await bus.find({ Driver: null });
+
+    // Print the data to the console
+    console.log("notAssignedDriversVehicles:", notAssignedDriversVehicles);
+
+    res.json({
+      success: true,
+      message: "Data retrieval successful",
+      notAssignedDriversVehicles: notAssignedDriversVehicles,
+    });
+  } catch (error) {
+    console.error("Error during getting no driver vehicles:", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
 
 //------------------------------------methods for drivers showing (read)-----------------------
 

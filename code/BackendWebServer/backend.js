@@ -208,7 +208,7 @@ app.post("/driverRegistration", async (req, res) => {
 //------------------------------------methods for vehicle adding (create)-----------------------
 
 app.post("/vehicleRegistration", async (req, res) => {
-  const { vehicleNumber, School, seats, seatsFilled, driver } = req.body;
+  const { vehicleID, School, seats, seatsFilled, driver } = req.body;
   console.log("Received request body:", req.body);
 
   try {
@@ -277,6 +277,32 @@ app.get("/notAssignedDriversVehicles", async (req, res) => {
     });
   } catch (error) {
     console.error("Error during getting no driver vehicles:", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
+//------------------------------------methods for vehicle showing which are having drivers with available seats (read)-----------------------
+
+app.get("/availableWithDrivers", async (req, res) => {
+  try {
+    const availabeWithDrivers = await bus.find({
+      Driver: { $ne: null },
+      seatsfilled: { $ne: "$seats" }, // Assuming seatsfilled and seats are numeric fields
+    });
+
+    // Print the data to the console
+    console.log("availabeWithDrivers:", availabeWithDrivers);
+
+    res.json({
+      success: true,
+      message: "Data retrieval successful",
+      availabeWithDrivers: availabeWithDrivers,
+    });
+  } catch (error) {
+    console.error(
+      "Error during vehicles which have drive with available seats:",
+      error.message
+    );
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });

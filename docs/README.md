@@ -180,9 +180,9 @@ In the pursuit of creating an efficient and comprehensive School Van Tracking Sy
   <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/circuit_final.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
 </div>
 
-<div style="width: 90%;">
+<div>
   <a href="https://youtu.be/Gqk0iZkY1xY" target="_blank">
-    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/circuit1.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
+    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/circuit_full.jpg?raw=true" alt="DEMONSTATION">
   </a>
 
 #### GPS NEO 6M Module:
@@ -217,7 +217,7 @@ The School Van Tracking System project has achieved significant milestones in de
 
 <div align="center">
   <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/Login.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/Register.jpg" alt="Image 2" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/register.jpg" alt="Image 2" width="200" height="400" style="margin: 5px;">
   <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/checking.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
   <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/email.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
 </div>

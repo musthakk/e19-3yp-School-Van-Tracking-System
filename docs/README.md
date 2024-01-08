@@ -104,6 +104,9 @@ This architecture allows for efficient tracking and monitoring of school vans, e
 
 
 ## Hardware and Software Designs
+<div align="center">
+  <img src="docs/images/Mobile%20App/1.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
+</div>
 
 <!-- First row of images -->
 <div align="center">
@@ -111,7 +114,24 @@ This architecture allows for efficient tracking and monitoring of school vans, e
   <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/2.jpg" alt="Image 2" width="200" height="400" style="margin: 5px;">
   <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/3.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
 </div>
+<!-- Second row of images -->
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/email%20availability%20verification%20at%20realtime.jpg" alt="Image 4" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/error%20when%20input%20field%20is%20wrong.jpg" alt="Image 5" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/invalid%20login%20alert.jpg" alt="Image 6" width="200" height="400" style="margin: 5px;">
+</div>
 
+<!-- Third row of images -->
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/password%20verification.jpg" alt="Image 7" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/registration%20successful%20alert.jpg" alt="Image 8" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/sucessful%20login%20with%20location.jpg" alt="Image 9" width="200" height="400" style="margin: 5px;">
+</div>
+
+<!-- Fourth row of images -->
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/with%20wrong%20input%20field.jpg" alt="Image 7" width="200" height="400" style="margin: 5px;">
+</div>
 
 
 

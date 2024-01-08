@@ -182,7 +182,7 @@ In the pursuit of creating an efficient and comprehensive School Van Tracking Sy
 
 <div>
   <a href="https://youtu.be/Gqk0iZkY1xY" target="_blank">
-    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/circuit_full.jpg?raw=true" alt="DEMONSTATION">
+    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/circuit_full.jpg alt="DEMONSTATION">
   </a>
 
 #### GPS NEO 6M Module:

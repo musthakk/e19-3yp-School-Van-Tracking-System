@@ -176,6 +176,11 @@ Presenting our meticulously engineered hardware design! This compact yet powerfu
 ## Hardware Processing...
 In the pursuit of creating an efficient and comprehensive School Van Tracking System, our project team embarked on the integration of crucial hardware components. This meticulous process involved the individual testing and verification of each component to ensure optimal functionality before the amalgamation of the entire system. The components under scrutiny include the GPS NEO 6M module, the MPU6050 accelerometer, the ESP32 camera module, the ESP8266 microcontroller, an LED display, and the SIM900A module.
 
+<div style="width: 90%;">
+  <a href="https://youtu.be/Gqk0iZkY1xY" target="_blank">
+    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/circuit1.jpg?raw=true" alt="Video 1 Thumbnail" style="width: 100%;">
+  </a>
+
 #### GPS NEO 6M Module:
 The GPS NEO 6M module was rigorously tested to guarantee accurate and reliable location data acquisition. Its compatibility with the overall system was assessed, considering factors such as signal strength and satellite connectivity.
 

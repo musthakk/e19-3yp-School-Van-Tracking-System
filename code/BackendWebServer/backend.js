@@ -161,6 +161,7 @@ app.post("/driverRegistration", async (req, res) => {
     addressD,
     nicD,
     licensenumberD,
+    assignedVehicleIdD,
   } = req.body;
   // console.log("Received request body:", req.body);
 
@@ -179,6 +180,7 @@ app.post("/driverRegistration", async (req, res) => {
       addressD,
       nicD,
       licensenumberD,
+      assignedVehicleIdD,
     });
 
     // Save the User document to the database
@@ -195,6 +197,7 @@ app.post("/driverRegistration", async (req, res) => {
       addressD,
       nicD,
       licensenumberD,
+      assignedVehicleIdD,
     });
 
     // Send a response to the client

@@ -56,11 +56,12 @@ const driverSchema = new mongoose.Schema({
 
 // Define a schema for the vehicle collection
 const vehicleSchema = new mongoose.Schema({
-  vehicleNumber: { type: String, required: true },
+  vehicleID: { type: String, required: true },
   School: { type: String, required: true },
   seats: { type: Number, default: 0 },
   seatsFilled: { type: Number, default: 0 },
   Driver: { type: String, default: null },
+  children: { type: Array, default: null },
 });
 
 // Create a User model based on the schema
@@ -130,7 +131,10 @@ app.put("/registering", async (req, res) => {
     console.log("Existing User:", existingUser);
 
     if (existingUser) {
-      await User.updateOne({ name }, { $set: { ChildAddRequest: 1 } });
+      await User.updateOne(
+        { username: name },
+        { $set: { ChildAddRequest: 1 } }
+      );
       res.json({
         success: true,
         message: "User already exists, updated 'ChildAddRequest' field to 1",
@@ -209,7 +213,7 @@ app.post("/vehicleRegistration", async (req, res) => {
 
   try {
     const newVehicle = new bus({
-      vehicleNumber,
+      vehicleID,
       School,
       seats,
       seatsFilled,
@@ -221,7 +225,7 @@ app.post("/vehicleRegistration", async (req, res) => {
 
     // You can print the data to the console, including the hashed password
     console.log("Received driver data:", {
-      vehicleNumber,
+      vehicleID,
       School,
       seats,
       seatsFilled,
@@ -334,6 +338,7 @@ app.put("/assigningVehicle", async (req, res) => {
           },
         }
       );
+      await bus.updateOne({ vehicleID }, { $push: { children: name } });
 
       res.json({
         success: true,

@@ -40,8 +40,39 @@ const userSchema = new mongoose.Schema({
   children: [childSchema], // An array of children objects
 });
 
+// Define a schema for the driver collection
+const driverSchema = new mongoose.Schema({
+  firstName: { type: String, required: true },
+  lastDName: { type: String, required: true },
+  userDname: { type: String, required: true },
+  hashedDPassword: { type: String, required: true },
+  contactDNumber: { type: String, required: true },
+  emailD: { type: String, required: true },
+  addressD: { type: String, required: true },
+  nicD: { type: String, required: true },
+  licensenumberD: { type: String, required: true },
+  assignedVehicleIdD: { type: String, default: null },
+});
+
+// Define a schema for the vehicle collection
+const vehicleSchema = new mongoose.Schema({
+  vehicleNumber: { type: String, required: true },
+  School: { type: String, required: true },
+  seats: { type: Number, default: 0 },
+  seatsFilled: { type: Number, default: 0 },
+  Driver: { type: String, default: null },
+});
+
 // Create a User model based on the schema
 const User = mongoose.model("User", userSchema, "Users");
+
+// Create a driver model based on the schema
+const driver = mongoose.model("Driver", driverSchema, "Drivers");
+
+// Create a bus model based on the schema
+const bus = mongoose.model("Bus", vehicleSchema, "Vehicles");
+
+//------------------------------------methods for users retrieving (read)-----------------------
 
 app.get("/forRegistration", async (req, res) => {
   try {
@@ -88,9 +119,11 @@ app.get("/registeredUsers", async (req, res) => {
   }
 });
 
+//------------------------------------methods for users registering (update)-----------------------
+
 app.put("/registering", async (req, res) => {
   const { name } = req.body;
-  console.log("Received request body:", req.body);
+  // console.log("Received request body:", req.body);
 
   try {
     const existingUser = await User.findOne({ username: name });
@@ -111,22 +144,7 @@ app.put("/registering", async (req, res) => {
   }
 });
 
-// Define a schema for the driver collection
-const driverSchema = new mongoose.Schema({
-  firstName: { type: String, required: true },
-  lastDName: { type: String, required: true },
-  userDname: { type: String, required: true },
-  hashedDPassword: { type: String, required: true },
-  contactDNumber: { type: String, required: true },
-  emailD: { type: String, required: true },
-  addressD: { type: String, required: true },
-  nicD: { type: String, required: true },
-  licensenumberD: { type: String, required: true },
-  assignedVehicleIdD: { type: String, default: null },
-});
-
-// Create a driver model based on the schema
-const driver = mongoose.model("Driver", driverSchema, "Drivers");
+//------------------------------------methods for driver adding (create)-----------------------
 
 app.post("/driverRegistration", async (req, res) => {
   const {
@@ -140,7 +158,7 @@ app.post("/driverRegistration", async (req, res) => {
     nicD,
     licensenumberD,
   } = req.body;
-  console.log("Received request body:", req.body);
+  // console.log("Received request body:", req.body);
 
   try {
     const hashedDPassword = await bcrypt.hash(password, 10);
@@ -183,17 +201,7 @@ app.post("/driverRegistration", async (req, res) => {
   }
 });
 
-// Define a schema for the driver collection
-const vehicleSchema = new mongoose.Schema({
-  vehicleNumber: { type: String, required: true },
-  School: { type: String, required: true },
-  seats: { type: Number, default: 0 },
-  seatsFilled: { type: Number, default: 0 },
-  Driver: { type: String, default: null },
-});
-
-// Create a driver model based on the schema
-const bus = mongoose.model("Bus", vehicleSchema, "Vehicles");
+//------------------------------------methods for vehicle adding (create)-----------------------
 
 app.post("/vehicleRegistration", async (req, res) => {
   const { vehicleNumber, School, seats, seatsFilled, driver } = req.body;
@@ -228,9 +236,11 @@ app.post("/vehicleRegistration", async (req, res) => {
   }
 });
 
+//------------------------------------methods for vehicle showing (read)-----------------------
+
 app.get("/registeredVehicles", async (req, res) => {
   try {
-    // Retrieve all registered-users from the 'Sureway' collection
+    // Retrieve all registered-vehicles from the 'Sureway' collection
     const registeredVehicles = await bus.find();
 
     // Print the data to the console
@@ -242,10 +252,12 @@ app.get("/registeredVehicles", async (req, res) => {
       registeredVehicles: registeredVehicles,
     });
   } catch (error) {
-    console.error("Error during getting registered users:", error.message);
+    console.error("Error during getting registered vehicles:", error.message);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
+
+//------------------------------------methods for drivers showing (read)-----------------------
 
 app.get("/gettingDrivers", async (req, res) => {
   try {
@@ -261,10 +273,12 @@ app.get("/gettingDrivers", async (req, res) => {
       gettingDrivers: gettingDrivers,
     });
   } catch (error) {
-    console.error("Error during getting registered users:", error.message);
+    console.error("Error during getting registered drivers:", error.message);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
+
+//------------------------------------methods for showing children who are not assigned to bus (read)-----------------------
 
 app.get("/childrenDetails", async (req, res) => {
   try {
@@ -286,9 +300,63 @@ app.get("/childrenDetails", async (req, res) => {
       childDetails: childDetails,
     });
   } catch (error) {
-    console.error("Error during getting registered users:", error.message);
+    console.error("Error during getting children:", error.message);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
+});
+
+//------------------------------------methods for assigning bus for children who are not assigned to bus (update)-----------------------
+
+app.put("/assigningVehicle", async (req, res) => {
+  const { username, name, vehicleID } = req.body;
+  console.log("Received request body:", req.body);
+  try {
+    const existingChild = await User.findOne({
+      children: {
+        $elemMatch: {
+          name: name,
+        },
+      },
+      username: username,
+    });
+
+    console.log("Existing Child:", existingChild);
+
+    if (existingChild) {
+      await User.updateOne(
+        {
+          "children.name": name,
+          username: username,
+        },
+        {
+          $set: {
+            "children.$.vehicleID": vehicleID,
+          },
+        }
+      );
+
+      res.json({
+        success: true,
+        message: "Child already exists, updated assigned vehicle",
+      });
+    } else {
+      res.status(404).json({ success: false, message: "Child not found" });
+    }
+  } catch (error) {
+    console.error("Error during assigning bus for children:", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
+//------------------------------------methods for getting location coordinates (read)-----------------------
+
+app.get("/dummyCoordinates", (req, res) => {
+  // Assuming dummy coordinates for a location
+  const latitude = 37.7749;
+  const longitude = -122.4194;
+
+  // Send the coordinates as JSON to the frontend
+  res.json({ latitude, longitude });
 });
 
 app.listen(port, "0.0.0.0", () => {

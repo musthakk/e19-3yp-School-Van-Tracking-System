@@ -1,5 +1,5 @@
-import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Keyboard, Alert} from 'react-native'
-import React, { useState, useEffect, useReducer, useRef} from 'react'
+import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, TouchableOpacity, Alert} from 'react-native'
+import React, { useState, useEffect, useRef} from 'react'
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
@@ -62,8 +62,8 @@ const Login = ({navigation}) => {
             if(identity === "driver")
                 navigation.navigate('driverHome')
             else
-            navigation.navigate('userHome');
-        
+            navigation.navigate('userNavScreen');
+
         } catch (error) {
             Alert.alert('Login failed', error.message);
         }

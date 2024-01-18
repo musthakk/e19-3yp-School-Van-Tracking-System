@@ -9,6 +9,8 @@ const colors = {
     darkOrange: '#FF4000',
     purple: '#800080',
     gray: '#808080',
+    lightGray: '#e6e6e6',
+    lightOrange: '#fff6e6',
     
     // Additional Colors
     lightBlue: '#ADD8E6',

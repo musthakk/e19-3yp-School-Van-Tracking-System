@@ -10,6 +10,7 @@ import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
 import DriverHome from './Screens/DriverHome';
 import UserHome from './Screens/UserHome';
+import AppNavigator from './Screens/AppNavigator';
 
 
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
@@ -21,6 +22,8 @@ import PridiRegular from "./assets/fonts/Pridi-Regular.ttf";
 import NotoSansMonoBold from "./assets/fonts/NotoSansMono-Bold.ttf";
 import ReemKufiBold from './assets/fonts/ReemKufi-Bold.ttf';
 import RamabhadraRegular from './assets/fonts/Ramabhadra-Regular.ttf';
+import OutfitBold from './assets/fonts/Outfit-Bold.ttf';
+import OutfitRegular from './assets/fonts/Outfit-Regular.ttf';
 
 
 const Stack = createNativeStackNavigator(); // Initialize the native navigation stack..
@@ -34,7 +37,9 @@ export default function App() {
     'Pridi-Regular': PridiRegular,
     'NotoSansMono-Bold': NotoSansMonoBold,
     'ReemKufi-Bold': ReemKufiBold,
-    'Ramabhadra-Regular': RamabhadraRegular
+    'Ramabhadra-Regular': RamabhadraRegular,
+    'Outfit-Bold': OutfitBold,
+    'Outfit-Regular': OutfitRegular,
 
   });
 
@@ -46,7 +51,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="login"
+        initialRouteName="userNavScreen"
       >
 
         {/* Login Screen */}
@@ -76,6 +81,13 @@ export default function App() {
           component={UserHome}
           options={{ headerShown: false }} 
         />  
+
+        {/* Screens with Bottom NavBar for Users */}
+        <Stack.Screen
+          name='userNavScreen'
+          component={AppNavigator}
+          options={{headerShown: false}}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -5,6 +5,6 @@ import config from "../config.json";
 
 export function getUsers() {
   const apiUrl = config.apiUrl;
-  const apiEndpoint = apiUrl + "/registeredUsers";
+  const apiEndpoint = apiUrl + "/Admin/registeredUsers";
   return http.get(apiEndpoint);
 }

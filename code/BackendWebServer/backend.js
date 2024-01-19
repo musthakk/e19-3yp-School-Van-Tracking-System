@@ -5,23 +5,37 @@ const cors = require("cors");
 
 const app = express();
 const port = 3000;
-
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(express.json()); // Enable parsing of JSON in requests
 
-// Connect to MongoDB
-mongoose.connect(
-  "mongodb+srv://musthak:Mk741300@cluster0.zl8gzee.mongodb.net/SureWay2024"
-);
-const db = mongoose.connection;
+const connectToDatabase = require("./mongoDB/connection");
+connectToDatabase();
 
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB Atlas");
+const verifyAdmin = require("./verifyingAdmin/verifyingAdmin");
+
+app.post("/verifyingAdmin", async (req, res, next) => {
+  const { body } = req;
+  const { username, password, verificationCode } = body;
+
+  const verificationResult = await verifyAdmin(
+    username,
+    password,
+    verificationCode
+  );
+
+  if (verificationResult.success) {
+    res.send(verificationResult.success);
+  } else {
+    res.status(400).send(verificationResult.error);
+  }
 });
 
+require("./routes")(app);
+
 // Define a schema for the children
-const childSchema = new mongoose.Schema({
+const child1Schema = new mongoose.Schema({
   name: String,
   age: Number,
   school: String,
@@ -31,13 +45,13 @@ const childSchema = new mongoose.Schema({
   travellingStatus: { type: Number },
 });
 
-const userSchema = new mongoose.Schema({
+const user1Schema = new mongoose.Schema({
   fullName: { type: String, required: true },
   username: { type: String, required: true },
   contactNumber: { type: String, required: true },
   email: { type: String, required: true },
   ChildAddRequest: { type: Number, default: -1 },
-  children: [childSchema], // An array of children objects
+  children: [child1Schema], // An array of children objects
 });
 
 // Define a schema for the driver collection
@@ -65,7 +79,7 @@ const vehicleSchema = new mongoose.Schema({
 });
 
 // Create a User model based on the schema
-const User = mongoose.model("User", userSchema, "Users");
+// const User = mongoose.model("User", user1Schema, "Users");
 
 // Create a driver model based on the schema
 const driver = mongoose.model("Driver", driverSchema, "Drivers");
@@ -99,26 +113,8 @@ app.get("/forRegistration", async (req, res) => {
   }
 });
 
-app.get("/registeredUsers", async (req, res) => {
-  try {
-    // Retrieve all registered-users from the 'Sureway' collection
-    const registeredUsers = await User.find({ ChildAddRequest: 1 }).select(
-      "-hashedPassword"
-    );
-
-    // Print the data to the console
-    console.log("Registered users:", registeredUsers);
-
-    res.json({
-      success: true,
-      message: "Data retrieval successful",
-      users: registeredUsers,
-    });
-  } catch (error) {
-    console.error("Error during getting registered users:", error.message);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-});
+const getRegisteredUsers = require("./admin/gettingRegisteredUsers");
+app.use("/Admin", getRegisteredUsers);
 
 //------------------------------------methods for users registering (update)-----------------------
 

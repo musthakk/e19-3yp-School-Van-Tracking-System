@@ -5,6 +5,6 @@ import config from "../config.json";
 
 export function getDrivers() {
   const apiUrl = config.apiUrl;
-  const apiEndpoint = apiUrl + "/gettingDrivers";
+  const apiEndpoint = apiUrl + "/Admin/gettingDrivers";
   return http.get(apiEndpoint);
 }

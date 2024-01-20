@@ -17,6 +17,7 @@ class RegisterForm extends Form {
       licensenumberD: "",
     },
     errors: {},
+    successMessage: "", // New state variable for success message
   };
 
   schema = {
@@ -48,7 +49,7 @@ class RegisterForm extends Form {
       // Optionally, you can redirect the user or perform other actions after the bus is successfully added.
       console.log("Driver added successfully!");
     } catch (error) {
-      console.error("Error adding bus:", error.message);
+      console.error("Error adding driver:", error.message);
     }
   };
 

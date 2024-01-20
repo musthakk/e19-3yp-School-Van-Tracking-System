@@ -5,6 +5,6 @@ import config from "../config.json";
 
 export function registerNewDriver(obj) {
   const apiUrl = config.apiUrl;
-  const apiEndpoint = apiUrl + "/driverRegistration";
+  const apiEndpoint = apiUrl + "/Admin/driverRegistration";
   return http.post(apiEndpoint, obj);
 }

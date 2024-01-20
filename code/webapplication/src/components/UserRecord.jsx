@@ -89,7 +89,7 @@ class UserRecord extends Component {
                       selectedUser.children.length > 0 &&
                       selectedUser.children.map((child, index) => (
                         <React.Fragment key={child._id}>
-                          {child.name}
+                          {selectedUser.children[index]}
                           {index < selectedUser.children.length - 1 && ", "}
                         </React.Fragment>
                       ))}

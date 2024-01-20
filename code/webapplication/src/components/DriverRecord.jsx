@@ -81,13 +81,13 @@ class DriverRecord extends Component {
                   <div class="card-body">
                     <h5 class="card-title">{selectedDriver.firstName}</h5>
                     <p class="card-text">
-                      UserName: {selectedDriver.userDName} <br />
-                      Contact Number: {selectedDriver.contactDNumber} <br />
-                      Email: {selectedDriver.emailD} <br />
-                      Address: {selectedDriver.addressD} <br />
-                      NIC: {selectedDriver.nicD} <br />
-                      Licence Number: {selectedDriver.licensenumberD} <br />
-                      Bus: {selectedDriver.assignedVehicleIdD} <br />
+                      UserName: {selectedDriver.userName} <br />
+                      Contact Number: {selectedDriver.contactNumber} <br />
+                      Email: {selectedDriver.email} <br />
+                      Address: {selectedDriver.address} <br />
+                      NIC: {selectedDriver.NIC} <br />
+                      Licence Number: {selectedDriver.licenseNumber} <br />
+                      Bus: {selectedDriver.assignedVehicle} <br />
                     </p>
                     {/* <p class="card-text">
                     <small class="text-body-secondary">

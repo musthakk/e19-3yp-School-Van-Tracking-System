@@ -107,7 +107,7 @@ class UserRecord extends Component {
           <div>
             {selectedUser.children &&
               selectedUser.children.length > 0 &&
-              selectedUser.children.map((child) => (
+              selectedUser.childrenData.map((child) => (
                 <div class="card mb-3" style={{ maxWidth: "540px" }}>
                   <div class="row g-0">
                     <div class="col-md-4">
@@ -125,6 +125,8 @@ class UserRecord extends Component {
                           Age: {child.age} <br />
                           School: {child.school} <br />
                           Address: {child.pickupAddress} <br />
+                          VehicleID: {child.vehicleId} <br />
+                          {/* Travelling Status: {child.travellingStatus} <br /> */}
                         </p>
                         {/* <p class="card-text">
                         <small class="text-body-secondary">

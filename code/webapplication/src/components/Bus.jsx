@@ -37,8 +37,6 @@ class Bus extends Form {
         vehicleNumber: data.vehicleNumber,
         School: data.School,
         seats: data.seats,
-        seatsFilled: 0,
-        driver: "",
       });
       // Optionally, you can redirect the user or perform other actions after the bus is successfully added.
       console.log("Bus added successfully!");
@@ -85,11 +83,11 @@ class Bus extends Form {
             <tbody>
               {busses.map((bus) => (
                 <tr key={bus.licencePlate}>
-                  <td>{bus.vehicleNumber}</td>
+                  <td>{bus.vehicleID}</td>
                   <td>{bus.School}</td>
                   <td>{bus.seats}</td>
                   <td>{bus.seatsFilled}</td>
-                  <td>{bus.driver}</td>
+                  <td>{bus.Driver}</td>
                 </tr>
               ))}
             </tbody>

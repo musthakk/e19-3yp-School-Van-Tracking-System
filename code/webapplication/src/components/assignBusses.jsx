@@ -9,7 +9,7 @@ class AssignBusses extends Component {
   async componentDidMount() {
     try {
       const { data } = await getUnasignedChildren();
-      this.setState({ children: data.childDetails.children });
+      this.setState({ children: data.childDetails });
     } catch (error) {
       console.error("Error fetching users:", error.message);
     }

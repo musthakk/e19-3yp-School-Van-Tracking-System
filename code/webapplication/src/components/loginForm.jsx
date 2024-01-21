@@ -7,6 +7,7 @@ import auth from "../services/authService";
 class LoginForm extends Form {
   state = {
     data: { username: "", password: "" },
+    admin: {},
     errors: {},
   };
 
@@ -18,7 +19,12 @@ class LoginForm extends Form {
   doSubmit = async () => {
     try {
       const { data } = this.state;
-      await auth.login({ username: data.username, password: data.password });
+      const admin = await auth.login({
+        username: data.username,
+        password: data.password,
+      });
+
+      this.setState({ admin });
 
       const { state } = this.props.location;
       window.location = state ? state.from.pathname : "/home";

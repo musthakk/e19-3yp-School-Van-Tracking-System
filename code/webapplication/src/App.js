@@ -15,10 +15,23 @@ import AssignBusses from "./components/assignBusses";
 import LocationTracking from "./components/LocationTracking";
 import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
+import auth from "./services/authService";
 
 class App extends Component {
-  state = {};
+  state = {
+    user: { username: "Anonymous" },
+  };
+
+  componentDidMount() {
+    const user = auth.getCurrentUserObject();
+    if (user) {
+      this.setState({ user });
+    }
+  }
+
   render() {
+    const { user } = this.state;
+
     return (
       <>
         <Route
@@ -35,7 +48,7 @@ class App extends Component {
             "/LocationTracking",
             "/home",
           ]}
-          render={() => <NavBar />}
+          render={() => <NavBar user={user} />}
         />
         <main className="container">
           <Switch>

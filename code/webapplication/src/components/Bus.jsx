@@ -56,7 +56,7 @@ class Bus extends Form {
           <form onSubmit={this.handleSubmit}>
             {this.renderInput("vehicleNumber", "Licence Plate")}
             {this.renderInput("School", "School")}
-            {this.renderInput("seats", "seats")}
+            {this.renderInput("seats", "Seats")}
             {this.renderInput("ThingName", "SureWay Serial Number")}
             <br />
             {this.renderButton("Save")}
@@ -80,9 +80,10 @@ class Bus extends Form {
               <tr>
                 <th scope="col">Licence Plate</th>
                 <th scope="col">School</th>
-                <th scope="col">seats</th>
-                <th scope="col">seats filled</th>
+                <th scope="col">Seats</th>
+                <th scope="col">Seats filled</th>
                 <th scope="col">Driver</th>
+                <th scope="col">Serial Number</th>
               </tr>
             </thead>
             <tbody>
@@ -93,6 +94,7 @@ class Bus extends Form {
                   <td>{bus.seats}</td>
                   <td>{bus.seatsFilled}</td>
                   <td>{bus.Driver}</td>
+                  <td>{bus.ThingName}</td>
                 </tr>
               ))}
             </tbody>

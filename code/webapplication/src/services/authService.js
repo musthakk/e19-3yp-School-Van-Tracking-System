@@ -8,13 +8,19 @@ const tokenKey = "token";
 http.setJwt(getJwt());
 
 let currentUser = null;
+let agency = "Rani-Express";
 
 export async function login(obj) {
   try {
     const response = await http.post(apiEndpoint, obj);
     const { token: jwt, Admin } = response.data;
 
+    // Log the Admin object to check its content
+    console.log("Admin Object:", jwt);
+
     currentUser = Admin.data;
+    agency = Admin.data.name;
+    console.log("agency:", agency);
 
     // Store JWT token and current user object in localStorage
     localStorage.setItem(tokenKey, jwt);
@@ -42,7 +48,7 @@ export function getCurrentUser() {
 }
 
 export function getCurrentUserObject() {
-  return currentUser;
+  return agency;
 }
 
 export function getJwt() {

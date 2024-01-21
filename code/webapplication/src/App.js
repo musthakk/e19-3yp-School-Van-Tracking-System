@@ -22,12 +22,12 @@ class App extends Component {
     user: { username: "Anonymous" },
   };
 
-  componentDidMount() {
-    const user = auth.getCurrentUserObject();
-    if (user) {
-      this.setState({ user });
-    }
-  }
+  // componentDidMount() {
+  //   const user = auth.getCurrentUser().user;
+  //   if (user) {
+  //     this.setState({ user });
+  //   }
+  // }
 
   render() {
     const { user } = this.state;

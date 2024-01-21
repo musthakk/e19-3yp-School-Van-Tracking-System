@@ -19,7 +19,7 @@ class Bus extends Form {
   schema = {
     vehicleNumber: Joi.string().required().label("Licence Plate"),
     School: Joi.string().required().label("School"),
-    seats: Joi.number().required().label("seats"),
+    seats: Joi.number().required().label("Seats"),
     ThingName: Joi.string().required().label("ThingName"),
   };
 

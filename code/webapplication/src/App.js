@@ -13,13 +13,30 @@ import RegisterForm from "./components/driverRegisterForm";
 import AmbulanceRegisterForm from "./components/mbulanceRegisterForm";
 import AssignBusses from "./components/assignBusses";
 import LocationTracking from "./components/LocationTracking";
+import LoginForm from "./components/loginForm";
+import Logout from "./components/logout";
 
 class App extends Component {
   state = {};
   render() {
     return (
       <>
-        <NavBar />
+        <Route
+          path={[
+            "/Track",
+            "/Bus",
+            "/RegisterUser",
+            "/UserRecord",
+            "/DriverRecord",
+            "/ExtraService",
+            "/driverRegisterForm",
+            "/ambulanceRegisterForm",
+            "/assignBusses",
+            "/LocationTracking",
+            "/home",
+          ]}
+          render={() => <NavBar />}
+        />
         <main className="container">
           <Switch>
             <Route path="/Track" component={Track} />
@@ -37,7 +54,9 @@ class App extends Component {
             <Route path="/assignBusses" component={AssignBusses} />
             <Route path="/LocationTracking" component={LocationTracking} />
             <Route path="/home" component={Home} />
-            <Redirect from="/" exact to="/home" />
+            <Route path="/loginForm" component={LoginForm} />
+            <Route path="/logout" component={Logout} />
+            <Redirect from="/" exact to="/loginForm" />
             <Redirect to="/not-found" />
           </Switch>
         </main>

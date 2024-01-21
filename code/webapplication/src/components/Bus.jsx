@@ -10,6 +10,7 @@ class Bus extends Form {
       vehicleNumber: "",
       School: "",
       seats: "",
+      ThingName: "",
     },
     errors: {},
     busses: [],
@@ -19,6 +20,7 @@ class Bus extends Form {
     vehicleNumber: Joi.string().required().label("Licence Plate"),
     School: Joi.string().required().label("School"),
     seats: Joi.number().required().label("seats"),
+    ThingName: Joi.string().required().label("ThingName"),
   };
 
   async componentDidMount() {
@@ -37,6 +39,7 @@ class Bus extends Form {
         vehicleNumber: data.vehicleNumber,
         School: data.School,
         seats: data.seats,
+        ThingName: data.ThingName,
       });
       // Optionally, you can redirect the user or perform other actions after the bus is successfully added.
       console.log("Bus added successfully!");
@@ -53,7 +56,9 @@ class Bus extends Form {
           <form onSubmit={this.handleSubmit}>
             {this.renderInput("vehicleNumber", "Licence Plate")}
             {this.renderInput("School", "School")}
-            {this.renderInput("seats", "seats")} <br />
+            {this.renderInput("seats", "seats")}
+            {this.renderInput("ThingName", "SureWay Serial Number")}
+            <br />
             {this.renderButton("Save")}
           </form>{" "}
           <br />

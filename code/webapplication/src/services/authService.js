@@ -29,6 +29,15 @@ export function getCurrentUser() {
   }
 }
 
+export function getCurrentUserAgency() {
+  try {
+    const agency = jwtDecode(localStorage.getItem(tokenKey)).user.name;
+    return agency;
+  } catch (ex) {
+    return null;
+  }
+}
+
 export function getJwt() {
   return localStorage.getItem(tokenKey);
 }
@@ -39,4 +48,5 @@ export default {
   logout,
   getCurrentUser,
   getJwt,
+  getCurrentUserAgency,
 };

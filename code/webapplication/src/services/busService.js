@@ -1,22 +1,24 @@
 import http from "./httpService";
 import config from "../config.json";
+import auth from "../services/authService";
 
-// Api endpoint should be registeredUsers
+const agency = auth.getCurrentUserAgency();
+const apiUrl = config.apiUrl;
 
 export function addNewBus(obj) {
-  const apiUrl = config.apiUrl;
-  const apiEndpoint = apiUrl + "/Admin/vehicleRegistration";
-  return http.post(apiEndpoint, obj);
+  const apiEndpoint = `${apiUrl}/Admin/vehicleRegistration`;
+  const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
+  return http.post(urlWithQuery, obj);
 }
 
 export function getBuses() {
-  const apiUrl = config.apiUrl;
-  const apiEndpoint = apiUrl + "/Admin/registeredVehicles";
-  return http.get(apiEndpoint);
+  const apiEndpoint = `${apiUrl}/Admin/registeredVehicles`;
+  const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
+  return http.get(urlWithQuery);
 }
 
 export function getUnasignedChildren() {
-  const apiUrl = config.apiUrl;
-  const apiEndpoint = apiUrl + "/Admin/busNotAssignedChildren";
-  return http.get(apiEndpoint);
+  const apiEndpoint = `${apiUrl}/Admin/busNotAssignedChildren`;
+  const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
+  return http.get(urlWithQuery);
 }

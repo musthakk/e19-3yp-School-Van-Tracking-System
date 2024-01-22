@@ -14,18 +14,14 @@ const AddChild = () => {
 
     // Pre-define some profile images for the children
     const childProfileImages = {
-        'boy1.png': require('../assets/childProfiles/boy1.png'),
         'boy2.png': require('../assets/childProfiles/boy2.png'),
         'boy3.png': require('../assets/childProfiles/boy3.png'),
-        'boy4.png': require('../assets/childProfiles/boy4.png'),
         'boy5.png': require('../assets/childProfiles/boy5.jpg'),
-        'boy6.png': require('../assets/childProfiles/boy6.png'),
         'girl1.png': require('../assets/childProfiles/girl1.jpg'),
         'girl2.png': require('../assets/childProfiles/girl2.png'),
         'girl3.png': require('../assets/childProfiles/girl3.png'),
         'girl4.png': require('../assets/childProfiles/girl4.png'),
         'girl5.png': require('../assets/childProfiles/girl5.png'),
-        'girl6.png': require('../assets/childProfiles/girl6.png'),
     }
 
     const keys = Object.keys(childProfileImages);

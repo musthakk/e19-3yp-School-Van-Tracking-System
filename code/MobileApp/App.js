@@ -85,11 +85,11 @@ export default function App() {
         />  
 
         {/* UserHome Screen */}
-        {/* <Stack.Screen 
+        <Stack.Screen 
           name='userHome' 
           component={UserHome}
           options={{ headerShown: false }} 
-        />   */}
+        />  
 
         {/* Screens with Bottom NavBar for Users.. It contains pges which are at the bottom navBar */}
         <Stack.Screen

@@ -38,8 +38,7 @@ class LoginForm extends Form {
   };
 
   render() {
-    if (auth.getCurrentUser()) console.log(auth.getCurrentUser());
-    return <Redirect to="/home" />;
+    if (auth.getCurrentUser()) return <Redirect to="/home" />;
 
     return (
       <div>

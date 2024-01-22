@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { getUsers } from "../services/userRecordsService";
 import userbanner from "../images/userbanner.jpg";
 import SearchBox from "./common/searchBox";
-import auth from "../services/authService"; // Import the authService
 
 class UserRecord extends Component {
   state = {
@@ -14,8 +13,7 @@ class UserRecord extends Component {
 
   async componentDidMount() {
     try {
-      const currentUser = auth.getCurrentUserObject();
-      const { data } = await getUsers(currentUser);
+      const { data } = await getUsers();
       this.setState({ users: data.users });
       this.setState({ selectedUser: data.users[0] });
     } catch (error) {

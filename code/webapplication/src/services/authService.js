@@ -7,9 +7,14 @@ const tokenKey = "token";
 
 http.setJwt(getJwt());
 
+let currentUser = null;
+
 export async function login(obj) {
   try {
-    const { data: jwt } = await http.post(apiEndpoint, obj);
+    const response = await http.post(apiEndpoint, obj);
+    const { token: jwt, Admin } = response.data;
+
+    currentUser = Admin.data;
 
     // Store JWT token and current user object in localStorage
     localStorage.setItem(tokenKey, jwt);
@@ -36,6 +41,10 @@ export function getCurrentUser() {
   }
 }
 
+export function getCurrentUserObject() {
+  return currentUser;
+}
+
 export function getJwt() {
   return localStorage.getItem(tokenKey);
 }
@@ -45,6 +54,6 @@ export default {
   loginWithJwt,
   logout,
   getCurrentUser,
-
+  getCurrentUserObject,
   getJwt,
 };

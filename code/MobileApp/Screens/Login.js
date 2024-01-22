@@ -58,6 +58,10 @@ const Login = ({navigation}) => {
             // Save the token securely using expo-secure-store
             await SecureStore.setItemAsync('jwtToken', jwtToken);
 
+            await SecureStore.setItemAsync('identity', identity.toString());      // storing user role inside the system
+
+            await SecureStore.setItemAsync('username', username.toString());      // storing username..
+
             // Navigate to the next screen or perform other actions
             if(identity === "driver")
             {
@@ -67,6 +71,13 @@ const Login = ({navigation}) => {
                 const contactNumber = responseData.driver_contact_number;
                 const email = responseData.driver_email;
                 const assignedVehicle = responseData.driver_assigned_vehicle;
+
+                 // Store the details in SecureStore
+                await SecureStore.setItemAsync('firstName', firstName.toString());
+                await SecureStore.setItemAsync('lastName', lastName.toString());
+                await SecureStore.setItemAsync('contactNumber', contactNumber.toString());
+                await SecureStore.setItemAsync('email', email.toString());
+                await SecureStore.setItemAsync('assignedVehicle', assignedVehicle.toString());
                 
                 navigation.navigate('driverHome', {firstName, lastName, username, contactNumber, email, assignedVehicle})
             } 
@@ -77,6 +88,12 @@ const Login = ({navigation}) => {
                 const contactNumber = responseData.user_contactNumber;
                 const email = responseData.user_email;
                 const numberOfChildren = responseData.user_numberOfChildren;
+
+                // Store the details in SecureStore
+                await SecureStore.setItemAsync('fullName', fullName.toString());
+                await SecureStore.setItemAsync('contactNumber', contactNumber.toString());
+                await SecureStore.setItemAsync('email', email.toString());
+                await SecureStore.setItemAsync('numberOfChildren', numberOfChildren.toString());
 
                 navigation.navigate('userNavScreen', {fullName, username, contactNumber, email, numberOfChildren});
             }
@@ -90,8 +107,32 @@ const Login = ({navigation}) => {
     // Check login state and navigate accordingly
     const checkLoginAndNavigate = async () => {
         const isLoggedIn = await checkLoggedIn();
-        const initialRoute = isLoggedIn ? 'userHome' : 'login';
-        navigation.navigate(initialRoute);
+
+        const identity = await SecureStore.getItemAsync('identity');
+
+        if(identity === 'driver')
+        {
+            // retrieve driver data from secureStore..
+            const firstName = await SecureStore.getItemAsync('firstName');
+            const lastName = await SecureStore.getItemAsync('lastName');
+            const username =  await SecureStore.getItemAsync('username');
+            const contactNumber = await SecureStore.getItemAsync('contactNumber');
+            const email = await SecureStore.getItemAsync('email');
+            const assignedVehicle = await SecureStore.getItemAsync('assignedVehicle');
+
+        }else{
+
+            const fullName = await SecureStore.getItemAsync('fullName');
+            const username =  await SecureStore.getItemAsync('username');
+            const contactNumber = await SecureStore.getItemAsync('contactNumber');
+            const email = await SecureStore.getItemAsync('email');
+            const numberOfChildren = await SecureStore.getItemAsync('numberOfChildren');
+
+            const initialRoute = isLoggedIn ? 'userNavScreen' : 'login';
+
+            navigation.navigate(initialRoute, {fullName, username, contactNumber, email, numberOfChildren});
+        }
+        
     };
     
     // Call checkLoginAndNavigate when the app starts

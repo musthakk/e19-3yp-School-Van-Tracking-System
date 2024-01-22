@@ -12,7 +12,6 @@ import SignUp from './Screens/SignUp';
 // Screens for Users
 import AppNavigator from './Screens/AppNavigator';
 import AddChild from './Screens/AddChild';
-import UserProfile from './Screens/UserProfile';
 
 // Screens for Drivers
 import DriverHome from './Screens/DriverHome';
@@ -80,6 +79,7 @@ export default function App() {
           component={DriverHome}
           options={{ headerShown: false }} 
         />  
+
 
         {/* Screens with Bottom NavBar for Users.. It contains pges which are at the bottom navBar */}
         <Stack.Screen

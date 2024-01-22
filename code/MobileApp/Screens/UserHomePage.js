@@ -15,7 +15,14 @@ const UserHome = ({ navigation, route}) => {
   const {fullName, username} = route.params;
 
   // extract the firstName from the FullName
-  const firstName = fullName.split(" ")[0];
+  
+  if(fullName)
+  {
+    var firstName = fullName.split(" ")[0];
+  }else{
+    var firstName = "Jhone"
+  }
+  
 
   // Restricting the back navigator button behavior in the home page.. 
   // useFocusEffect is used to point the restriction on home page when it's only active.
@@ -47,6 +54,16 @@ const UserHome = ({ navigation, route}) => {
   const handleLogout = async () => {
     // Clear the token from SecureStore
     await SecureStore.deleteItemAsync('jwtToken');
+
+    // clear user details..
+    await SecureStore.deleteItemAsync('identity');
+
+    await SecureStore.deleteItemAsync('fullName');
+    await SecureStore.deleteItemAsync('username');
+    await SecureStore.deleteItemAsync('contactNumber');
+    await SecureStore.deleteItemAsync('email');
+    await SecureStore.deleteItemAsync('numberOfChildren');
+
     // Navigate back to the login screen
     navigation.replace('login');
   };

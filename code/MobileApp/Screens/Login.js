@@ -62,21 +62,21 @@ const Login = ({navigation}) => {
             if(identity === "driver")
             {
                 // retrieve driver data from back end response..
-                const firstName = responseData.firstName;
-                const lastName = responseData.lastName;
-                const contactNumber = responseData.contactNumber;
-                const email = responseData.email;
-                const assignedVehicle = responseData.assignedVehicle;
-
+                const firstName = responseData.driver_first_name;
+                const lastName = responseData.driver_last_name;
+                const contactNumber = responseData.driver_contact_number;
+                const email = responseData.driver_email;
+                const assignedVehicle = responseData.driver_assigned_vehicle;
+                
                 navigation.navigate('driverHome', {firstName, lastName, username, contactNumber, email, assignedVehicle})
             } 
             else{
 
                 // retrieve user data from back end response..
-                const fullName = responseData.fullName;
-                const contactNumber = responseData.contactNumber;
-                const email = responseData.email;
-                const numberOfChildren = responseData.numberOfChildren;
+                const fullName = responseData.user_fullName;
+                const contactNumber = responseData.user_contactNumber;
+                const email = responseData.user_email;
+                const numberOfChildren = responseData.user_numberOfChildren;
 
                 navigation.navigate('userNavScreen', {fullName, username, contactNumber, email, numberOfChildren});
             }

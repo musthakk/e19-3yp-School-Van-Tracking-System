@@ -11,14 +11,11 @@ import SignUp from './Screens/SignUp';
 
 // Screens for Users
 import AppNavigator from './Screens/AppNavigator';
-import UserHome from './Screens/UserHome';
 import AddChild from './Screens/AddChild';
 import UserProfile from './Screens/UserProfile';
 
 // Screens for Drivers
 import DriverHome from './Screens/DriverHome';
-
-
 
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
 
@@ -84,13 +81,6 @@ export default function App() {
           options={{ headerShown: false }} 
         />  
 
-        {/* UserHome Screen */}
-        <Stack.Screen 
-          name='userHome' 
-          component={UserHome}
-          options={{ headerShown: false }} 
-        />  
-
         {/* Screens with Bottom NavBar for Users.. It contains pges which are at the bottom navBar */}
         <Stack.Screen
           name='userNavScreen'
@@ -98,6 +88,7 @@ export default function App() {
           options={{headerShown: false}}
         />
 
+        {/* Add child screen for adding children inside the user Account */}
         <Stack.Screen
           name='addChild'
           component={AddChild}

@@ -9,15 +9,12 @@ import colors from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { first } from 'lodash';
 
-
 const UserHome = ({ navigation, route}) => {
 
   // define route parameters..
   const {fullName, username} = route.params;
 
-  // extract the firstname of the user from the fullName
   const firstName = fullName.split(" ")[0];
-
 
   // Restricting the back navigator button behavior in the home page.. 
   // useFocusEffect is used to point the restriction on home page when it's only active.

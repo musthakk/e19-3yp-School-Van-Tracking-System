@@ -35,7 +35,7 @@ const Login = ({navigation}) => {
     // Login Authentication..
     const handleLogin = async () => {
         try {
-            const response = await fetch('http://52.66.141.134:3000/login', {
+            const response = await fetch('http://13.126.69.29:3000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

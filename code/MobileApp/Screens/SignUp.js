@@ -171,9 +171,9 @@ const SignUp = ({navigation}) => {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <ScrollView 
-          contentContainerStyle={styles.scrollview} 
-          bounces={false}
-          showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollview} 
+            bounces={false}
+            showsVerticalScrollIndicator={false}
           >
 
             <View style={{ alignItems: 'center' }}>

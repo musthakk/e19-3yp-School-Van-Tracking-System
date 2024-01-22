@@ -27,6 +27,15 @@ const colors = {
     midnightBlue: '#191970',
     slateGray: '#708090',
     tomato: '#FF6347',
+
+
+    // light versionss (Material UI)..
+    lightBluemui: '#e3f2fd',
+    lightTeal: '#e0f2f1',
+    lightLime: '#f9fbe7',
+    lightOrangeMui: '#fff3e0',
+    lightBrown: '#efebe9',
+
   };
 
 export default colors;

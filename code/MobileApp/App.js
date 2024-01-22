@@ -1,6 +1,6 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, } from 'react-native';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,9 +8,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import Screens
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
-import DriverHome from './Screens/DriverHome';
-import UserHome from './Screens/UserHome';
+
+// Screens for Users
 import AppNavigator from './Screens/AppNavigator';
+import UserHome from './Screens/UserHome';
+import AddChild from './Screens/AddChild';
+import UserProfile from './Screens/UserProfile';
+
+// Screens for Drivers
+import DriverHome from './Screens/DriverHome';
+
 
 
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
@@ -24,6 +31,7 @@ import ReemKufiBold from './assets/fonts/ReemKufi-Bold.ttf';
 import RamabhadraRegular from './assets/fonts/Ramabhadra-Regular.ttf';
 import OutfitBold from './assets/fonts/Outfit-Bold.ttf';
 import OutfitRegular from './assets/fonts/Outfit-Regular.ttf';
+import RobotoRegular from './assets/fonts/Roboto-Regular.ttf';
 
 
 const Stack = createNativeStackNavigator(); // Initialize the native navigation stack..
@@ -40,6 +48,7 @@ export default function App() {
     'Ramabhadra-Regular': RamabhadraRegular,
     'Outfit-Bold': OutfitBold,
     'Outfit-Regular': OutfitRegular,
+    'Roboto-Regular': RobotoRegular,
 
   });
 
@@ -51,7 +60,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="userNavScreen"
+        initialRouteName="login"
       >
 
         {/* Login Screen */}
@@ -76,17 +85,34 @@ export default function App() {
         />  
 
         {/* UserHome Screen */}
-        <Stack.Screen 
+        {/* <Stack.Screen 
           name='userHome' 
           component={UserHome}
           options={{ headerShown: false }} 
-        />  
+        />   */}
 
-        {/* Screens with Bottom NavBar for Users */}
+        {/* Screens with Bottom NavBar for Users.. It contains pges which are at the bottom navBar */}
         <Stack.Screen
           name='userNavScreen'
           component={AppNavigator}
           options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name='addChild'
+          component={AddChild}
+          options={{
+            headerTitle: () => (
+              <Text
+                style={{
+                    fontSize: 35,
+                    fontFamily: 'Outfit-Bold'
+                }}
+              >
+                ADD CHILD
+              </Text>
+            ),
+          }}
         />
 
       </Stack.Navigator>

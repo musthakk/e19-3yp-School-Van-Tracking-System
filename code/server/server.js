@@ -215,7 +215,7 @@ app.get('/verify-email', async (req, res) => {
 // Login endpoint
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-
+  console.log("requested username and password for login:"+username+" "+password);
   // Find the user in your database (replace with a database query)
   const user = await User.findOne({ username });
 
@@ -238,7 +238,10 @@ app.post('/login', async (req, res) => {
     // Generate a JWT token
     const token = jwt.sign({ driverId: driver.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
-    return res.json({ token, identification: "driver"});
+    // get the firstname of the driver and send it to the front end..
+    const firstName = driver.firstName;
+
+    return res.json({ token, identification: "driver", firstName});
   }
 
   // Compare the entered password with the hashed password in the database
@@ -254,7 +257,9 @@ app.post('/login', async (req, res) => {
   // Generate a JWT token
   const token = jwt.sign({ userId: user.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
-  res.json({ token, identification: "user"});
+  const firstName = user.fullName.split(' ')[0];
+
+  res.json({ token, identification: "user", firstName});
 });
 
 

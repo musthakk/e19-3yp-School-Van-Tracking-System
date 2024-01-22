@@ -1,5 +1,6 @@
 // AppNavigator.js
 import React from 'react';
+import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import UserHome from './UserHome';
 import colors from '../constants/colors';
@@ -14,7 +15,6 @@ const AppNavigator = () => {
         screenOptions={{
             tabBarStyle: { 
                 height: 60,
-                borderRadius: 40,
                 marginHorizontal: 8,
                 marginBottom: 10,
                 position: 'absolute',
@@ -38,20 +38,34 @@ const AppNavigator = () => {
         options={{ 
           headerShown: false,
           tabBarIcon: ({focused})=>(
+            <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4}}>
               <Ionicons name={focused ? 'location-sharp': 'location-outline'} size={30} color={focused?'black': 'gray'}/>
-            )
+            </View>
+          )
         }}
       />
 
       {/* profile Page */}
       <Tab.Screen 
-        name="UserProfile" 
+        name="Profile" 
         component={UserProfile} 
         options={{ 
-          headerShown: false,
           tabBarIcon: ({focused})=>(
-              <Ionicons name={focused ? "person": "person-outline"} size={30} color={focused?'black': 'gray'}/>
-            )
+            <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4}}>
+              <Ionicons name={focused ? "person" : "person-outline"} size={30} color={focused ? 'black' : 'gray'} />
+            </View>
+          ),
+          headerTitle: () => (
+            <Text
+              style={{
+                  fontSize: 35,
+                  fontFamily: 'Outfit-Regular',
+                  marginLeft: 10,
+              }}
+            >
+              Profile
+            </Text>
+          ),
         }}
       />
     </Tab.Navigator>

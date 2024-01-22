@@ -2,10 +2,14 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import UserHome from './UserHome';
+
+// import screens..
+import UserHome from './UserHomePage';
+import UserProfile from './UserProfile';
+
+
 import colors from '../constants/colors';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import UserProfile from './UserProfile';
 
 const Tab = createBottomTabNavigator();
 

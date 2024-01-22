@@ -14,6 +14,7 @@ const UserHome = ({ navigation, route}) => {
   // define route parameters..
   const {fullName, username} = route.params;
 
+  // extract the firstName from the FullName
   const firstName = fullName.split(" ")[0];
 
   // Restricting the back navigator button behavior in the home page.. 

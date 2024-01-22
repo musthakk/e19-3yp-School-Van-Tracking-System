@@ -27,6 +27,7 @@ const DetailedChildSchema = new mongoose.Schema({
   vehicleID: {type: String, default: ""},
   travellingStatus: { type: Number, default: 0},
   Agency: {type: String},
+  profileAvatar: {type: String},
 });
 
 // Define a children schema to contain few details about a particular student added under a user.. 
@@ -67,6 +68,9 @@ const User = mongoose.model('User', userSchema, 'Users');
 
 // Create a Driver model based on the schema
 const Driver = mongoose.model('Driver', driverSchema, 'Drivers');
+
+// Create a Children model based on the schema
+const Children = mongoose.model('Children', DetailedChildSchema, 'Children');
 
 // Endpoint: Validate userName
 app.get('/validate-username', async (req, res) => {

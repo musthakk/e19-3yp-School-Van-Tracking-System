@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavBar = ({ user }) => {
+const NavBar = () => {
   return (
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
@@ -44,11 +44,6 @@ const NavBar = ({ user }) => {
             <li class="nav-item">
               <Link class="nav-link" to="/logout">
                 Logout
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/Bus">
-                {user.username}
               </Link>
             </li>
           </ul>

@@ -60,9 +60,27 @@ const Login = ({navigation}) => {
 
             // Navigate to the next screen or perform other actions
             if(identity === "driver")
-                navigation.navigate('driverHome')
-            else
-            navigation.navigate('userNavScreen');
+            {
+                // retrieve driver data from back end response..
+                const firstName = responseData.firstName;
+                const lastName = responseData.lastName;
+                const contactNumber = responseData.contactNumber;
+                const email = responseData.email;
+                const assignedVehicle = responseData.assignedVehicle;
+
+                navigation.navigate('driverHome', {firstName, lastName, username, contactNumber, email, assignedVehicle})
+            } 
+            else{
+
+                // retrieve user data from back end response..
+                const fullName = responseData.fullName;
+                const contactNumber = responseData.contactNumber;
+                const email = responseData.email;
+                const numberOfChildren = responseData.numberOfChildren;
+
+                navigation.navigate('userNavScreen', {fullName, username, contactNumber, email, numberOfChildren});
+            }
+            
 
         } catch (error) {
             Alert.alert('Login failed', error.message);

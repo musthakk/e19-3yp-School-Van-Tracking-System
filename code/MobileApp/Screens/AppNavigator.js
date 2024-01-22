@@ -9,7 +9,11 @@ import UserProfile from './UserProfile';
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = () => {
+const AppNavigator = ({route}) => {
+
+  // define route parameters...
+  const {fullName, username, contactNumber, email, numberOfChildren} = route.params;
+
   return (
     <Tab.Navigator
         screenOptions={{
@@ -35,6 +39,7 @@ const AppNavigator = () => {
       <Tab.Screen 
         name="Home" 
         component={UserHome} 
+        initialParams={{fullName, username}}
         options={{ 
           headerShown: false,
           tabBarIcon: ({focused})=>(
@@ -48,7 +53,8 @@ const AppNavigator = () => {
       {/* profile Page */}
       <Tab.Screen 
         name="Profile" 
-        component={UserProfile} 
+        component={UserProfile}
+        initialParams={{fullName, username, contactNumber, email, numberOfChildren}}
         options={{ 
           tabBarIcon: ({focused})=>(
             <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4}}>

@@ -6,7 +6,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from '../constants/colors'
 import { Ionicons } from '@expo/vector-icons'
 
-const UserProfile = () => {
+const UserProfile = ({route}) => {
+
+  const {fullName, username, contactNumber, email, numberOfChildren} = route.params;
+
   return (
     <SafeAreaView style={styles.safearea}>
       <View style={styles.container}>
@@ -37,7 +40,7 @@ const UserProfile = () => {
 
             <View style={styles.detailsTextContainer}>
               <Text style={styles.promptText}>Full-name</Text>
-              <Text style={styles.dataText}>Samsudeen Mohamed Musthak</Text>
+              <Text style={styles.dataText}>{fullName}</Text>
             </View>
 
             <TouchableOpacity
@@ -57,7 +60,7 @@ const UserProfile = () => {
 
             <View style={styles.detailsTextContainer}>
               <Text style={styles.promptText}>Username</Text>
-              <Text style={styles.dataText}>Mk123</Text>
+              <Text style={styles.dataText}>{username}</Text>
             </View>
 
           </View>
@@ -68,7 +71,7 @@ const UserProfile = () => {
 
             <View style={styles.detailsTextContainer}>
               <Text style={styles.promptText}>Phone</Text>
-              <Text style={styles.dataText}>0764638778</Text>
+              <Text style={styles.dataText}>{contactNumber}</Text>
             </View>
 
           </View>
@@ -79,7 +82,18 @@ const UserProfile = () => {
 
             <View style={styles.detailsTextContainer}>
               <Text style={styles.promptText}>Mail</Text>
-              <Text style={styles.dataText}>musthak7413400@gmail.com</Text>
+              <Text style={styles.dataText}>{email}</Text>
+            </View>
+
+          </View>
+
+          {/* Number of Children added */}
+          <View style={styles.userdetailsInnerContainer}>
+            <Ionicons name='people-outline' size={22} style={{color: colors.gray}}/>
+
+            <View style={styles.detailsTextContainer}>
+              <Text style={styles.promptText}>Number of Children added:</Text>
+              <Text style={styles.dataText}>{numberOfChildren}</Text>
             </View>
 
           </View>

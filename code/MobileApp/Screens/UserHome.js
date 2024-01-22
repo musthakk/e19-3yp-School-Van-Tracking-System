@@ -7,9 +7,17 @@ import * as SecureStore from 'expo-secure-store';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import colors from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
+import { first } from 'lodash';
 
 
-const UserHome = ({ navigation }) => {
+const UserHome = ({ navigation, route}) => {
+
+  // define route parameters..
+  const {fullName, username} = route.params;
+
+  // extract the firstname of the user from the fullName
+  const firstName = fullName.split(" ")[0];
+
 
   // Restricting the back navigator button behavior in the home page.. 
   // useFocusEffect is used to point the restriction on home page when it's only active.
@@ -108,7 +116,7 @@ const UserHome = ({ navigation }) => {
               fontFamily: 'Outfit-Bold',
             }}
           >
-            Hello Musthak
+            Hello {firstName}
           </Text>
           
           {/* Track Your children prompt */}
@@ -142,9 +150,9 @@ const UserHome = ({ navigation }) => {
         </MapView> */}
 
         {/* Logout button  */}
-        {/* <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5 , marginTop: 50}}>
+        <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5 , marginTop: 50}}>
           <Text style={{ color: 'white', textAlign: 'center' }}>Logout: userHome</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
         {/* Show the added children of a particular user... */}
         <View style={{height: 412, width: '100%', marginTop: 40,}}>

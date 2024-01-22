@@ -15,17 +15,27 @@ app.use(express.json()); // Enable parsing of JSON in requests
 mongoose.connect('mongodb+srv://musthak:Mk741300@cluster0.zl8gzee.mongodb.net/SureWay2024');
 const db = mongoose.connection;
 
-// Define a schema for the children
+// Define a schema for the children collection
 // This childSchema will get data when user add children to his account..
-const childSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
-  school: String,
-  pickupAddress: String,
-  dropAddress: String,
-  vehicleID: {type: String, default: null},
-  travellingStatus: { type: Number},
+const DetailedChildSchema = new mongoose.Schema({
+  name: {type: String, required: true},
+  isVerified: {type: Boolean, default: false},
+  parent_username: {type: String, required: true},
+  age: {type: Number, required: true},
+  school: {type: String, required: true},
+  pickupAddress: {type: String, required: true},
+  vehicleID: {type: String, default: ""},
+  travellingStatus: { type: Number, default: 0},
+  Agency: {type: String},
 });
+
+// Define a children schema to contain few details about a particular student added under a user.. 
+// this Schema will come under userSchema..
+const childSchema = new mongoose.Schema({
+  name : {type: String, required: true},
+  isVerified: {type: Boolean, default: false},
+});
+
 
 // Define a schema for the user collection
 const userSchema = new mongoose.Schema({
@@ -35,22 +45,21 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
   isVerified: {type: Boolean, default: false},
-  ChildAddRequest: { type: Number, default: -1 },
   children: [childSchema], // An array of children objects
 });
 
 // Define a shema for the driver collection.
 const driverSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
-  lastDName: { type: String, required: true },
-  userDname: { type: String, required: true , unique: true},
-  hashedDPassword: { type: String, required: true },
-  contactDNumber: { type: String, required: true },
-  emailD: { type: String, required: true, unique: true },
-  addressD: { type: String, required: true },
-  nicD: { type: String, required: true , unique: true},
-  licensenumberD: { type: String, required: true , unique: true},
-  assignedVehicleIdD: { type: String},
+  lastName: { type: String, required: true },
+  username: { type: String, required: true , unique: true},
+  hashedPassword: { type: String, required: true },
+  contactNumber: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  address: { type: String, required: true },
+  NIC: { type: String, required: true , unique: true},
+  licenseNumber: { type: String, required: true , unique: true},
+  assignedVehicle: { type: String},
 });
 
 // Create a User model based on the schema
@@ -222,14 +231,14 @@ app.post('/login', async (req, res) => {
   if (!user) {
 
     // If username is not in the User collection check it in the Driver collection..
-    const driver = await Driver.findOne({userDname: username});
+    const driver = await Driver.findOne({username: username});
 
     if(!driver){
       return res.status(401).json({ message: 'Invalid credentials' });
     }
     
     // Compare the entered password with the hashed password in the database
-    const passwordMatch = await bcrypt.compare(password, driver.hashedDPassword )
+    const passwordMatch = await bcrypt.compare(password, driver.hashedPassword )
 
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
@@ -238,10 +247,14 @@ app.post('/login', async (req, res) => {
     // Generate a JWT token
     const token = jwt.sign({ driverId: driver.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
-    // get the firstname of the driver and send it to the front end..
+    // get the driver details to the front end
     const firstName = driver.firstName;
+    const lastName = driver.lastName;
+    const contactNumber = driver.contactNumber;
+    const email = driver.email;
+    const assignedVehicle = driver.assignedVehicle;
 
-    return res.json({ token, identification: "driver", firstName});
+    return res.json({ token, identification: "driver", firstName, lastName, contactNumber, email, assignedVehicle});
   }
 
   // Compare the entered password with the hashed password in the database
@@ -257,9 +270,13 @@ app.post('/login', async (req, res) => {
   // Generate a JWT token
   const token = jwt.sign({ userId: user.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
-  const firstName = user.fullName.split(' ')[0];
+  // get the user details to the front end
+  const fullName = user.fullName;
+  const contactNumber = user.contactNumber;
+  const email = user.email;
+  const numberOfChildren = user.children.length;
 
-  res.json({ token, identification: "user", firstName});
+  res.json({ token, identification: "user", fullName, contactNumber, email, numberOfChildren});
 });
 
 

@@ -43,8 +43,10 @@ class DriverRecord extends Component {
     return [...filtereddrivers, ...remainingdrivers];
   };
 
-  render({ selectedDriver, searchQuery } = this.state) {
+  render() {
+    const { selectedDriver, searchQuery } = this.state;
     const filteredDrivers = this.filterUsers();
+
     return (
       <>
         <div className="row">
@@ -68,36 +70,37 @@ class DriverRecord extends Component {
 
           <div className="col">
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
-            <div class="card mb-3" style={{ maxWidth: "540px" }}>
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img
-                    src={userbanner}
-                    class="img-fluid rounded-start"
-                    alt="..."
-                  />{" "}
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">{selectedDriver.firstName}</h5>
-                    <p class="card-text">
-                      UserName: {selectedDriver.userName} <br />
-                      Contact Number: {selectedDriver.contactNumber} <br />
-                      Email: {selectedDriver.email} <br />
-                      Address: {selectedDriver.address} <br />
-                      NIC: {selectedDriver.NIC} <br />
-                      Licence Number: {selectedDriver.licenseNumber} <br />
-                      Bus: {selectedDriver.assignedVehicle} <br />
-                    </p>
-                    {/* <p class="card-text">
-                    <small class="text-body-secondary">
-                      Last updated 3 mins ago
-                    </small>
-                  </p> */}
+            {selectedDriver ? (
+              <div className="card mb-3" style={{ maxWidth: "540px" }}>
+                <div className="row g-0">
+                  <div className="col-md-4">
+                    <img
+                      src={userbanner}
+                      className="img-fluid rounded-start"
+                      alt="..."
+                    />
+                  </div>
+                  <div className="col-md-8">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        {selectedDriver.firstName || "No drivers"}
+                      </h5>
+                      <p className="card-text">
+                        UserName: {selectedDriver.userName} <br />
+                        Contact Number: {selectedDriver.contactNumber} <br />
+                        Email: {selectedDriver.email} <br />
+                        Address: {selectedDriver.address} <br />
+                        NIC: {selectedDriver.NIC} <br />
+                        Licence Number: {selectedDriver.licenseNumber} <br />
+                        Bus: {selectedDriver.assignedVehicle} <br />
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <p>No drivers available</p>
+            )}
           </div>
         </div>
       </>

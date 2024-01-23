@@ -290,7 +290,7 @@ app.post('/getChildrenInfo', async (req, res) => {
 
   try {
     // Find children with the specific username
-    const children = await DetailedChildSchema.find({ parent_username: username });
+    const children = await Children.find({ parent_username: username });
 
     // Map the children array to only include the name, agency, and profileAvatar fields
     const childrenDetails = children.map(child => ({

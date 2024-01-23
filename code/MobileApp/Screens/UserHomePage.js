@@ -1,28 +1,26 @@
-import { View, Text,Alert, BackHandler, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, TextInput, Button} from 'react-native'
+import { View, Text, Alert, BackHandler, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, TextInput, Button } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, {useEffect, useState, useCallback} from 'react'
+import React from 'react'
 import { useFocusEffect } from '@react-navigation/native';
 
 import * as SecureStore from 'expo-secure-store';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import colors from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
-import { first } from 'lodash';
 
-const UserHome = ({ navigation, route}) => {
+const UserHome = ({ navigation, route }) => {
 
   // define route parameters..
-  const {fullName, username} = route.params;
+  const { fullName, username } = route.params;
 
   // extract the firstName from the FullName
-  
-  if(fullName)
-  {
+
+  if (fullName) {
     var firstName = fullName.split(" ")[0];
-  }else{
-    var firstName = "Jhone"
+  } else {
+    var firstName = "Log in again.."
   }
-  
+
 
   // Restricting the back navigator button behavior in the home page.. 
   // useFocusEffect is used to point the restriction on home page when it's only active.
@@ -51,6 +49,7 @@ const UserHome = ({ navigation, route}) => {
     }, [])
   );
 
+  // Clear stored jwtToken and other userDetails from the SecuredStore when user Logout his self..
   const handleLogout = async () => {
     // Clear the token from SecureStore
     await SecureStore.deleteItemAsync('jwtToken');
@@ -68,34 +67,106 @@ const UserHome = ({ navigation, route}) => {
     navigation.replace('login');
   };
 
-
   let children = [];
 
+  // onStart of this home page, send username to the backend and from there get and show the children details..
+  const getChildrenDetails = async () => {
+
+    try {
+      const response = await fetch('http://13.126.69.29:3000/getChildrenInfo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username
+        }),
+      });
+
+      if (!response.ok) {
+        // Handle non-successful response
+        throw new Error('Server Error.');
+      }
+
+      // get the response..
+      const ChildrenDetails = await response.json();
+
+      children = ChildrenDetails;
+
+    } catch (error) {
+      Alert.alert('Error in fetching the children data', error.message);
+    }
+
+  };
+
+
+  // Pre-define some profile images for the children
+  const childProfileImages = {
+    'boy2.png': require('../assets/childProfiles/boy2.png'),
+    'boy3.png': require('../assets/childProfiles/boy3.png'),
+    'boy5.png': require('../assets/childProfiles/boy5.jpg'),
+    'girl1.png': require('../assets/childProfiles/girl1.jpg'),
+    'girl2.png': require('../assets/childProfiles/girl2.png'),
+    'girl3.png': require('../assets/childProfiles/girl3.png'),
+    'girl4.png': require('../assets/childProfiles/girl4.png'),
+    'girl5.png': require('../assets/childProfiles/girl5.png'),
+  }
+
+  // color backgrounds for children Details container..
   let colorsArray = [colors.lightBluemui, colors.lightLime, colors.lightTeal, colors.lightOrangeMui, colors.lightBrown];
 
-  for (let i=0; i<2; i++)
-  {
-    children.push(
-      <TouchableOpacity key={i} onPress={() => console.log(`Pressed ${i}`)} style={{...styles.childTouchable, backgroundColor:colorsArray[i]}}>
-        {/* chile profile image png */}
-        <View style={styles.childProfileContainer}>
+  const childrenCount = children.length;
 
+
+  let childrenData = children.map((child, index) => (
+
+    <TouchableOpacity key={index} style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}>
+      {/* chile profile avatar png */}
+      <View style={styles.childAvatarContainer}>
+        <Image source={childProfileImages[child.profileAvatar]} />
+      </View>
+
+      {/* Information about the child */}
+      <View>
+        {/* children name */}
+        <View style={styles.singleDetailBlock}>
+          <Text style={styles.DetailPrompt}>Child name: </Text>
+          <Text style={styles.DetailData}>{child.name}</Text>
         </View>
 
-        <Text style={{marginLeft: 20,}}>Touchable {i}</Text>
-      </TouchableOpacity>
-    );
-  }
+        {/* Agency */}
+        <View style={styles.singleDetailBlock}>
+          <Text style={styles.DetailPrompt}>Agency: </Text>
+          <Text style={styles.DetailData}>{child.agency}</Text>
+        </View>
+
+        {/* Vehicle ID */}
+        <View style={styles.singleDetailBlock}>
+          <Text style={styles.DetailPrompt}>Vehicle ID: </Text>
+          <Text style={styles.DetailData}>{child.vehicleID}</Text>
+        </View>
+
+        {/* Travelling Status */}
+        <View style={styles.singleDetailBlock}>
+          <Text style={styles.DetailPrompt}>Travelling Status: </Text>
+          <Text style={styles.DetailData}>On travel..</Text>
+        </View>
+
+      </View>
+
+    </TouchableOpacity>
+
+  ));
 
   return (
     <SafeAreaView style={styles.safearea}>
       <View style={styles.container}>
-        
+
         <View style={styles.addChildBar}>
 
           {/* Add child Button */}
-          <TouchableOpacity 
-            onPress={()=>navigation.navigate('addChild')}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('addChild')}
             style={styles.addChildButton}
           >
             <Text
@@ -107,7 +178,7 @@ const UserHome = ({ navigation, route}) => {
               Add a child
             </Text>
           </TouchableOpacity>
-          
+
           {/* Settings Button */}
           <TouchableOpacity
             style={{
@@ -133,7 +204,7 @@ const UserHome = ({ navigation, route}) => {
           >
             Hello {firstName}
           </Text>
-          
+
           {/* Track Your children prompt */}
           <Text
             style={{
@@ -165,39 +236,41 @@ const UserHome = ({ navigation, route}) => {
         </MapView> */}
 
         {/* Logout button  */}
-        <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5 , marginTop: 50}}>
+        <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 50 }}>
           <Text style={{ color: 'white', textAlign: 'center' }}>Logout: userHome</Text>
         </TouchableOpacity>
 
         {/* Show the added children of a particular user... */}
-        <View style={{height: 412, width: '100%', marginTop: 40,}}>
-          <ScrollView 
-            style={{paddingVertical: 8,}}
-            showsVerticalScrollIndicator = {false}
+        <View style={{ height: 412, width: '100%', marginTop: 40, }}>
+          <ScrollView
+            style={{
+              paddingVertical: 8,
+            }}
+            showsVerticalScrollIndicator={false}
             pagingEnabled
           >
             {
-              children.length === 0 ? 
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <Image 
-                  source={require('../assets/fileNotFound2.jpg')}
-                  style={{height: 300, width: 300}}
-                />
-                <Text
-                  style = {{
-                    fontSize: 22,
-                    fontFamily: 'Outfit-Regular',
+              childrenData.length === 0 ?
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }}
                 >
-                  No children accounts found..
-                </Text>
-              </View>
-              : children
+                  <Image
+                    source={require('../assets/fileNotFound2.jpg')}
+                    style={{ height: 300, width: 300 }}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 22,
+                      fontFamily: 'Outfit-Regular',
+                    }}
+                  >
+                    No children accounts found..
+                  </Text>
+                </View>
+                : childrenData
             }
 
           </ScrollView>
@@ -206,7 +279,7 @@ const UserHome = ({ navigation, route}) => {
       </View>
     </SafeAreaView>
 
-    
+
   );
 };
 
@@ -255,15 +328,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  childProfileContainer: {
-    height: 90, 
+  childAvatarContainer: {
+    height: 90,
     width: 90,
     borderWidth: 2,
     borderRadius: 50,
     borderColor: colors.red,
   },
 
+  singleDetailBlock: {
+    flexDirection: 'row',
 
+  },
+
+  DetailPrompt: {
+    marginLeft: 20,
+    color: colors.black,
+    fontFamily: 'Outfit-Bold',
+    fontSize: 15,
+  },
+
+  DetailData: {
+    marginLeft: 10,
+    color: colors.black,
+    fontFamily: 'Outfit-Regular',
+    fontSize: 15,
+  },
 
 
 });

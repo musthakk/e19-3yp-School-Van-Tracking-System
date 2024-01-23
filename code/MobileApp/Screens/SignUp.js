@@ -63,7 +63,7 @@ const SignUp = ({navigation}) => {
     // Call the server endpoint to check whether the username exists
     // Replace 'your-api-endpoint' with the actual endpoint
     try {
-      const response = await fetch(`http://52.66.141.134:3000/validate-username?username=${input}`);
+      const response = await fetch(`http://13.126.69.29:3000/validate-username?username=${input}`);
       const data = await response.json();
 
       if (data.exists) {
@@ -90,7 +90,7 @@ const SignUp = ({navigation}) => {
   const validateEmail = async (input) => {
     // Call the server endpoint to check whether the email exists
     try {
-      const response = await fetch(`http://52.66.141.134:3000/validate-email?email=${input}`);
+      const response = await fetch(`http://13.126.69.29:3000/validate-email?email=${input}`);
       const data = await response.json();
 
       if (data.exists) {
@@ -122,7 +122,7 @@ const SignUp = ({navigation}) => {
       return;
 
     try {
-      const response = await fetch('http://52.66.141.134:3000/signup', {
+      const response = await fetch('http://13.126.69.29:3000/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

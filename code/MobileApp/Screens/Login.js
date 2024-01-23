@@ -185,7 +185,6 @@ const Login = ({navigation}) => {
                 <TouchableOpacity 
                     onPress={()=>SetPasswordShown(!isPasswordShown)}    // set the inputted password field to be hided..
                     style={{position: 'absolute', right: 15}}
-                    ref={LoginButtonRef}
                 >
                     {
                         isPasswordShown == true ? (
@@ -198,6 +197,7 @@ const Login = ({navigation}) => {
             </View>
 
             <TouchableOpacity 
+                ref={LoginButtonRef}
                 style={styles.submitButton}
                 onPress={handleLogin}
             >

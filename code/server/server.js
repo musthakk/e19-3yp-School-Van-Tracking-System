@@ -284,6 +284,33 @@ app.post('/login', async (req, res) => {
 });
 
 
+// End-point for get the children data of a user..
+app.post('/getChildrenInfo', async (req, res) => {
+  const { username } = req.body;
+
+  try {
+    // Find children with the specific username
+    const children = await DetailedChildSchema.find({ parent_username: username });
+
+    // Map the children array to only include the name, agency, and profileAvatar fields
+    const childrenDetails = children.map(child => ({
+      name: child.name,
+      agency: child.Agency,
+      vehicleID: child.vehicleID,
+      profileAvatar: child.profileAvatar,
+      verifiedStatus: child.isVerified,
+      travellingStatus: child.travellingStatus,
+    }));
+
+    res.json(childrenDetails);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+
+});
+
 app.listen(port, '0.0.0.0',() => {
   console.log(`Server is running on http://localhost:${port}`);
 });

@@ -281,7 +281,7 @@ app.post('/login', async (req, res) => {
   const user_fullName = user.fullName;
   const user_contactNumber = user.contactNumber;
   const user_email = user.email;
-  const user_numberOfChildren = user.children.length;
+  const user_numberOfChildren = (await Children.find({parent_username: username})).length;
 
   res.json({ token, identification: "user", user_fullName, user_contactNumber, user_email, user_numberOfChildren});
 });

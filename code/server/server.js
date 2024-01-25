@@ -23,18 +23,12 @@ const DetailedChildSchema = new mongoose.Schema({
   parent_username: {type: String, required: true},
   age: {type: Number, required: true},
   school: {type: String, required: true},
+  grade: {type: String, required: true},
   pickupAddress: {type: String, required: true},
   vehicleID: {type: String, default: ""},
   travellingStatus: { type: Number, default: 0},
   Agency: {type: String},
   profileAvatar: {type: String},
-});
-
-// Define a children schema to contain few details about a particular student added under a user.. 
-// this Schema will come under userSchema..
-const childSchema = new mongoose.Schema({
-  name : {type: String, required: true},
-  isVerified: {type: Boolean, default: false},
 });
 
 
@@ -46,7 +40,6 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
   isVerified: {type: Boolean, default: false},
-  children: [childSchema], // An array of children objects
 });
 
 // Define a shema for the driver collection.
@@ -335,6 +328,31 @@ app.get('/getAgencyInfo', async(req, res) => {
 
   }
 
+});
+
+// Endpoint to add children into the system
+app.post('/AddChild', async (req, res) => {
+  const { childName, username, age, school, grade, pickupAddress, agency, selectedProfileImg } = req.body;
+
+  try {
+      // Add child into the children collection..
+      const child = new Children({
+        name: childName,
+        parent_username: username,
+        age: parseInt(age),
+        school: school,
+        grade: grade,
+        pickupAddress: pickupAddress,
+        Agency: agency,
+        profileAvatar: selectedProfileImg});
+
+      await child.save();
+
+      res.json({ success: true });
+  } catch (error) {
+      console.error('Error during child addition:', error.message);
+      res.json({ success: false, message: error.message });
+  }
 });
 
 app.listen(port, '0.0.0.0',() => {

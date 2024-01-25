@@ -1,6 +1,6 @@
 import { View, Text, Alert, BackHandler, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, TextInput, Button } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React from 'react'
+import React,{useEffect, useState} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 
 import * as SecureStore from 'expo-secure-store';
@@ -21,6 +21,9 @@ const UserHome = ({ navigation, route }) => {
     var firstName = "Log in again.."
   }
 
+
+  // track children details of the user..
+  const [children, setChildren] = useState([]);
 
   // Restricting the back navigator button behavior in the home page.. 
   // useFocusEffect is used to point the restriction on home page when it's only active.
@@ -67,7 +70,6 @@ const UserHome = ({ navigation, route }) => {
     navigation.replace('login');
   };
 
-  let children = [];
 
   // onStart of this home page, send username to the backend and from there get and show the children details..
   const getChildrenDetails = async () => {
@@ -91,7 +93,7 @@ const UserHome = ({ navigation, route }) => {
       // get the response..
       const ChildrenDetails = await response.json();
 
-      children = ChildrenDetails;
+      setChildren(ChildrenDetails);
 
     } catch (error) {
       Alert.alert('Error in fetching the children data', error.message);
@@ -112,18 +114,17 @@ const UserHome = ({ navigation, route }) => {
     'girl5.png': require('../assets/childProfiles/girl5.png'),
   }
 
+  
+
   // color backgrounds for children Details container..
   let colorsArray = [colors.lightBluemui, colors.lightLime, colors.lightTeal, colors.lightOrangeMui, colors.lightBrown];
-
-  const childrenCount = children.length;
-
 
   let childrenData = children.map((child, index) => (
 
     <TouchableOpacity key={index} style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}>
       {/* chile profile avatar png */}
       <View style={styles.childAvatarContainer}>
-        <Image source={childProfileImages[child.profileAvatar]} />
+        <Image source={childProfileImages[child.profileAvatar]} style={styles.childAvatar}/>
       </View>
 
       {/* Information about the child */}
@@ -149,7 +150,11 @@ const UserHome = ({ navigation, route }) => {
         {/* Travelling Status */}
         <View style={styles.singleDetailBlock}>
           <Text style={styles.DetailPrompt}>Travelling Status: </Text>
-          <Text style={styles.DetailData}>On travel..</Text>
+          {
+            child.travellingStatus === 1 ? <Text style={{...styles.DetailData, color: colors.red}}>Travelling..</Text> 
+            : <Text style={{...styles.DetailData, color: colors.gray}}>Not Travelling..</Text>
+          }
+          
         </View>
 
       </View>
@@ -157,6 +162,19 @@ const UserHome = ({ navigation, route }) => {
     </TouchableOpacity>
 
   ));
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Call the function immediately
+      getChildrenDetails();
+  
+      // Then call the function every 2 seconds
+      const intervalId = setInterval(getChildrenDetails, 5000);
+  
+      // Clear the interval when the screen is unfocused
+      return () => clearInterval(intervalId);
+    }, [])
+  );
 
   return (
     <SafeAreaView style={styles.safearea}>
@@ -235,10 +253,6 @@ const UserHome = ({ navigation, route }) => {
           />
         </MapView> */}
 
-        {/* Logout button  */}
-        <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 50 }}>
-          <Text style={{ color: 'white', textAlign: 'center' }}>Logout: userHome</Text>
-        </TouchableOpacity>
 
         {/* Show the added children of a particular user... */}
         <View style={{ height: 412, width: '100%', marginTop: 40, }}>
@@ -272,6 +286,11 @@ const UserHome = ({ navigation, route }) => {
                 </View>
                 : childrenData
             }
+
+              {/* Logout button  */}
+              <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 50, marginBottom: 50, }}>
+                <Text style={{ color: 'white', textAlign: 'center' }}>Logout: userHome</Text>
+              </TouchableOpacity>
 
           </ScrollView>
         </View>
@@ -334,6 +353,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 50,
     borderColor: colors.red,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  childAvatar: {
+    height: 89,
+    width: 89,
+    borderRadius: 50,
   },
 
   singleDetailBlock: {
@@ -349,7 +376,7 @@ const styles = StyleSheet.create({
   },
 
   DetailData: {
-    marginLeft: 10,
+    marginLeft: 8,
     color: colors.black,
     fontFamily: 'Outfit-Regular',
     fontSize: 15,

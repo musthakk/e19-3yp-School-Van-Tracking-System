@@ -28,7 +28,7 @@ import RamabhadraRegular from './assets/fonts/Ramabhadra-Regular.ttf';
 import OutfitBold from './assets/fonts/Outfit-Bold.ttf';
 import OutfitRegular from './assets/fonts/Outfit-Regular.ttf';
 import RobotoRegular from './assets/fonts/Roboto-Regular.ttf';
-
+import RobotoBold from './assets/fonts/Roboto-Bold.ttf';
 
 const Stack = createNativeStackNavigator(); // Initialize the native navigation stack..
 
@@ -45,6 +45,7 @@ export default function App() {
     'Outfit-Bold': OutfitBold,
     'Outfit-Regular': OutfitRegular,
     'Roboto-Regular': RobotoRegular,
+    'Roboto-Bold': RobotoBold,
 
   });
 

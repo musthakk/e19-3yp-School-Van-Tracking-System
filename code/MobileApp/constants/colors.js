@@ -17,7 +17,7 @@ const colors = {
     pink: '#FFC0CB',
     brown: '#A52A2A',
     cyan: '#00FFFF',
-    darkGreen: '#006400',
+    darkGreen: '#00b300',
     indigo: '#4B0082',
     lavender: '#E6E6FA',
     olive: '#808000',

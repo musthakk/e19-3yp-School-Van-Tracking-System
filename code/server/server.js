@@ -63,6 +63,13 @@ const driverSchema = new mongoose.Schema({
   assignedVehicle: { type: String},
 });
 
+// Definition of Agency schema to get the needed details of the agencies..
+const agencySchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  contactNumber: String,
+});
+
 // Create a User model based on the schema
 const User = mongoose.model('User', userSchema, 'Users');
 
@@ -71,6 +78,9 @@ const Driver = mongoose.model('Driver', driverSchema, 'Drivers');
 
 // Create a Children model based on the schema
 const Children = mongoose.model('Children', DetailedChildSchema, 'Children');
+
+// Create a Agency model basedn on the defined schema
+const Agency = mongoose.model('Agency', agencySchema, 'Admins');
 
 // Endpoint: Validate userName
 app.get('/validate-username', async (req, res) => {
@@ -307,6 +317,22 @@ app.post('/getChildrenInfo', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');
+  }
+
+});
+
+// Endpoint to show the minimum agency details to the user front end..
+app.get('/getAgencyInfo', async(req, res) => {
+
+  try{
+
+    const agencies = await Agency.find({},'name email contactNumber');
+    res.json(agencies);
+
+  }catch(err){
+
+    res.status(500).send(err);
+
   }
 
 });

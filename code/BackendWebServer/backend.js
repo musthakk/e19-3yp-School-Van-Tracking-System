@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
-const port = 3001;
+const port = 3000;
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
@@ -12,9 +12,6 @@ app.use(express.json()); // Enable parsing of JSON in requests
 
 const connectToDatabase = require("./mongoDB/connection");
 connectToDatabase();
-
-const initializeAWSIoTServer = require("./getLocation");
-initializeAWSIoTServer();
 
 const verifyAdmin = require("./verifyingAdmin/verifyingAdmin");
 
@@ -35,9 +32,7 @@ app.post("/verifyingAdmin", async (req, res, next) => {
   }
 });
 
-const adminAuthRoutes = require("./adminLogin");
-app.post("/Admin/login", adminAuthRoutes.adminLogin);
-app.get("/Admin/data", adminAuthRoutes.checkToken, adminAuthRoutes.adminData);
+require("./routes")(app);
 
 const getRegisteredUsers = require("./admin/gettingRegisteredUsers");
 app.use("/Admin", getRegisteredUsers);

@@ -2,27 +2,29 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const AdminMini = require("../models/AdminMini");
+const Admin = require("../models/adminModel");
 
 router.post("/signup", async (req, res) => {
   const { body } = req;
-  const { username, password } = body;
+  const { name, username, password, email, contactNumber } = body;
   try {
     // Check if the username already exists
-    const existingUser = await AdminMini.findOne({ username });
+    const existingUser = await Admin.findOne({ $or: [{ username }, { name }] });
     if (existingUser) {
-      console.log("Username already exists");
-      return res.status(400).send("Username already exists");
+      console.log("Username or agency already exists");
+      return res.status(400).send("Username or agency already exists");
     }
 
     // Hash the password before saving it to the database
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new AdminMini instance with the provided username and hashed password
-    const newAdmin = new AdminMini({
+    const newAdmin = new Admin({
       username,
       password: hashedPassword,
-      // You may want to add other properties if necessary
+      email,
+      name,
+      contactNumber,
     });
 
     // Save the new admin to the database

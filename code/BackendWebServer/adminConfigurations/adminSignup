@@ -1,0 +1,51 @@
+const jwt = require("jsonwebtoken");
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcrypt");
+const AdminMini = require("../models/AdminMini");
+
+router.post("/signup", async (req, res) => {
+  const { body } = req;
+  const { username, password } = body;
+  try {
+    // Check if the username already exists
+    const existingUser = await AdminMini.findOne({ username });
+    if (existingUser) {
+      console.log("Username already exists");
+      return res.status(400).send("Username already exists");
+    }
+
+    // Hash the password before saving it to the database
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new AdminMini instance with the provided username and hashed password
+    const newAdmin = new AdminMini({
+      username,
+      password: hashedPassword,
+      // You may want to add other properties if necessary
+    });
+
+    // Save the new admin to the database
+    const savedAdmin = await newAdmin.save();
+
+    // Optionally, you may generate a JWT token for the registered admin
+    jwt.sign(
+      { user: savedAdmin },
+      "privatekey",
+      { expiresIn: "1h" },
+      (err, token) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          res.send(token);
+        }
+      }
+    );
+  } catch (error) {
+    console.error("Error during registration:", error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+module.exports = router;

@@ -11,7 +11,7 @@ export function addNewBus(obj) {
   return http.post(urlWithQuery, obj);
 }
 
-export function getBuses() {
+export async function getBuses() {
   const apiEndpoint = `${apiUrl}/Admin/registeredVehicles`;
   const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
   return http.get(urlWithQuery);

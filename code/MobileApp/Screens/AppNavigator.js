@@ -13,10 +13,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = ({route}) => {
-
-  // define route parameters...
-  const {fullName, username, contactNumber, email, numberOfChildren} = route.params;
+const AppNavigator = () => {
 
   return (
     <Tab.Navigator
@@ -43,7 +40,6 @@ const AppNavigator = ({route}) => {
       <Tab.Screen 
         name="Home" 
         component={UserHome} 
-        initialParams={{fullName, username}}
         options={{ 
           headerShown: false,
           tabBarIcon: ({focused})=>(
@@ -58,7 +54,6 @@ const AppNavigator = ({route}) => {
       <Tab.Screen 
         name="Profile" 
         component={UserProfile}
-        initialParams={{fullName, username, contactNumber, email, numberOfChildren}}
         options={{ 
           tabBarIcon: ({focused})=>(
             <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4}}>

@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TextInput, Image, KeyboardAvoidingView, Alert, 
 import React, { useRef, useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SelectDropdown from 'react-native-select-dropdown';
+import { useNavigation } from '@react-navigation/native';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -14,6 +15,8 @@ import {isNumber } from 'lodash';
 
 
 const AddChild = () => {
+
+    const navigation = useNavigation();
 
     // track state of the textInputs..
     const [childName, setChildName] = useState("");
@@ -153,8 +156,7 @@ const AddChild = () => {
 
         if (data.success) {
             console.log('child has been added successfully');
-            navigation.navigate("userNavScreen");
-            alert("Child has been added succesfully... Wait for the Admin acceptance.");
+            Alert.alert("Child has been added succesfully... Wait for the Admin acceptance.");
         } else {
             console.error('Addition failed:', data.message);
         }

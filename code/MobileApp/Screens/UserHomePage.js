@@ -8,22 +8,13 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import colors from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-const UserHome = ({ navigation, route }) => {
+const UserHome = ({ navigation}) => {
 
-  // define route parameters..
-  const { fullName, username } = route.params;
-
-  // extract the firstName from the FullName
-
-  if (fullName) {
-    var firstName = fullName.split(" ")[0];
-  } else {
-    var firstName = "Log in again.."
-  }
-
+  // get username from the SecureStore
+  let username, firstname; // user's username and firstname,
 
   // track children details of the user..
-  const [children, setChildren] = useState([]);
+  const [userHomeDetails, setUserHomeDetails] = useState([]);
 
   // Restricting the back navigator button behavior in the home page.. 
   // useFocusEffect is used to point the restriction on home page when it's only active.
@@ -60,11 +51,8 @@ const UserHome = ({ navigation, route }) => {
     // clear user details..
     await SecureStore.deleteItemAsync('identity');
 
-    await SecureStore.deleteItemAsync('fullName');
     await SecureStore.deleteItemAsync('username');
-    await SecureStore.deleteItemAsync('contactNumber');
-    await SecureStore.deleteItemAsync('email');
-    await SecureStore.deleteItemAsync('numberOfChildren');
+  
 
     // Navigate back to the login screen
     navigation.replace('login');
@@ -72,10 +60,13 @@ const UserHome = ({ navigation, route }) => {
 
 
   // onStart of this home page, send username to the backend and from there get and show the children details..
-  const getChildrenDetails = async () => {
+  const getUserHomeDetails = async () => {
 
     try {
-      const response = await fetch('http://13.126.69.29:3000/getChildrenInfo', {
+      // get username of the user from the SecureStore.
+      username = await SecureStore.getItemAsync('username');
+
+      const response = await fetch('http://13.126.69.29:3000/getUserAndChildrenInfo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,9 +82,12 @@ const UserHome = ({ navigation, route }) => {
       }
 
       // get the response..
-      const ChildrenDetails = await response.json();
+      const userAndChildrenDetails = await response.json();     // full name of ther user.. and children details..
 
-      setChildren(ChildrenDetails);
+      setUserHomeDetails(userAndChildrenDetails);
+
+      // get firstname of the user..
+      firstname = userHomeDetails.parentFullName.split(" ")[0];
 
     } catch (error) {
       Alert.alert('Error in fetching the children data', error.message);
@@ -119,7 +113,7 @@ const UserHome = ({ navigation, route }) => {
   // color backgrounds for children Details container..
   let colorsArray = [colors.lightBluemui, colors.lightLime, colors.lightTeal, colors.lightOrangeMui, colors.lightBrown];
 
-  let childrenData = children.map((child, index) => (
+  let childrenData = userHomeDetails.childrenDetails.map((child, index) => (
 
     <TouchableOpacity key={index} style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}>
       {/* chile profile avatar png */}
@@ -166,10 +160,10 @@ const UserHome = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       // Call the function immediately
-      getChildrenDetails();
+      getUserHomeDetails();
   
       // Then call the function every 2 seconds
-      const intervalId = setInterval(getChildrenDetails, 5000);
+      const intervalId = setInterval(getUserHomeDetails, 5000);
   
       // Clear the interval when the screen is unfocused
       return () => clearInterval(intervalId);
@@ -220,7 +214,7 @@ const UserHome = ({ navigation, route }) => {
               fontFamily: 'Outfit-Bold',
             }}
           >
-            Hello {firstName}
+            Hello {firstname}
           </Text>
 
           {/* Track Your children prompt */}

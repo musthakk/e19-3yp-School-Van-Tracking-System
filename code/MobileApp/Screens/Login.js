@@ -65,37 +65,13 @@ const Login = ({navigation}) => {
             // Navigate to the next screen or perform other actions
             if(identity === "driver")
             {
-                // retrieve driver data from back end response..
-                const firstName = responseData.driver_first_name;
-                const lastName = responseData.driver_last_name;
-                const contactNumber = responseData.driver_contact_number;
-                const email = responseData.driver_email;
-                const assignedVehicle = responseData.driver_assigned_vehicle;
-
-                 // Store the details in SecureStore
-                await SecureStore.setItemAsync('firstName', firstName.toString());
-                await SecureStore.setItemAsync('lastName', lastName.toString());
-                await SecureStore.setItemAsync('contactNumber', contactNumber.toString());
-                await SecureStore.setItemAsync('email', email.toString());
-                await SecureStore.setItemAsync('assignedVehicle', assignedVehicle.toString());
-                
-                navigation.navigate('driverHome', {firstName, lastName, username, contactNumber, email, assignedVehicle})
+                // navigate to driver Home..
+                navigation.navigate('driverHome')
             } 
             else{
 
-                // retrieve user data from back end response..
-                const fullName = responseData.user_fullName;
-                const contactNumber = responseData.user_contactNumber;
-                const email = responseData.user_email;
-                const numberOfChildren = responseData.user_numberOfChildren;
-
-                // Store the details in SecureStore
-                await SecureStore.setItemAsync('fullName', fullName.toString());
-                await SecureStore.setItemAsync('contactNumber', contactNumber.toString());
-                await SecureStore.setItemAsync('email', email.toString());
-                await SecureStore.setItemAsync('numberOfChildren', numberOfChildren.toString());
-
-                navigation.navigate('userNavScreen', {fullName, username, contactNumber, email, numberOfChildren});
+                // navigate to userHomeScreen..
+                navigation.navigate('userNavScreen');
             }
             
 
@@ -112,25 +88,13 @@ const Login = ({navigation}) => {
 
         if(identity === 'driver')
         {
-            // retrieve driver data from secureStore..
-            const firstName = await SecureStore.getItemAsync('firstName');
-            const lastName = await SecureStore.getItemAsync('lastName');
-            const username =  await SecureStore.getItemAsync('username');
-            const contactNumber = await SecureStore.getItemAsync('contactNumber');
-            const email = await SecureStore.getItemAsync('email');
-            const assignedVehicle = await SecureStore.getItemAsync('assignedVehicle');
+            // add your driver login page 
 
         }else{
 
-            const fullName = await SecureStore.getItemAsync('fullName');
-            const username =  await SecureStore.getItemAsync('username');
-            const contactNumber = await SecureStore.getItemAsync('contactNumber');
-            const email = await SecureStore.getItemAsync('email');
-            const numberOfChildren = await SecureStore.getItemAsync('numberOfChildren');
-
             const initialRoute = isLoggedIn ? 'userNavScreen' : 'login';
 
-            navigation.navigate(initialRoute, {fullName, username, contactNumber, email, numberOfChildren});
+            navigation.navigate(initialRoute);
         }
         
     };

@@ -253,15 +253,9 @@ app.post('/login', async (req, res) => {
 
     // Generate a JWT token
     const token = jwt.sign({ driverId: driver.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
-  
-    // get the driver details to the front end
-    const driver_first_name = driver.firstName;
-    const driver_last_name = driver.lastName;
-    const driver_contact_number = driver.contactNumber;
-    const driver_email = driver.email;
-    const driver_assigned_vehicle = driver.assignedVehicle;
 
-    return res.json({ token, identification: "driver", driver_first_name, driver_last_name, driver_contact_number, driver_email, driver_assigned_vehicle});
+
+    return res.json({ token, identification: "driver"});
   }
 
   // Compare the entered password with the hashed password in the database
@@ -277,18 +271,13 @@ app.post('/login', async (req, res) => {
   // Generate a JWT token
   const token = jwt.sign({ userId: user.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
-  // get the user details to the front end
-  const user_fullName = user.fullName;
-  const user_contactNumber = user.contactNumber;
-  const user_email = user.email;
-  const user_numberOfChildren = (await Children.find({parent_username: username})).length;
 
-  res.json({ token, identification: "user", user_fullName, user_contactNumber, user_email, user_numberOfChildren});
+  res.json({ token, identification: "user"});
 });
 
 
 // End-point for get the children data of a user..
-app.post('/getChildrenInfo', async (req, res) => {
+app.post('/getUserAndChildrenInfo', async (req, res) => {
   const { username } = req.body;
 
   try {
@@ -305,7 +294,10 @@ app.post('/getChildrenInfo', async (req, res) => {
       travellingStatus: child.travellingStatus,
     }));
 
-    res.json(childrenDetails);
+    const user = await User.findOne({username});
+    const parentFullName = user ? user.fullName : '';
+
+    res.json({childrenDetails, parentFullName});
 
   } catch (error) {
     console.error(error);

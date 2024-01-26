@@ -11,10 +11,12 @@ import { Ionicons } from '@expo/vector-icons';
 const UserHome = ({ navigation}) => {
 
   // get username from the SecureStore
-  let username, firstname; // user's username and firstname,
+  let username; // user's username and firstname,
 
   // track children details of the user..
-  const [userHomeDetails, setUserHomeDetails] = useState([]);
+  const [childrenDetails, setchildrenDetails] = useState([]);
+
+  const [firstName, setFirstName] = useState('');
 
   // Restricting the back navigator button behavior in the home page.. 
   // useFocusEffect is used to point the restriction on home page when it's only active.
@@ -84,10 +86,9 @@ const UserHome = ({ navigation}) => {
       // get the response..
       const userAndChildrenDetails = await response.json();     // full name of ther user.. and children details..
 
-      setUserHomeDetails(userAndChildrenDetails);
-
-      // get firstname of the user..
-      firstname = userHomeDetails.parentFullName.split(" ")[0];
+      setFirstName(userAndChildrenDetails.parentFullName.split(" ")[0]);
+      
+      setchildrenDetails(userAndChildrenDetails.childrenDetails);
 
     } catch (error) {
       Alert.alert('Error in fetching the children data', error.message);
@@ -113,7 +114,8 @@ const UserHome = ({ navigation}) => {
   // color backgrounds for children Details container..
   let colorsArray = [colors.lightBluemui, colors.lightLime, colors.lightTeal, colors.lightOrangeMui, colors.lightBrown];
 
-  let childrenData = userHomeDetails.childrenDetails.map((child, index) => (
+
+  let childrenData = childrenDetails.map((child, index) => (
 
     <TouchableOpacity key={index} style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}>
       {/* chile profile avatar png */}
@@ -163,7 +165,7 @@ const UserHome = ({ navigation}) => {
       getUserHomeDetails();
   
       // Then call the function every 2 seconds
-      const intervalId = setInterval(getUserHomeDetails, 5000);
+      const intervalId = setInterval(getUserHomeDetails, 6000);
   
       // Clear the interval when the screen is unfocused
       return () => clearInterval(intervalId);
@@ -214,7 +216,7 @@ const UserHome = ({ navigation}) => {
               fontFamily: 'Outfit-Bold',
             }}
           >
-            Hello {firstname}
+            Hello {firstName}
           </Text>
 
           {/* Track Your children prompt */}

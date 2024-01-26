@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -8,21 +9,16 @@ import * as SecureStore from 'expo-secure-store';
 import colors from '../constants/colors'
 import { Ionicons } from '@expo/vector-icons'
 
-const UserProfile = ({ route }) => {
+const UserProfile = () => { 
 
-  const { fullName, username, contactNumber, email, numberOfChildren } = route.params;
-
-  /* Get the First letters from the frist name and last name of the full name and put those letters as Profile Avatar*/
-  const nameArray = fullName.split(" ");
-
-  let nameLetters = "";
-
-  for (let name of nameArray) {
-    nameLetters += name[0];
-  }
+  const [Username, setUsername] = useState('');
+  const [fullName, SetfullName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [mail, setMail] = useState("");
+  const [verifiedChildrenCount, setVerifiedChildrenCount] = useState("");
 
   // track change of Fullname of the user..
-  const [newFullname, setNewFullname] = useState(fullName);
+  const [newFullname, setNewFullname] = useState("");
 
   // track fullname editor visibility..
   const [editorVisible, setEditorVisible] = useState(false);
@@ -39,8 +35,75 @@ const UserProfile = ({ route }) => {
   // function to handle editor's cancel button..
   const cancelHandle = ()=>{
     setEditorVisible(false);
-    setNewFullname(fullName);
+    setNewFullname();
   }
+
+
+  // onStart of this userProfile page, send username to the backend and from there get and show his details..
+  const getUserProfile = async () => {
+
+    try {
+      // get username of the user from the SecureStore.
+      let username = await SecureStore.getItemAsync('username');
+
+      setUsername(username);
+
+      const response = await fetch('http://13.126.69.29:3000/getUserInfo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username
+        }),
+      });
+
+      if (!response.ok) {
+        // Handle non-successful response
+        throw new Error('Server Error.');
+      }
+
+      // get the response..
+      const userProfileInfo = await response.json();     // users personal information..
+      SetfullName(userProfileInfo.userDetails.fullName);
+      setPhoneNumber(userProfileInfo.userDetails.contactNumber);
+      setMail(userProfileInfo.userDetails.email);
+      setVerifiedChildrenCount(userProfileInfo.VerifiedchildrenCount);
+
+      
+
+    } catch (error) {
+      Alert.alert('Error in fetching the children data', error.message);
+    }
+
+  };
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Call the function immediately
+      getUserProfile();
+  
+      // Then call the function every 2 seconds
+      const intervalId = setInterval(getUserProfile, 6000);
+  
+      // Clear the interval when the screen is unfocused
+      return () => clearInterval(intervalId);
+    }, [])
+  );
+
+
+
+
+  /* Get the First letters from the frist name and last name of the full name and put those letters as Profile Avatar*/
+  const nameArray = fullName.split(" ");
+
+  let nameLetters = "";
+
+  for (let name of nameArray) {
+    nameLetters += name[0];
+  }
+
 
   return (
     <SafeAreaView style={styles.safearea}>
@@ -136,7 +199,7 @@ const UserProfile = ({ route }) => {
 
             <View style={styles.detailsTextContainer}>
               <Text style={styles.promptText}>Username</Text>
-              <Text style={styles.dataText}>{username}</Text>
+              <Text style={styles.dataText}>{Username}</Text>
             </View>
 
           </View>}
@@ -147,7 +210,7 @@ const UserProfile = ({ route }) => {
 
             <View style={styles.detailsTextContainer}>
               <Text style={styles.promptText}>Phone</Text>
-              <Text style={styles.dataText}>{contactNumber}</Text>
+              <Text style={styles.dataText}>{phoneNumber}</Text>
             </View>
 
           </View>}
@@ -158,7 +221,7 @@ const UserProfile = ({ route }) => {
 
             <View style={styles.detailsTextContainer}>
               <Text style={styles.promptText}>Mail</Text>
-              <Text style={styles.dataText}>{email}</Text>
+              <Text style={styles.dataText}>{mail}</Text>
             </View>
 
           </View>}
@@ -168,8 +231,8 @@ const UserProfile = ({ route }) => {
             <Ionicons name='people-outline' size={22} style={{ color: colors.gray }} />
 
             <View style={styles.detailsTextContainer}>
-              <Text style={styles.promptText}>Number of Children added:</Text>
-              <Text style={styles.dataText}>{numberOfChildren}</Text>
+              <Text style={styles.promptText}>Number of Children (Verified):</Text>
+              <Text style={styles.dataText}>{verifiedChildrenCount}</Text>
             </View>
 
           </View>}

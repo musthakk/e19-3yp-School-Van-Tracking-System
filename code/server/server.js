@@ -343,7 +343,7 @@ app.get('/getAgencyInfo', async(req, res) => {
 
   try{
 
-    const agencies = await Agency.find({},'name email contactNumber');
+    const agencies = await Agency.find({isVerified: true},'name email contactNumber');
     res.json(agencies);
 
   }catch(err){

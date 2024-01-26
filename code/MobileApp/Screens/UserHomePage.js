@@ -1,6 +1,6 @@
-import { View, Text, Alert, BackHandler, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, TextInput, Button } from 'react-native'
+import { View, Text, Alert, BackHandler, TouchableOpacity, StyleSheet, ScrollView, Image, RefreshControl } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, useCallback} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 
 import * as SecureStore from 'expo-secure-store';
@@ -9,6 +9,17 @@ import colors from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
 const UserHome = ({ navigation}) => {
+
+  // refresh control..
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getUserHomeDetails();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   // get username from the SecureStore
   let username; // user's username and firstname,
@@ -65,6 +76,7 @@ const UserHome = ({ navigation}) => {
   const getUserHomeDetails = async () => {
 
     try {
+      console.log('rendering');
       // get username of the user from the SecureStore.
       username = await SecureStore.getItemAsync('username');
 
@@ -163,12 +175,7 @@ const UserHome = ({ navigation}) => {
     React.useCallback(() => {
       // Call the function immediately
       getUserHomeDetails();
-  
-      // Then call the function every 2 seconds
-      const intervalId = setInterval(getUserHomeDetails, 6000);
-  
-      // Clear the interval when the screen is unfocused
-      return () => clearInterval(intervalId);
+
     }, [])
   );
 
@@ -258,6 +265,7 @@ const UserHome = ({ navigation}) => {
             }}
             showsVerticalScrollIndicator={false}
             pagingEnabled
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           >
             {
               childrenData.length === 0 ?

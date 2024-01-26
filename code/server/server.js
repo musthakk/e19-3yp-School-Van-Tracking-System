@@ -336,6 +336,30 @@ app.post('/getUserInfo', async (req, res) => {
 });
 
 
+// End point to modify the user's Fullname
+app.put('/modifyFullName', async (req, res) => {
+  const { Username, fullName } = req.body;
+
+  try {
+    const user = await User.findOne({ username: Username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.fullName = fullName;
+    await user.save();
+
+    res.json({ message: 'Full name updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+
+
 
 
 // Endpoint to show the minimum agency details to the user front end..

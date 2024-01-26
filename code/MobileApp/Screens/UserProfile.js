@@ -23,19 +23,46 @@ const UserProfile = () => {
   // track fullname editor visibility..
   const [editorVisible, setEditorVisible] = useState(false);
 
-  // functin to handle editor's save button..
+  // functin to handle editor's save button.. modify the fullname in the database through API end point..
   const saveHandle = async()=>{
-
     setEditorVisible(false);
-    await SecureStore.deleteItemAsync('fullName');
-    await SecureStore.setItemAsync('fullName', newFullname);
+    SetfullName(newFullname);
 
-  }
+    try{
+      const response = await fetch('http://13.126.69.29:3000/ModifyFullname', {
+        methodo: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.stringify({
+          Username,
+          fullName
+        }),
+      });
+
+      if(!response.ok){
+        // Handle non successfull response
+        throw new Error('Server Error.');
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        console.log('Full name updated successfully');
+      } else {
+        console.error('Update failed:', data.message);
+      }
+    }
+    catch(error){
+      Alert.alert('Error during update:', error.message);
+    }
+
+  };
 
   // function to handle editor's cancel button..
   const cancelHandle = ()=>{
     setEditorVisible(false);
-    setNewFullname();
+    setNewFullname(fullName);
   }
 
 
@@ -69,8 +96,7 @@ const UserProfile = () => {
       setPhoneNumber(userProfileInfo.userDetails.contactNumber);
       setMail(userProfileInfo.userDetails.email);
       setVerifiedChildrenCount(userProfileInfo.VerifiedchildrenCount);
-
-      
+      setNewFullname(fullName);
 
     } catch (error) {
       Alert.alert('Error in fetching the children data', error.message);
@@ -83,12 +109,6 @@ const UserProfile = () => {
     React.useCallback(() => {
       // Call the function immediately
       getUserProfile();
-  
-      // Then call the function every 2 seconds
-      const intervalId = setInterval(getUserProfile, 6000);
-  
-      // Clear the interval when the screen is unfocused
-      return () => clearInterval(intervalId);
     }, [])
   );
 

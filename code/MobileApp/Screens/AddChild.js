@@ -16,8 +16,6 @@ import {isNumber } from 'lodash';
 
 const AddChild = () => {
 
-    const navigation = useNavigation();
-
     // track state of the textInputs..
     const [childName, setChildName] = useState("");
     const [age, setAge] = useState("");
@@ -26,6 +24,7 @@ const AddChild = () => {
     const [pickupAddress, setPickupAddress] = useState("");
     const [agency, setAgency] = useState(null);
 
+    const [key, setKey] = useState(0);
 
 
     // fetch data of the agencies from the Database.
@@ -157,6 +156,8 @@ const AddChild = () => {
         if (data.success) {
             console.log('child has been added successfully');
             Alert.alert("Child has been added succesfully... Wait for the Admin acceptance.");
+            setKey(prevKey => prevKey + 1);
+
         } else {
             console.error('Addition failed:', data.message);
         }
@@ -173,7 +174,7 @@ const AddChild = () => {
     const pickupAddressInputRef = useRef(null);
     
   return (
-    <SafeAreaView style={styles.safearea}>
+    <SafeAreaView style={styles.safearea} key={key}>
         <View style={styles.container}>
 
         

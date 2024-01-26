@@ -16,6 +16,7 @@ import LocationTracking from "./components/LocationTracking";
 import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
 import auth from "./services/authService";
+import AdminDetails from "./components/adminDetails";
 
 class App extends Component {
   state = {
@@ -46,6 +47,7 @@ class App extends Component {
             "/assignBusses",
             "/LocationTracking",
             "/home",
+            "/adminDetails",
           ]}
           render={() => <NavBar user={user} />}
         />
@@ -68,6 +70,7 @@ class App extends Component {
             <Route path="/home" component={Home} />
             <Route path="/loginForm" component={LoginForm} />
             <Route path="/logout" component={Logout} />
+            <Route path="/adminDetails" component={AdminDetails} />
             <Redirect from="/" exact to="/loginForm" />
             <Redirect to="/not-found" />
           </Switch>

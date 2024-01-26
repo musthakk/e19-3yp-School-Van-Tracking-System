@@ -12,7 +12,7 @@ import NotFound from "./components/notFound";
 import RegisterForm from "./components/driverRegisterForm";
 import AmbulanceRegisterForm from "./components/mbulanceRegisterForm";
 import AssignBusses from "./components/assignBusses";
-import LocationTracking from "./components/LocationTracking";
+import SocketClient from "./components/LocationTracking";
 import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
 import auth from "./services/authService";
@@ -66,7 +66,7 @@ class App extends Component {
               component={AmbulanceRegisterForm}
             />
             <Route path="/assignBusses" component={AssignBusses} />
-            <Route path="/LocationTracking" component={LocationTracking} />
+            <Route path="/LocationTracking" component={SocketClient} />
             <Route path="/home" component={Home} />
             <Route path="/loginForm" component={LoginForm} />
             <Route path="/logout" component={Logout} />

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 import { getBuses } from "../services/busService";
 
 class Track extends Component {
@@ -22,9 +23,20 @@ class Track extends Component {
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Tracking {bus.vehicleID}</h5>
-              <a href="/LocationTracking" class="btn btn-primary">
-                Track
-              </a>
+              <Route
+                to="/LocationTracking"
+                render={(props) => (
+                  <a
+                    href="/LocationTracking"
+                    className="btn btn-primary"
+                    onClick={() =>
+                      props.history.push("/LocationTracking", { bus })
+                    }
+                  >
+                    Track
+                  </a>
+                )}
+              />
             </div>
           </div>
         ))}

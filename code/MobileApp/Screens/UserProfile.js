@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button, Alert } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -10,7 +10,8 @@ import colors from '../constants/colors'
 import { Ionicons } from '@expo/vector-icons'
 
 const UserProfile = () => { 
-
+  
+  const [nameLetterAvatar, setNameLetterAvatar] = useState("");
   const [Username, setUsername] = useState('');
   const [fullName, SetfullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -30,11 +31,11 @@ const UserProfile = () => {
 
     try{
       const response = await fetch('http://13.126.69.29:3000/ModifyFullname', {
-        methodo: 'PUT',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: json.stringify({
+        body: JSON.stringify({
           Username,
           fullName
         }),
@@ -46,9 +47,9 @@ const UserProfile = () => {
       }
 
       const data = await response.json();
-
+      console.log(data);
       if (data.success) {
-        console.log('Full name updated successfully');
+        console.log('Success: Full name updated successfully');
       } else {
         console.error('Update failed:', data.message);
       }
@@ -56,7 +57,6 @@ const UserProfile = () => {
     catch(error){
       Alert.alert('Error during update:', error.message);
     }
-
   };
 
   // function to handle editor's cancel button..
@@ -96,7 +96,6 @@ const UserProfile = () => {
       setPhoneNumber(userProfileInfo.userDetails.contactNumber);
       setMail(userProfileInfo.userDetails.email);
       setVerifiedChildrenCount(userProfileInfo.VerifiedchildrenCount);
-      setNewFullname(fullName);
 
     } catch (error) {
       Alert.alert('Error in fetching the children data', error.message);
@@ -116,14 +115,14 @@ const UserProfile = () => {
 
 
   /* Get the First letters from the frist name and last name of the full name and put those letters as Profile Avatar*/
-  const nameArray = fullName.split(" ");
-
-  let nameLetters = "";
-
-  for (let name of nameArray) {
-    nameLetters += name[0];
-  }
-
+  useEffect(() => {
+    const nameArray = fullName.split(" ");
+    let nameLetters = "";
+    for (let name of nameArray) {
+      nameLetters += name[0];
+    }
+    setNameLetterAvatar(nameLetters);
+  }, [fullName]);
 
   return (
     <SafeAreaView style={styles.safearea}>
@@ -141,7 +140,7 @@ const UserProfile = () => {
               alignItems: 'center',
             }}
           >
-            <Text style={{ fontSize: 40, }}>{nameLetters}</Text>
+            <Text style={{ fontSize: 40, }}>{nameLetterAvatar}</Text>
           </View>
         </View>
 
@@ -161,7 +160,10 @@ const UserProfile = () => {
 
             {/* Touchable icon to change the name of the user if he wants to change */}
             <TouchableOpacity
-              onPress={() => setEditorVisible(!editorVisible)}
+              onPress={() => {
+                setEditorVisible(!editorVisible);
+                setNewFullname(fullName);
+              }}
               style={{
                 position: 'absolute',
                 right: 2,

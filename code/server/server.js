@@ -350,7 +350,7 @@ app.put('/modifyFullName', async (req, res) => {
     user.fullName = fullName;
     await user.save();
 
-    res.json({ message: 'Full name updated successfully' });
+    res.json({ success: true });
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');

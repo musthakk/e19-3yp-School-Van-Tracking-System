@@ -338,7 +338,7 @@ app.post('/getUserInfo', async (req, res) => {
 
 // End point to modify the user's Fullname
 app.put('/modifyFullName', async (req, res) => {
-  const { Username, fullName } = req.body;
+  const { Username, newFullname } = req.body;
 
   try {
     const user = await User.findOne({ username: Username });
@@ -347,7 +347,7 @@ app.put('/modifyFullName', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    user.fullName = fullName;
+    user.fullName = newFullname;
     await user.save();
 
     res.json({ success: true });

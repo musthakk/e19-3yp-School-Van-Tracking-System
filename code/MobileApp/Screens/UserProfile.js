@@ -28,7 +28,7 @@ const UserProfile = () => {
   const saveHandle = async()=>{
     setEditorVisible(false);
     SetfullName(newFullname);
-
+    console.log(fullName);
     try{
       const response = await fetch('http://13.126.69.29:3000/ModifyFullname', {
         method: 'PUT',
@@ -37,7 +37,7 @@ const UserProfile = () => {
         },
         body: JSON.stringify({
           Username,
-          fullName
+          newFullname
         }),
       });
 

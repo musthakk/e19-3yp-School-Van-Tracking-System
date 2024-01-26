@@ -306,6 +306,38 @@ app.post('/getUserAndChildrenInfo', async (req, res) => {
 
 });
 
+// End-point for get the children data of a user..
+app.post('/getUserInfo', async (req, res) => {
+  const { username } = req.body;
+
+  try {
+
+    // Find the user with specific username
+    const user = await User.findOne({username});
+
+    // Map the user array to only include fullname, contactNumber, email.
+    const userDetails = {
+      fullName: user.fullName,
+      contactNumber: user.contactNumber,
+      email: user.email,
+    };
+
+    // Find children with the specific username
+    const VerifiedchildrenCount = (await Children.find({ parent_username: username, isVerified: true })).length;
+
+
+    res.json({userDetails, VerifiedchildrenCount});
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+
+});
+
+
+
+
 // Endpoint to show the minimum agency details to the user front end..
 app.get('/getAgencyInfo', async(req, res) => {
 

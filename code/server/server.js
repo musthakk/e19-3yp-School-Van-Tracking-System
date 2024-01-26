@@ -277,7 +277,7 @@ app.post('/login', async (req, res) => {
 
 
 // End-point for get the children data of a user..
-app.post('/getUserAndChildrenInfo', async (req, res) => {
+app.get('/getUserAndChildrenInfo', async (req, res) => {
   const { username } = req.body;
 
   try {
@@ -307,7 +307,7 @@ app.post('/getUserAndChildrenInfo', async (req, res) => {
 });
 
 // End-point for get the children data of a user..
-app.post('/getUserInfo', async (req, res) => {
+app.get('/getUserInfo', async (req, res) => {
   const { username } = req.body;
 
   try {

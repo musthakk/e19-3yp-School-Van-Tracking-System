@@ -62,11 +62,13 @@ class Bus extends Form {
             {this.renderButton("Save")}
           </form>{" "}
           <br />
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Assign Busses to new users</h5>
-              <p class="card-text">You can assign Busses to new users here</p>
-              <a href="/assignBusses" class="btn btn-primary">
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">Assign Busses to new users</h5>
+              <p className="card-text">
+                You can assign Busses to new users here
+              </p>
+              <a href="/assignBusses" className="btn btn-primary">
                 Assign Busses
               </a>
             </div>
@@ -75,7 +77,7 @@ class Bus extends Form {
 
         <div className="col">
           <h1>Busses</h1>
-          <table class="table">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">Licence Plate</th>

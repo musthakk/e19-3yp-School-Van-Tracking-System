@@ -19,7 +19,7 @@ class AssignBusses extends Component {
     return (
       <>
         <h1>Assign busses for the new users</h1>
-        <table class="table">
+        <table className="table">
           <thead>
             <tr>
               <th scope="col">Name</th>

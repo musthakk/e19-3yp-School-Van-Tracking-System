@@ -18,17 +18,20 @@ class Track extends Component {
 
   render({ busses } = this.state) {
     return (
-      <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div className="row row-cols-1 row-cols-md-3 g-4">
         {busses.map((bus) => (
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Tracking {bus.vehicleID}</h5>
+          <div className="card" key={bus.vehicleID}>
+            <div className="card-body">
+              <h5 className="card-title">Tracking {bus.vehicleID}</h5>
+              {/* <a href="/LocationTracking" className="btn btn-primary">
+                Track
+              </a> */}
               <Route
                 to="/LocationTracking"
                 render={(props) => (
                   <a
                     href="/LocationTracking"
-                    className="btn btn-primary"
+                    classNameName="btn btn-primary"
                     onClick={() =>
                       props.history.push("/LocationTracking", { bus })
                     }

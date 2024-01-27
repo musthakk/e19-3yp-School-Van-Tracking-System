@@ -33,6 +33,9 @@ app.post("/verifyingAdmin", async (req, res, next) => {
 const adminLogin = require("./adminConfigurations/adminLogin");
 app.use("/Admin", adminLogin);
 
+const { triggeringSnap } = require("./admin/triggeringSnap");
+app.use("/IoT", triggeringSnap);
+
 const adminSignup = require("./adminConfigurations/adminSignup");
 app.use("/Admin", adminSignup);
 

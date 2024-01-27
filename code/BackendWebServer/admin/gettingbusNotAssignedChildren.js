@@ -12,12 +12,10 @@ router.get("/busNotAssignedChildren", async (req, res) => {
         .json({ success: false, message: "Agency parameter is required" });
     }
 
-    const childDetails = await child
-      .find({
-        isVerified: 0,
-        Agency: agency,
-      })
-      .select("name school");
+    const childDetails = await child.find({
+      isVerified: 0,
+      Agency: agency,
+    });
 
     // Print the data to the console
     // console.log("Child Details:", childDetails);

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const vehicleSchema = new mongoose.Schema({
   vehicleID: { type: String },
   School: { type: String },
+  SchoolAddress: { type: String },
   seats: { type: Number },
   seatsFilled: { type: Number, default: 0 },
   Driver: { type: String, default: "" },

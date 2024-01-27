@@ -3,7 +3,7 @@ const router = express.Router();
 const bus = require("../models/vehicleModel");
 
 router.post("/vehicleRegistration", async (req, res) => {
-  const { vehicleNumber, School, seats, ThingName } = req.body;
+  const { vehicleNumber, School, SchoolAddress, seats, ThingName } = req.body;
   const { agency } = req.query; // Assuming the agency parameter is passed in the query string
 
   if (!agency) {
@@ -16,6 +16,7 @@ router.post("/vehicleRegistration", async (req, res) => {
     const newVehicle = new bus({
       vehicleID: vehicleNumber,
       School,
+      SchoolAddress,
       seats,
       agency,
       ThingName,
@@ -28,6 +29,7 @@ router.post("/vehicleRegistration", async (req, res) => {
     console.log("Received driver data:", {
       vehicleNumber,
       School,
+      SchoolAddress,
       seats,
       agency,
       ThingName,

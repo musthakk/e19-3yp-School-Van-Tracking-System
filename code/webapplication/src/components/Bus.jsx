@@ -9,6 +9,7 @@ class Bus extends Form {
     data: {
       vehicleNumber: "",
       School: "",
+      SchoolAddress: "",
       seats: "",
       ThingName: "",
     },
@@ -19,6 +20,7 @@ class Bus extends Form {
   schema = {
     vehicleNumber: Joi.string().required().min(6).max(7).label("Licence Plate"),
     School: Joi.string().required().label("School"),
+    SchoolAddress: Joi.string().required().label("SchoolAddress"),
     seats: Joi.number().required().label("Seats"),
     ThingName: Joi.string().required().length(6).label("ThingName"),
   };
@@ -38,6 +40,7 @@ class Bus extends Form {
       await addNewBus({
         vehicleNumber: data.vehicleNumber,
         School: data.School,
+        SchoolAddress: data.SchoolAddress,
         seats: data.seats,
         ThingName: data.ThingName,
       });
@@ -56,6 +59,7 @@ class Bus extends Form {
           <form onSubmit={this.handleSubmit}>
             {this.renderInput("vehicleNumber", "Licence Plate")}
             {this.renderInput("School", "School")}
+            {this.renderInput("SchoolAddress", "School Address")}
             {this.renderInput("seats", "Seats")}
             {this.renderInput("ThingName", "SureWay Serial Number")}
             <br />

@@ -47,21 +47,21 @@ const SocketClient = (props) => {
   const possition = { lat: 6.801803, lng: 79.922684 };
 
   return (
-    <div>
-      <h1>Received AWS IoT Messages:</h1>
+    <div style={{ height: "80vh", width: "100%" }}>
+      {/* <h1>Received AWS IoT Messages:</h1>
       <ul>
         {messages.map((message, index) => (
           <li key={index}>{JSON.stringify(message)}</li>
         ))}
-      </ul>
-      {/* <APIProvider apiKey="AIzaSyD3iZ52fsbEPy64MJPTVxJLlePde16xAMc">
+      </ul> */}
+      <APIProvider apiKey="AIzaSyD3iZ52fsbEPy64MJPTVxJLlePde16xAMc">
         <Map
           center={possition}
-          zoom={9}
+          zoom={12}
           mapId="5e1c67490bdc79a3"
           // fullscreenControl={false}
         ></Map>
-      </APIProvider> */}
+      </APIProvider>
     </div>
   );
 };

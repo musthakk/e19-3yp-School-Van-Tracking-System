@@ -1,53 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../images/logo.png";
 
 const NavBar = ({ user }) => {
   return (
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <Link class="navbar-brand" to="/">
-          SureWay
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/home">
+          <img src={logo} alt="SureWay Logo" height="30" />
         </Link>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <Link class="nav-link" to="/Track">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/Track">
                 Tracking
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/Bus">
+            <li className="nav-item">
+              <Link className="nav-link" to="/Bus">
                 Busses
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/RegisterUser">
+            <li className="nav-item">
+              <Link className="nav-link" to="/RegisterUser">
                 Register
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/UserRecord">
+            <li className="nav-item">
+              <Link className="nav-link" to="/UserRecord">
                 User Records
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/DriverRecord">
+            <li className="nav-item">
+              <Link className="nav-link" to="/DriverRecord">
                 Driver Records
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/ExtraService">
+            <li className="nav-item">
+              <Link className="nav-link" to="/ExtraService">
                 Services
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/adminDetails">
+            <li className="nav-item">
+              <Link className="nav-link" to="/adminDetails">
                 {user.username}
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/logout">
+            <li className="nav-item">
+              <Link className="nav-link" to="/logout">
                 Logout
               </Link>
             </li>

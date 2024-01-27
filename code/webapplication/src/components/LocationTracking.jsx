@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import {
+  APIProvider,
+  Map,
+  useMapsLibrary,
+  useMap,
+} from "@vis.gl/react-google-maps";
 
 const SocketClient = (props) => {
   const { bus } = props.location.state || {}; // Add default value for destructuring
@@ -38,6 +44,8 @@ const SocketClient = (props) => {
     console.log("Current messages state:", messages);
   }, [messages]);
 
+  const possition = { lat: 6.801803, lng: 79.922684 };
+
   return (
     <div>
       <h1>Received AWS IoT Messages:</h1>
@@ -46,6 +54,14 @@ const SocketClient = (props) => {
           <li key={index}>{JSON.stringify(message)}</li>
         ))}
       </ul>
+      {/* <APIProvider apiKey="AIzaSyD3iZ52fsbEPy64MJPTVxJLlePde16xAMc">
+        <Map
+          center={possition}
+          zoom={9}
+          mapId="5e1c67490bdc79a3"
+          // fullscreenControl={false}
+        ></Map>
+      </APIProvider> */}
     </div>
   );
 };

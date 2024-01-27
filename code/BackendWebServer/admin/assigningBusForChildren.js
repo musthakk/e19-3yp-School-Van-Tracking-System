@@ -15,7 +15,7 @@ router.put("/assigningBusForChildren", async (req, res) => {
 
   try {
     const foundChild = await child.findOne({
-      isVerified: 0,
+      isVerified: false,
       Agency: agency,
       parent_username,
       name,

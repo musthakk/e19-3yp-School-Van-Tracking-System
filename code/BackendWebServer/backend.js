@@ -36,6 +36,9 @@ app.use("/Admin", adminLogin);
 const assigningBusForChildren = require("./admin/assigningBusForChildren");
 app.use("/Admin/", assigningBusForChildren);
 
+const rejectRequest = require("./admin/rejectRequest");
+app.use("/Admin/", rejectRequest);
+
 const { triggeringSnap } = require("./admin/triggeringSnap");
 app.use("/IoT", triggeringSnap);
 

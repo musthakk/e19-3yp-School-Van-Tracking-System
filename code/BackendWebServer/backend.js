@@ -33,6 +33,15 @@ app.post("/verifyingAdmin", async (req, res, next) => {
 const adminLogin = require("./adminConfigurations/adminLogin");
 app.use("/Admin", adminLogin);
 
+const assigningBusForChildren = require("./admin/assigningBusForChildren");
+app.use("/Admin/", assigningBusForChildren);
+
+const rejectRequest = require("./admin/rejectRequest");
+app.use("/Admin/", rejectRequest);
+
+const { triggeringSnap } = require("./admin/triggeringSnap");
+app.use("/IoT", triggeringSnap);
+
 const adminSignup = require("./adminConfigurations/adminSignup");
 app.use("/Admin", adminSignup);
 

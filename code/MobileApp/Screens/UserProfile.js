@@ -28,7 +28,7 @@ const UserProfile = () => {
   const saveHandle = async()=>{
     setEditorVisible(false);
     SetfullName(newFullname);
-    console.log(fullName);
+
     try{
       const response = await fetch('http://13.126.69.29:3000/ModifyFullname', {
         method: 'PUT',
@@ -47,7 +47,7 @@ const UserProfile = () => {
       }
 
       const data = await response.json();
-      console.log(data);
+
       if (data.success) {
         console.log('Success: Full name updated successfully');
       } else {
@@ -116,9 +116,10 @@ const UserProfile = () => {
 
   /* Get the First letters from the frist name and last name of the full name and put those letters as Profile Avatar*/
   useEffect(() => {
-    const nameArray = fullName.split(" ");
+    const nameArray = fullName.trim().split(" ");
     let nameLetters = "";
     for (let name of nameArray) {
+      if(name[0] !== undefined)
       nameLetters += name[0];
     }
     setNameLetterAvatar(nameLetters);
@@ -193,7 +194,7 @@ const UserProfile = () => {
                   fontSize: 17,
                   fontFamily: 'Roboto-Bold',
                 }}
-                onChangeText={(text)=>setNewFullname(text)}
+                onChangeText={(text)=>{setNewFullname(text)}}
               />
             </View>
 

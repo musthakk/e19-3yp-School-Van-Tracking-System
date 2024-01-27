@@ -63,6 +63,23 @@ const agencySchema = new mongoose.Schema({
   contactNumber: String,
 });
 
+// Definition of Vehicle Schema to get the needed details of the vehicle
+const vehicleSchema = new mongoose.Schema({
+  vehicleID: String,
+  School: String,
+  SchoolAddress: String,
+  seats: Number,
+  seatsFilled: Number,
+  Driver: String, // this is not driver's name, it's username of the driver and it's unique
+  Children: [String],
+  ThingName: String,
+  agency: String,
+  travellingStatus: Number,
+  heading: Number,
+  returning: Number,
+})
+
+
 // Create a User model based on the schema
 const User = mongoose.model('User', userSchema, 'Users');
 
@@ -74,6 +91,12 @@ const Children = mongoose.model('Children', DetailedChildSchema, 'Children');
 
 // Create a Agency model basedn on the defined schema
 const Agency = mongoose.model('Agency', agencySchema, 'Admins');
+
+// Createa a Vehicle model based on the defined schema
+const Vehicle = mongoose.model('Vehicle', vehicleSchema, 'Vehicles')
+
+
+
 
 // Endpoint: Validate userName
 app.get('/validate-username', async (req, res) => {
@@ -96,6 +119,10 @@ app.get('/validate-username', async (req, res) => {
   }
 });
 
+
+
+
+
 // Endpoint: Validate email
 app.get('/validate-email', async (req, res) => {
   const { email } = req.query;
@@ -116,6 +143,9 @@ app.get('/validate-email', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+
 
 
 // Endpoint: Handles Registration.. When register button is pressed, data is sent to the mongoDb Atlas
@@ -201,6 +231,10 @@ const sendVerificationEmail = (userEmail, verificationToken) => {
   sendEmail(userEmail, subject, htmlContent);
 };
 
+
+
+
+
 // Endpoint: verify-email route
 app.get('/verify-email', async (req, res) => {
   const { token } = req.query;
@@ -226,6 +260,9 @@ app.get('/verify-email', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
+
+
+
 
 
 // Login endpoint
@@ -276,6 +313,9 @@ app.post('/login', async (req, res) => {
 });
 
 
+
+
+
 // End-point for get the children data of a user..
 app.post('/getUserAndChildrenInfo', async (req, res) => {
   const { username } = req.body;
@@ -305,6 +345,10 @@ app.post('/getUserAndChildrenInfo', async (req, res) => {
   }
 
 });
+
+
+
+
 
 // End-point for get the children data of a user..
 app.post('/getUserInfo', async (req, res) => {
@@ -336,6 +380,8 @@ app.post('/getUserInfo', async (req, res) => {
 });
 
 
+
+
 // End point to modify the user's Fullname
 app.put('/modifyFullName', async (req, res) => {
   const { Username, newFullname } = req.body;
@@ -361,6 +407,57 @@ app.put('/modifyFullName', async (req, res) => {
 
 
 
+// End-point for get the vehicle and driver details for the Map..
+app.post('/getChildTravelInfo', async (req, res) => {
+  const { username, childName } = req.body;
+
+  try {
+    // Find children with the specific username
+    const child = await Children.findOne({ parent_username: username, name: childName });
+
+    // take the needed details from the children collection..
+    const childDetails = {
+      agency: child.Agency,
+      vehicleID: child.vehicleID,
+      childTravellingStatus: child.travellingStatus,
+    };
+
+    // acess the vehicle collection using the vehicle ID which has been found from the childrenDetails..
+
+    const vehicle = await Vehicle.findOne({vehicleID: childDetails.vehicleID});
+
+    // take the needed details from the vehicle collection..
+    const vehicleDetails = {
+      driverUsername: vehicle.Driver,
+      vehicleTravellingStatus: vehicle.travellingStatus,
+      headingStatus: vehicle.heading,
+      returningStatus: vehicle.returning,
+      thingName: vehicle.ThingName,
+      assignedSchool: vehicle.School,
+      schoolAddress: vehicle.SchoolAddress,
+    }
+
+    // access the driver collection using the drierUsername found above..
+
+    const driver = await Driver.findOne({username: vehicleDetails.driverUsername});
+
+    // take needed details from the driver collection..
+    const driverDetails = {
+      fullName: driver.firstName + " " + driver.lastName,
+      contactNumber: driver.contactNumber,
+    };
+
+
+    res.json({childDetails, vehicleDetails, driverDetails});
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+
 
 // Endpoint to show the minimum agency details to the user front end..
 app.get('/getAgencyInfo', async(req, res) => {
@@ -377,6 +474,8 @@ app.get('/getAgencyInfo', async(req, res) => {
   }
 
 });
+
+
 
 // Endpoint to add children into the system
 app.post('/AddChild', async (req, res) => {
@@ -402,6 +501,8 @@ app.post('/AddChild', async (req, res) => {
       res.json({ success: false, message: error.message });
   }
 });
+
+
 
 app.listen(port, '0.0.0.0',() => {
   console.log(`Server is running on http://localhost:${port}`);

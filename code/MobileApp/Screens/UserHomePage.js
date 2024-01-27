@@ -76,7 +76,6 @@ const UserHome = ({ navigation}) => {
   const getUserHomeDetails = async () => {
 
     try {
-      console.log('rendering');
       // get username of the user from the SecureStore.
       username = await SecureStore.getItemAsync('username');
 
@@ -108,6 +107,18 @@ const UserHome = ({ navigation}) => {
 
   };
 
+  // function to navigate the user to the map view for track the varified child's travelling..
+  const trackChildren = (verifiedStatus, childName) => {
+    if(verifiedStatus){
+      // navigate the user to the tracking screen
+      navigation.navigate("mapScreen", {childName: childName});
+
+    }else{
+      Alert.alert("Can't Track...", // Title of the alert
+      "The child has not been verified by the Admin yet." // Message of the alert
+      )
+    }
+  };
 
   // Pre-define some profile images for the children
   const childProfileImages = {
@@ -129,7 +140,12 @@ const UserHome = ({ navigation}) => {
 
   let childrenData = childrenDetails.map((child, index) => (
 
-    <TouchableOpacity key={index} style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}>
+    <TouchableOpacity 
+      key={index} 
+      style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}
+      onPress={()=>trackChildren(child.verifiedStatus, child.name)}
+    >
+
       {/* chile profile avatar png */}
       <View style={styles.childAvatarContainer}>
         <Image source={childProfileImages[child.profileAvatar]} style={styles.childAvatar}/>
@@ -157,7 +173,7 @@ const UserHome = ({ navigation}) => {
 
         {/* Travelling Status */}
         <View style={styles.singleDetailBlock}>
-          <Text style={styles.DetailPrompt}>Travelling Status: </Text>
+          <Text style={styles.DetailPrompt}>Status: </Text>
           {
             child.travellingStatus === 1 ? <Text style={{...styles.DetailData, color: colors.red}}>Travelling..</Text> 
             : <Text style={{...styles.DetailData, color: colors.gray}}>Not Travelling..</Text>
@@ -166,6 +182,15 @@ const UserHome = ({ navigation}) => {
         </View>
 
       </View>
+
+      {/* indication symbol saying child is verified by the admin */}
+      {
+        (child.verifiedStatus)?(
+          <Ionicons name='checkmark-circle' size={50} style={{color: colors.green, position:'absolute', right:15,}}/>
+        ):(
+          <Ionicons name='checkmark-circle' size={50} style={{color: colors.red, position:'absolute', right:15,}}/>
+        )
+      }
 
     </TouchableOpacity>
 
@@ -239,23 +264,6 @@ const UserHome = ({ navigation}) => {
           </Text>
         </View>
 
-        {/* <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.map }
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: 100.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        >
-          <Marker
-            coordinate={{ latitude: 37.78825, longitude: 100.4324 }}
-            title="Your Location"
-            description="This is your current location"
-          />
-        </MapView> */}
-
 
         {/* Show the added children of a particular user... */}
         <View style={{ height: 412, width: '100%', marginTop: 40, }}>
@@ -277,7 +285,7 @@ const UserHome = ({ navigation}) => {
                 >
                   <Image
                     source={require('../assets/fileNotFound2.jpg')}
-                    style={{ height: 300, width: 300 }}
+                    style={{ height: 300, width: 300 ,}}
                   />
                   <Text
                     style={{
@@ -348,12 +356,12 @@ const styles = StyleSheet.create({
     borderColor: colors.black,
     alignItems: 'center',
     marginBottom: 8,
-    paddingHorizontal: 20,
+    paddingHorizontal: 18,
   },
 
   childAvatarContainer: {
-    height: 90,
-    width: 90,
+    height: 95,
+    width: 95,
     borderWidth: 2,
     borderRadius: 50,
     borderColor: colors.red,
@@ -362,8 +370,8 @@ const styles = StyleSheet.create({
   },
 
   childAvatar: {
-    height: 89,
-    width: 89,
+    height: 90,
+    width: 90,
     borderRadius: 50,
   },
 
@@ -376,14 +384,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     color: colors.black,
     fontFamily: 'Outfit-Bold',
-    fontSize: 15,
+    fontSize: 14,
   },
 
   DetailData: {
     marginLeft: 8,
     color: colors.black,
     fontFamily: 'Outfit-Regular',
-    fontSize: 15,
+    fontSize: 14,
   },
 
 

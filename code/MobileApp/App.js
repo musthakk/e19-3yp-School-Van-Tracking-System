@@ -16,6 +16,9 @@ import AddChild from './Screens/AddChild';
 // Screens for Drivers
 import DriverHome from './Screens/DriverHome';
 
+// GoogleMap API screen
+import MapScreen from './Screens/MapScreen';
+
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
 
 
@@ -106,6 +109,13 @@ export default function App() {
             ),
           }}
         />
+
+        {/* Map Screen */}
+        <Stack.Screen 
+          name='mapScreen' 
+          component={MapScreen}
+          options={{ headerShown: false }} 
+        />  
 
       </Stack.Navigator>
     </NavigationContainer>

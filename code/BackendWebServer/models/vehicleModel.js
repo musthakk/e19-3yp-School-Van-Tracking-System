@@ -9,6 +9,7 @@ const vehicleSchema = new mongoose.Schema({
   Children: { type: Array },
   agency: { type: String },
   ThingName: { type: String },
+  Snap: { type: String, default: "" },
 });
 
 const Vehicle = mongoose.model("Vehicle", vehicleSchema, "Vehicles");

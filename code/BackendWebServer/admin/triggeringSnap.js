@@ -1,22 +1,32 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const awsIot = require("aws-iot-device-sdk");
+const AWS = require("aws-sdk");
 const fs = require("fs");
+const bus = require("../models/vehicleModel");
+const driver = require("../models/driverModel");
 
-const triggeringSnap = express.Router(); // Create an instance of express.Router()
+const triggeringSnap = express.Router();
 triggeringSnap.use(bodyParser.json());
 
 // Configure AWS IoT
 const endpoint = "a2acc7p4itkz1x-ats.iot.eu-north-1.amazonaws.com";
-const thingName = "ESP32";
 const rootCAPath = "./permissions/rootCA.pem";
 const privateKeyPath = "./permissions/private.key";
 const certificatePath = "./permissions/cert.crt";
 
+// Configure AWS SDK for S3
+AWS.config.update({
+  accessKeyId: "AKIARQCOUAYAL7JKHBWJ",
+  secretAccessKey: "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",
+  region: "eu-north-1",
+});
+
+const s3 = new AWS.S3();
+
 // Function to create an AWS IoT device
 function createDevice() {
   return awsIot.device({
-    clientId: thingName,
     host: endpoint,
     port: 8883,
     keyPath: privateKeyPath,
@@ -29,7 +39,7 @@ function createDevice() {
 let device = createDevice();
 
 // Callback function for handling received messages
-function onMessage(topic, payload) {
+async function onMessage(topic, payload) {
   try {
     if (topic === "esp32/pub") {
       // Handle image messages
@@ -37,7 +47,52 @@ function onMessage(topic, payload) {
 
       // Assuming the payload is a binary image data
       // You may need to implement the logic to save/process the image data
-      fs.writeFileSync("received_image.jpg", payload);
+      const thingName = "SN0013";
+      // Upload the image to AWS S3
+      const params = {
+        Bucket: "snaps-of-esp32",
+        Key: `images/${thingName}/${Date.now()}_received_image.jpg`, // Use a unique key for each image
+        Body: payload,
+        ContentType: "image/jpeg",
+      };
+
+      const s3UploadResponse = await s3.upload(params).promise();
+
+      // Store the S3 URL in the database (Replace this with your database logic)
+      const imageUrl = s3UploadResponse.Location;
+      const specificBus = await bus.findOne({ ThingName: thingName });
+
+      if (specificBus) {
+        try {
+          const updatedBus = await bus.updateOne(
+            { _id: specificBus._id }, // Assuming _id is the unique identifier of your bus document
+            { $set: { Snap: imageUrl } }
+          );
+
+          const specificDriver = await driver.findOne({
+            username: specificBus.Driver,
+          });
+
+          if (specificDriver) {
+            try {
+              const updatedDriver = await driver.updateOne(
+                { _id: specificDriver._id }, // Use specificDriver._id as the unique identifier
+                { $push: { Snap: imageUrl } } // Just push to Snap directly, no need for specificDriver.Snap
+              );
+            } catch (error) {
+              console.error(`Error updating driver document: ${error}`);
+            }
+          } else {
+            console.log("Driver not found");
+          }
+        } catch (error) {
+          console.error(`Error updating document: ${error}`);
+        }
+      } else {
+        console.log("Bus not found");
+      }
+
+      console.log(`Image uploaded to S3. S3 URL: ${imageUrl}`);
     } else {
       // Handle other types of messages
       const messagePayload = JSON.parse(payload.toString());
@@ -74,7 +129,7 @@ triggeringSnap.post("/triggeringSnap", (req, res) => {
     publishTopic,
     JSON.stringify(message),
     { qos: 1 },
-    function (err) {
+    async function (err) {
       if (!err) {
         console.log(`Published message to topic ${publishTopic}:`, message);
         res

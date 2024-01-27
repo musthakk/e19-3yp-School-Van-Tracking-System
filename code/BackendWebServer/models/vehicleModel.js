@@ -13,6 +13,7 @@ const vehicleSchema = new mongoose.Schema({
   Snap: { type: String, default: "" },
   heading: { type: Number, default: 0 },
   returning: { type: Number, default: 0 },
+  travellingStatus: { type: Number, default: 0 },
 });
 
 const Vehicle = mongoose.model("Vehicle", vehicleSchema, "Vehicles");

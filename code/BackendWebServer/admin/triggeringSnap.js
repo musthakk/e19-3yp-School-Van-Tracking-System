@@ -48,6 +48,10 @@ async function onMessage(topic, payload) {
       // Assuming the payload is a binary image data
       // You may need to implement the logic to save/process the image data
       const thingName = "SN0013";
+      const localImagePath = `received_image.jpg`; // Local directory path
+
+      // Save the image locally
+      fs.writeFileSync(localImagePath, payload);
       // Upload the image to AWS S3
       const params = {
         Bucket: "snaps-of-esp32",

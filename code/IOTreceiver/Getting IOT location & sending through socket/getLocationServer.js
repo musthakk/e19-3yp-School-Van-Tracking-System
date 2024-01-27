@@ -4,10 +4,7 @@ const socketIo = require("socket.io");
 
 // Configure AWS IoT
 const endpoint = "a2acc7p4itkz1x-ats.iot.eu-north-1.amazonaws.com";
-// const thingName = "Sample2";
-
 const rootCAPath = "./permissions/rootCA.pem.txt";
-
 const privateKeyPath = "./permissions/private.key.txt";
 const certificatePath = "./permissions/cert.crt.txt";
 
@@ -26,7 +23,7 @@ function initializeAWSIoTServer() {
   // Use cors middleware to handle CORS headers
   const io = socketIo(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "*", // Allow requests from any origin
       methods: ["GET", "POST"],
     },
   });
@@ -35,18 +32,18 @@ function initializeAWSIoTServer() {
     try {
       const messagePayload = JSON.parse(payload.toString());
       console.log(`Received message on topic ${topic}:`, messagePayload);
-  
+
       // Emit the message to connected Socket.IO clients under the ThingName
-      const { ThingName, ...rest } = messagePayload;
-      io.emit(ThingName, rest);
-  
+      const { thingName, ...rest } = messagePayload;
+      console.log(thingName);
+      io.emit(thingName, rest);
+
       // If you still want to emit under 'awsMessage', you can keep this line:
       // io.emit("awsMessage", messagePayload);
     } catch (error) {
       console.error(`Error parsing message on topic ${topic}:`, error.message);
     }
   }
-  
 
   device.on("connect", function () {
     console.log("AWS IoT Connected!");

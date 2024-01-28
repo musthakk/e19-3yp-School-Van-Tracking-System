@@ -51,6 +51,9 @@ app.use("/Admin", getRegisteredUsers);
 const getDrivers = require("./admin/gettingDrivers");
 app.use("/Admin", getDrivers);
 
+const gettingDriverSnaps = require("./admin/gettingDriverSnaps");
+app.use("/Admin", gettingDriverSnaps);
+
 const addingDrivers = require("./admin/driverRegistration");
 app.use("/Admin", addingDrivers);
 
@@ -59,6 +62,9 @@ app.use("/Admin", addingVehicles);
 
 const gettingVehicles = require("./admin/gettingRegisteredVehicles");
 app.use("/Admin", gettingVehicles);
+
+const gettingVehicleSnap = require("./admin/gettingVehicleSnap");
+app.use("/Admin", gettingVehicleSnap);
 
 const gettingbusNotAssignedChildren = require("./admin/gettingbusNotAssignedChildren");
 app.use("/Admin", gettingbusNotAssignedChildren);

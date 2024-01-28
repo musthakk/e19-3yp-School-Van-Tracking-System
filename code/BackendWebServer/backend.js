@@ -66,6 +66,9 @@ app.use("/Admin", addingVehicles);
 const gettingVehicles = require("./admin/gettingRegisteredVehicles");
 app.use("/Admin", gettingVehicles);
 
+const registeredVehiclesWithoutDriver = require("./admin/registeredVehiclesWithoutDriver");
+app.use("/Admin", registeredVehiclesWithoutDriver);
+
 const gettingVehicleSnap = require("./admin/gettingVehicleSnap");
 app.use("/Admin", gettingVehicleSnap);
 

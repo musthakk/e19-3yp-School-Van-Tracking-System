@@ -438,7 +438,6 @@ app.post('/getChildTravelInfo', async (req, res) => {
     }
 
     // access the driver collection using the drierUsername found above..
-    console.log(vehicleDetails.driverUsername);
     const driver = await Driver.findOne({username: vehicleDetails.driverUsername});
   
     // take needed details from the driver collection..

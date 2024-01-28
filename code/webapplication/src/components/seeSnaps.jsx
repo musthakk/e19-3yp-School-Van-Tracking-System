@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import { getDriverSnaps } from "../services/snapService";
 
 class SeeSnaps extends Component {
-  state = {
-    snaps: [],
-  };
+  //   state = {
+  //     snaps: [],
+  //   };
 
-  async componentDidMount() {
-    const { selectedDriver } = this.props.location.state;
-    console.log(selectedDriver);
-    try {
-      const { data } = await getDriverSnaps(selectedDriver);
-      this.setState({ snaps: data.driverSnaps });
-    } catch (error) {
-      console.error("Error fetching snaps:", error.message);
-    }
-  }
+  //   async componentDidMount() {
+  //     const { selectedDriver } = this.props.location.state;
+  //     console.log(selectedDriver);
+  //     try {
+  //       const { data } = await getDriverSnaps(selectedDriver);
+  //       this.setState({ snaps: data.driverSnaps });
+  //     } catch (error) {
+  //       console.error("Error fetching snaps:", error.message);
+  //     }
+  //   }
   render() {
     const { selectedDriver } = this.props.location.state;
     console.log(selectedDriver);

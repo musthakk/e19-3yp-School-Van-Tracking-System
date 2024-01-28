@@ -18,6 +18,7 @@ import Logout from "./components/logout";
 import auth from "./services/authService";
 import AdminDetails from "./components/adminDetails";
 import SeeSnaps from "./components/seeSnaps";
+import VehicleSnap from "./components/vehicleSnap";
 
 class App extends Component {
   state = {
@@ -50,6 +51,7 @@ class App extends Component {
             "/home",
             "/adminDetails",
             "/seeSnaps",
+            "/vehicleSnap",
           ]}
           render={() => <NavBar user={user} />}
         />
@@ -74,6 +76,7 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
             <Route path="/adminDetails" component={AdminDetails} />
             <Route path="/seeSnaps" component={SeeSnaps} />
+            <Route path="/vehicleSnap" component={VehicleSnap} />
             <Redirect from="/" exact to="/loginForm" />
             <Redirect to="/not-found" />
           </Switch>

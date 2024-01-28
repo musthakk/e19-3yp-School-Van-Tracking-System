@@ -443,8 +443,8 @@ app.post('/getChildTravelInfo', async (req, res) => {
 
     // take needed details from the driver collection..
     const driverDetails = {
-      fullName: driver.firstName + " " + driver.lastName,
-      contactNumber: driver.contactNumber,
+      fullName: (driver)? (driver.firstName+ " " +driver.lastName): "",
+      contactNumber: (driver)? driver.contactNumber : "XXXXXXXXXX",
     };
 
 

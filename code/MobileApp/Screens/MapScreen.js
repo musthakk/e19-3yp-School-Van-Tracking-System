@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert} from 'react-native'
-import React, { Fragment, Profiler, useEffect, useState } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 
 import * as SecureStore from 'expo-secure-store';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -10,10 +10,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 
-
-const MapScreen = ({navigation, route}) => {
+const MapScreen = ({ navigation, route }) => {
   // get the child name from the userHomePage.js
-  const {childName} = route.params;
+  const { childName } = route.params;
 
   // get the username of the user from the secureStore and store it..
   const [username, setUsername] = useState("");
@@ -23,12 +22,12 @@ const MapScreen = ({navigation, route}) => {
 
   // from the server end-point get details from chidren, driver, and vehicle collectino and store it as objects..
   // These below details will be used to populate the tracking interface with necessary information..
-  const [childDetail, setChildDetail] = useState(null);
-  const [vehicleDetail, setVehicleDetail] = useState(null);
-  const [driverDetail, setDriverDetail] = useState(null);
+  const [childDetail, setChildDetail] = useState({});
+  const [vehicleDetail, setVehicleDetail] = useState({});
+  const [driverDetail, setDriverDetail] = useState({});
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
     const getUsername = async () => {
       const result = await SecureStore.getItemAsync('username');
@@ -39,7 +38,7 @@ const MapScreen = ({navigation, route}) => {
     const getTravelInfo = async () => {
 
       try {
-        
+        const username = await SecureStore.getItemAsync('username');
         const response = await fetch('http://13.126.69.29:3000/getChildTravelInfo', {
           method: 'POST',
           headers: {
@@ -67,7 +66,7 @@ const MapScreen = ({navigation, route}) => {
 
         // fetch DriverDetail and set it..
         setDriverDetail(TravelInfo.driverDetails);
-        
+
 
       } catch (error) {
         Alert.alert('Error in fetching the children data', error.message);
@@ -81,11 +80,141 @@ const MapScreen = ({navigation, route}) => {
     // fetch the data from the database..
     getTravelInfo();
 
-  },[]);
+  }, []);
 
+
+  // data array to access the renderData
+  const data = [0,1];
+
+  // vehicle detail and driver detail to be rendered in a flat list..
+  const renderData = [
+
+    <View style={styles.DetailsContainer}>
+
+      {/* Image */}
+      <View style={styles.imageContainer}>
+        <Text
+          style={{
+            fontFamily: 'Outfit-Bold',
+            fontSize: 20,
+            marginBottom: 10,
+            color: colors.black,
+          }}
+        >
+          {childDetail.vehicleID}
+        </Text>
+        <Image source={require('../assets/van.png')} style={{ height: 91.233, width: 140 }} />
+      </View>
+
+      {/* Texts */}
+      <View style={{...styles.TextContainer, justifyContent: 'center'}}>
+
+        {/* Transportation Status */}
+        <View
+          style={{
+            marginBottom: 15,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={styles.textTitle}>Transportation Status:</Text>
+          {
+            (vehicleDetail.vehicleTravellingStatus === 1) ?
+              <Text style={styles.responsePositive}>In Progress..</Text> :
+              <Text style={styles.responseNegative}>Not in Progress..</Text>
+          }
+
+        </View>
+
+        {/* Progress */}
+        {
+          (vehicleDetail.vehicleTravellingStatus === 1) ?
+            (
+              <View
+                style={{
+                  borderTopWidth: 1,
+                  borderTopColor: colors.gray,
+                  paddingTop: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <Text style={styles.textTitle}>Progress:</Text>
+
+                {
+                  (vehicleDetail.headingStatus === 1) ? (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text style={styles.response}>Home</Text>
+                      <Ionicons name='arrow-forward-sharp' size={23} style={{ marginHorizontal: 5, color: colors.darkGreen }} />
+                      <Text style={styles.response}>School</Text>
+                    </View>
+
+                  ) : (
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text style={styles.response}>School</Text>
+                      <Ionicons name='arrow-forward-sharp' size={23} style={{ marginHorizontal: 5, color: colors.darkGreen }} />
+                      <Text style={styles.response}>Home</Text>
+                    </View>)
+                }
+
+              </View>
+            ) : (<></>)
+        }
+
+      </View>
+    </View>,
+
+    <View style={styles.DetailsContainer}>
+
+      {/* Image */}
+      <View style={styles.imageContainer}>
+        <Text
+          style={{
+            fontFamily: 'Outfit-Bold',
+            fontSize: 20,
+            marginBottom: 10,
+            color: colors.black,
+          }}
+        >
+          Driver
+        </Text>
+        <Image source={require('../assets/driver.png')} style={{ height: 140, width: 140, }} />
+      </View>
+
+      {/* Texts */}
+      <View style={styles.TextContainer}>
+
+        <View
+          style={{
+            marginLeft: 20,
+            marginTop: 40,
+            paddingBottom: 5,
+            borderBottomWidth: 1,
+            borderBottomColor: colors.gray,
+
+          }}
+        >
+          <Text style={styles.textTitle}>Name:</Text>
+          <Text style={styles.response}>{driverDetail.fullName}</Text>
+        </View>
+
+        <View
+          style={{
+            marginLeft: 20,
+            marginTop: 5,
+          }}
+        >
+          <Text style={styles.textTitle}>Contact Number: </Text>
+          <Text style={styles.response}>{driverDetail.contactNumber}</Text>
+        </View>
+      </View>
+
+    </View>
+
+  ]
 
   return (
-    
+
     <View style={styles.container}>
       <View
         style={{
@@ -97,7 +226,7 @@ const MapScreen = ({navigation, route}) => {
 
       </View>
 
-      <View 
+      <View
         style={{
           marginTop: 43,
           flex: 1,
@@ -105,7 +234,7 @@ const MapScreen = ({navigation, route}) => {
       >
         <MapView
           provider={PROVIDER_GOOGLE}
-          style={styles.map }
+          style={styles.map}
           initialRegion={{
             latitude: 7.251916,
             longitude: 80.592455,
@@ -122,57 +251,67 @@ const MapScreen = ({navigation, route}) => {
         </MapView>
 
       </View>
-      
+
       {/* Header container.. */}
       <View style={styles.Header}>
         <TouchableOpacity
           style={{
-            position: 'absolute', 
+            position: 'absolute',
             left: 20
           }}
 
-          onPress={()=>navigation.navigate("userNavScreen")}
+          onPress={() => navigation.navigate("userNavScreen")}
         >
-          <Ionicons name='arrow-back' size={35}/>
+          <Ionicons name='arrow-back' size={35} />
         </TouchableOpacity>
-        
 
-        <Text style={{alignSelf: 'center', fontSize: 30, fontFamily: 'Outfit-Bold'}}>{childName}</Text>
-        
+
+        <Text style={{ alignSelf: 'center', fontSize: 30, fontFamily: 'Outfit-Bold' }}>{childName}</Text>
+
       </View>
 
       {/* showInfo or Info */}
       <View style={styles.footer}>
-        
+
         {
-          (!showInfo)? (
-
+          (!showInfo) ? (
+            // show Info Button
             <TouchableOpacity
-            style={styles.showInfoButton}
-            onPress={()=>{setShowInfo(true)}}
+              style={styles.showInfoButton}
+              onPress={() => { setShowInfo(true) }}
             >
-              <Text style={{fontSize: 22, fontFamily:'Outfit-Bold', color: colors.white}}>Travel Info</Text>
-            </TouchableOpacity> 
+              <Text style={{ fontSize: 22, fontFamily: 'Outfit-Bold', color: colors.white }}>Travel Info</Text>
+            </TouchableOpacity>
 
-          ):(
+          ) : (
+
+            // Info Container..
 
             <View style={styles.InfoContainer}>
-              
-              <View style={styles.DetailsContainer}>
 
-              </View>
+              <Text style={styles.agencyNameText}>{childDetail.agency}</Text>
 
+              <FlatList
+                style={styles.flatList}
+                data={data}
+                renderItem={({item}) => renderData[item]} 
+                horizontal={true}
+                // showsHorizontalScrollIndicator={false}
+                bounces={false}
+              />
+
+              {/* Minimize Button */}
               <TouchableOpacity
-              style={styles.minimizeButton}
-              onPress={()=>{setShowInfo(false)}}
+                style={styles.minimizeButton}
+                onPress={() => { setShowInfo(false) }}
               >
-                <Text style={{fontSize: 22, fontFamily:'Outfit-Bold', color: colors.white}}>Minimize</Text>
-              </TouchableOpacity> 
+                <Text style={{ fontSize: 22, fontFamily: 'Roboto-Bold', color: colors.white }}>Minimize</Text>
+              </TouchableOpacity>
             </View>
 
           )
         }
-        
+
       </View>
 
 
@@ -184,103 +323,167 @@ const MapScreen = ({navigation, route}) => {
 
 const styles = StyleSheet.create({
 
-    container: {
-        flex: 1,
+  container: {
+    flex: 1,
+  },
+
+  map: {
+    flex: 1,
+    width: '100%',
+  },
+
+  Header: {
+    flexDirection: 'row',
+    position: 'absolute',
+    top: 43,
+    height: 65,
+    width: '100%',
+    alignSelf: 'center',
+    backgroundColor: colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1, // Add this line
+
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+    elevation: 8,
 
-    map: {
-        flex: 1,
-        width: '100%',
+  },
+
+  footer: {
+    position: 'absolute',
+    bottom: 10,
+    alignSelf: 'center',
+  },
+
+  showInfoButton: {
+    height: 70,
+    width: 380,
+    borderRadius: 10,
+    backgroundColor: colors.orange,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+
+  InfoContainer: {
+    height: 360,
+    width: 380,
+    backgroundColor: colors.white,
+    borderRadius: 20,
+
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
+    shadowOpacity: 0.8,
+    shadowRadius: 3.84,
+    elevation: 8,
 
-    Header: {
-      flexDirection: 'row',
-      position: 'absolute',
-      top: 43, 
-      height: 65,
-      width: '100%',
-      alignSelf: 'center',
-      backgroundColor: colors.white,
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 1, // Add this line
+  },
 
-      shadowColor: colors.black,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.5,
-      shadowRadius: 3.84,
-      elevation: 8,
-      
+  flatList: {
+    height: 220,
+    position: 'absolute',
+    bottom: 90,
+  },  
+
+  DetailsContainer: {
+    flexDirection: 'row',
+    height: 200,
+    width: 360,
+    marginHorizontal: 10,
+    backgroundColor: colors.lightGray,
+    borderRadius: 20,
+    alignSelf: 'center',
+    paddingHorizontal: 15,
+
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 4,
+  },
 
-    footer: {
-      position: 'absolute',
-      bottom: 10,
-      alignSelf: 'center',
-    },
+  imageContainer: {
+    height: 180,
+    width: 150,
+    borderRightWidth: 1,
+    borderRightColor: colors.black,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
 
-    showInfoButton: {
-      height: 70,
-      width: 380, 
-      borderRadius: 10,
-      backgroundColor: colors.orange,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
+  TextContainer: {
+    height: 180,
+    width: 170,
+    alignSelf: 'center',
+    marginLeft: 10,
+  },
 
+  textTitle: {
+    fontSize: 15,
+    fontFamily: 'Roboto-Bold',
+    marginBottom: 5,
+  },
 
-    InfoContainer:{
-      height: 360,
-      width: 380,
-      backgroundColor: colors.white,
-      borderRadius: 20,
+  response: {
+    fontSize: 15,
+    fontFamily: 'Roboto-Regular',
+  },
 
-      shadowColor: colors.black,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.8,
-      shadowRadius: 3.84,
-      elevation: 8,
+  responsePositive: {
+    height: 23,
+    fontSize: 15,
+    fontFamily: 'Roboto-Regular',
+    color: colors.white,
+    borderRadius: 10,
+    alignSelf: 'center',
+    paddingHorizontal: 5,
+    backgroundColor: colors.darkGreen,
+  },
 
-    },
+  responseNegative: {
+    height: 23,
+    fontSize: 15,
+    fontFamily: 'Roboto-Regular',
+    color: colors.white,
+    borderRadius: 10,
+    alignSelf: 'center',
+    paddingHorizontal: 5,
+    backgroundColor: colors.red,
+  },
 
-    DetailsContainer:{
-      height: 200,
-      width: 360,
-      backgroundColor: colors.lightGray,
-      borderRadius: 20,
-      borderColor: colors.lightGray,
-      borderWidth: 1,
-      position: 'absolute',
-      bottom: 100,
-      alignSelf: 'center',
+  agencyNameText: {
+    fontSize: 30,
+    fontFamily: 'NotoSansMono-Bold',
+    paddingTop: 10,
+    alignSelf: 'center',
+    color: colors.gray,
+  },
 
-      shadowColor: colors.black,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.8,
-      shadowRadius: 3.84,
-      elevation: 4,
-    },
-
-    minimizeButton: {
-      position: 'absolute',
-      bottom: 15,
-      height: 60,
-      width: 300, 
-      borderRadius: 20,
-      backgroundColor: colors.black,
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignSelf: 'center',
-    }
+  minimizeButton: {
+    position: 'absolute',
+    bottom: 15,
+    height: 60,
+    width: 300,
+    borderRadius: 20,
+    backgroundColor: colors.black,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  }
 
 });
 

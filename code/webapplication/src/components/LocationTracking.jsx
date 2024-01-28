@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useRef, memo } from "react";
+import { Route } from "react-router-dom";
+import { gettVehicleSnap } from "../services/snapService";
+import { triggerSnap } from "../services/snapService";
 import io from "socket.io-client";
 import {
   APIProvider,
@@ -70,6 +73,25 @@ const SocketClient = (props) => {
           </Map>
         </APIProvider>
       </div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        onClick={() => triggerSnap({ thingName: bus?.ThingName })}
+      >
+        Snap
+      </button>
+      <Route
+        to="/vehicleSnap"
+        render={(props) => (
+          <a
+            href="/vehicleSnap"
+            className="btn btn-primary"
+            onClick={() => props.history.push("/vehicleSnap", { bus })}
+          >
+            See Last Snap
+          </a>
+        )}
+      />
       <div>
         <h1>Received AWS IoT Messages:</h1>
         <ul>

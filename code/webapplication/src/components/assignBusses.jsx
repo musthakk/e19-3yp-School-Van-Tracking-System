@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { getUnasignedChildren, rejectRequest } from "../services/busService";
+import Select from "./common/select";
 
 class AssignBusses extends Component {
   state = {
     children: [],
+    busses: [],
   };
 
   async componentDidMount() {
@@ -37,6 +39,7 @@ class AssignBusses extends Component {
               <th scope="col">Name</th>
               <th scope="col">School</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +56,12 @@ class AssignBusses extends Component {
                     >
                       Reject
                     </button>
+                  </td>
+                  <td>
+                    <Select
+                      options={["Bus 1", "Bus 2", "Bus 3"]}
+                      label="Choose a vehicle"
+                    />
                   </td>
                 </tr>
               ))}

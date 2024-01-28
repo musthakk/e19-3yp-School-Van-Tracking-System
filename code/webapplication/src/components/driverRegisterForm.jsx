@@ -15,6 +15,7 @@ class RegisterForm extends Form {
       addressD: "",
       nicD: "",
       licensenumberD: "",
+      assignedVehicle: "",
     },
     errors: {},
     successMessage: "", // New state variable for success message
@@ -30,6 +31,7 @@ class RegisterForm extends Form {
     addressD: Joi.string().required().label("Address"),
     nicD: Joi.string().required().min(10).max(12).label("NIC"),
     licensenumberD: Joi.string().required().label("License Number"),
+    assignedVehicle: Joi.string().required().label("AssignedVehicle"),
   };
 
   doSubmit = async () => {
@@ -45,6 +47,7 @@ class RegisterForm extends Form {
         addressD: data.addressD,
         nicD: data.nicD,
         licensenumberD: data.licensenumberD,
+        assignedVehicle: data.assignedVehicle,
       });
       // Optionally, you can redirect the user or perform other actions after the bus is successfully added.
       console.log("Driver added successfully!");
@@ -66,6 +69,7 @@ class RegisterForm extends Form {
           {this.renderInput("emailD", "Email")}
           {this.renderInput("addressD", "Address")}
           {this.renderInput("nicD", "NIC")}
+          {this.renderInput("assignedVehicle", "Assigned Vehicle")}
           {this.renderInput("licensenumberD", "License Number")} <br />
           {this.renderButton("Register")}
           {/* {this.renderSelect("genreId", "Genre", this.state.bu)} */}

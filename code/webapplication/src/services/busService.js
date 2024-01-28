@@ -32,5 +32,5 @@ export async function rejectRequest(obj) {
 export async function getMatchingBusses(obj) {
   const apiEndpoint = `${apiUrl}/Admin/gettingMatchingAvailableBus`;
   const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
-  return http.get(urlWithQuery, obj);
+  return http.get(urlWithQuery, { params: obj });
 }

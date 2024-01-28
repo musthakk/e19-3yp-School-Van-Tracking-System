@@ -4,10 +4,10 @@ const bus = require("../models/vehicleModel");
 
 router.get("/gettingMatchingAvailableBus", async (req, res) => {
   try {
-    const { School } = req.body;
-    console.log(School);
+    const { School } = req.query;
+    console.log(req.body);
     const { agency } = req.query; // Assuming the agency parameter is passed in the query string
-    console.log(agency);
+    console.log(req.query);
 
     if (!agency) {
       return res

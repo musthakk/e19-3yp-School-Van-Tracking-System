@@ -327,6 +327,10 @@ app.post('/getUserAndChildrenInfo', async (req, res) => {
     // Map the children array to only include the name, agency, and profileAvatar fields
     const childrenDetails = children.map(child => ({
       name: child.name,
+      age: child.age,
+      school: child.school,
+      grade: child.grade,
+      pickupAddress: child.pickupAddress,
       agency: child.Agency,
       vehicleID: child.vehicleID,
       profileAvatar: child.profileAvatar,

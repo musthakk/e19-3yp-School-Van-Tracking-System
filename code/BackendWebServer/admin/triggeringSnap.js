@@ -58,7 +58,7 @@ async function onMessage(topic, payload) {
 
       // Upload the image to AWS S3
       const params = {
-        Bucket: "snaps-of-esp32",
+        Bucket: "snaps-of-esp-32",
         Key: `images/${thingName}/${Date.now()}_received_image.jpg`, // Use a unique key for each image
         Body: Buffer.from(imageData, "base64"),
         ContentType: "image/jpeg",

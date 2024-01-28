@@ -40,7 +40,7 @@ const rejectRequest = require("./admin/rejectRequest");
 app.use("/Admin", rejectRequest);
 
 const { triggeringSnap } = require("./admin/triggeringSnap");
-app.use("/IoT", triggeringSnap);
+app.use("/Admin", triggeringSnap);
 
 const adminSignup = require("./adminConfigurations/adminSignup");
 app.use("/Admin", adminSignup);

@@ -17,8 +17,8 @@ const certificatePath = "./permissions/cert.crt";
 
 // Configure AWS SDK for S3
 AWS.config.update({
-  accessKeyId: "AKIARQCOUAYAL7JKHBWJ",
-  secretAccessKey: "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",
+  accessKeyId: "AKIARQCOUAYAEUZCM4WA",
+  secretAccessKey: "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",
   region: "eu-north-1",
 });
 
@@ -39,31 +39,23 @@ function createDevice() {
 let device = createDevice();
 
 // Callback function for handling received messages
-// Callback function for handling received messages
 async function onMessage(topic, payload) {
   try {
     if (topic === "esp32/pub") {
       // Handle image messages
       console.log(`Received image on topic ${topic}`);
 
-      // Assuming the payload is a JSON object with thingName and image data
-      const { thingName, photo } = JSON.parse(payload.toString());
-      console.log(thingName);
-
+      // Assuming the payload is a binary image data
       // You may need to implement the logic to save/process the image data
-      const localImagePath = `received_image.jpg`; // Local directory path
-
-      // Save the image locally
-      fs.writeFileSync(localImagePath, photo);
-
+      const thingName = "SN0013";
       // Upload the image to AWS S3
       const params = {
         Bucket: "snaps-of-esp-32",
         Key: `images/${thingName}/${Date.now()}_received_image.jpg`, // Use a unique key for each image
-        Body: Buffer.from(imageData, "base64"),
+        Body: payload,
         ContentType: "image/jpeg",
       };
-
+      fs.writeFileSync(localImagePath, payload);
       const s3UploadResponse = await s3.upload(params).promise();
 
       // Store the S3 URL in the database (Replace this with your database logic)
@@ -131,8 +123,9 @@ device.on("connect", function () {
 
 // API endpoint to publish a message under the topic esp32/sub
 triggeringSnap.post("/triggeringSnap", (req, res) => {
+  const { thingName } = req.body;
   const publishTopic = "esp32/sub";
-  const message = { action: "trigger_publish" };
+  const message = { action: "trigger_publish", thingName: thingName };
   device.publish(
     publishTopic,
     JSON.stringify(message),

@@ -28,3 +28,9 @@ export async function rejectRequest(obj) {
   const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
   return http.put(urlWithQuery, obj);
 }
+
+export async function getMatchingBusses(obj) {
+  const apiEndpoint = `${apiUrl}/Admin/gettingMatchingAvailableBus`;
+  const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
+  return http.get(urlWithQuery, obj);
+}

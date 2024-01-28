@@ -4,7 +4,8 @@ const bus = require("../models/vehicleModel");
 
 router.get("/gettingVehicleSnap", async (req, res) => {
   try {
-    const { vehicleID } = req.body;
+    const vehicleID = "SN0013";
+    console.log("request is", req.body);
     const vehicleSnap = await bus.find({ vehicleID }).select("Snap");
     // Print the data to the console
     console.log("vehicle snap url is:", vehicleSnap);

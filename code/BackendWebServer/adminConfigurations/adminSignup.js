@@ -6,7 +6,7 @@ const Admin = require("../models/adminModel");
 
 router.post("/signup", async (req, res) => {
   const { body } = req;
-  const { name, username, password, email, contactNumber } = body;
+  const { name, username, password, email, contactNumber, address } = body;
   try {
     // Check if the username already exists
     const existingUser = await Admin.findOne({ $or: [{ username }, { name }] });
@@ -25,6 +25,7 @@ router.post("/signup", async (req, res) => {
       email,
       name,
       contactNumber,
+      address,
     });
 
     // Save the new admin to the database

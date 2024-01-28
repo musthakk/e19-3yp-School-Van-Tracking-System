@@ -5,9 +5,8 @@ const bus = require("../models/vehicleModel");
 router.get("/gettingMatchingAvailableBus", async (req, res) => {
   try {
     const { School } = req.query;
-    console.log(req.body);
     const { agency } = req.query; // Assuming the agency parameter is passed in the query string
-    console.log(req.query);
+    // console.log(req.query);
 
     if (!agency) {
       return res
@@ -20,10 +19,10 @@ router.get("/gettingMatchingAvailableBus", async (req, res) => {
         agency: agency,
         School: School,
       })
-      .select("vehicleID seats seatsFilled ");
+      .select("vehicleID seats seatsFilled Driver");
 
     const gettingMatchingAvailableBus = gettingMatchingBus.filter(
-      (bus) => bus.seats !== bus.seatsFilled
+      (bus) => bus.seats !== bus.seatsFilled && bus.Driver !== ""
     );
 
     console.log(gettingMatchingAvailableBus);

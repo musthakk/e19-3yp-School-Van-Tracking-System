@@ -31,7 +31,7 @@ class Track extends Component {
                 render={(props) => (
                   <a
                     href="/LocationTracking"
-                    classNameName="btn btn-primary"
+                    className="btn btn-primary"
                     onClick={() =>
                       props.history.push("/LocationTracking", { bus })
                     }

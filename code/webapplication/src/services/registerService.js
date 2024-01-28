@@ -11,3 +11,11 @@ export function registerNewDriver(obj) {
   const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
   return http.post(urlWithQuery, obj);
 }
+
+export async function getVehicles() {
+  const agency = auth.getCurrentUserAgency();
+  const apiUrl = config.apiUrl;
+  const apiEndpoint = `${apiUrl}/Admin/registeredVehiclesWithoutDriver`;
+  const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
+  return http.get(urlWithQuery);
+}

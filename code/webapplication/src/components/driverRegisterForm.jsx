@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { registerNewDriver } from "../services/registerService";
+import { getVehicles } from "../services/registerService";
 
 class RegisterForm extends Form {
   state = {
@@ -19,6 +20,7 @@ class RegisterForm extends Form {
     },
     errors: {},
     successMessage: "", // New state variable for success message
+    vehicles: [],
   };
 
   schema = {
@@ -33,6 +35,11 @@ class RegisterForm extends Form {
     licensenumberD: Joi.string().required().label("License Number"),
     assignedVehicle: Joi.string().required().label("AssignedVehicle"),
   };
+
+  async componentDidMount() {
+    const { data } = await getVehicles();
+    this.setState({ vehicles: data.registeredVehiclesWithoutDriver });
+  }
 
   doSubmit = async () => {
     try {
@@ -69,9 +76,15 @@ class RegisterForm extends Form {
           {this.renderInput("emailD", "Email")}
           {this.renderInput("addressD", "Address")}
           {this.renderInput("nicD", "NIC")}
-          {this.renderInput("assignedVehicle", "Assigned Vehicle")}
           {this.renderInput("licensenumberD", "License Number")} <br />
-          {this.renderButton("Register")}
+          {/* {this.renderInput("licensenumberD", "License Number")} <br /> */}
+          {this.renderSelect(
+            "assignedVehicle",
+            "Assigned Vehicle",
+            this.state.vehicles
+          )}{" "}
+          <br />
+          {this.renderButton("Register")} <br />
           {/* {this.renderSelect("genreId", "Genre", this.state.bu)} */}
         </form>
       </div>

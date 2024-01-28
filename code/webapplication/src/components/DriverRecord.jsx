@@ -34,7 +34,7 @@ class DriverRecord extends Component {
     if (!searchQuery) return drivers;
 
     const filtereddrivers = drivers.filter((user) =>
-      user?.nicD?.includes(searchQuery)
+      user?.firstName?.includes(searchQuery)
     );
 
     const remainingdrivers = drivers.filter(

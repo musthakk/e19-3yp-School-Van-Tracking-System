@@ -19,6 +19,8 @@ import auth from "./services/authService";
 import AdminDetails from "./components/adminDetails";
 import SeeSnaps from "./components/seeSnaps";
 import VehicleSnap from "./components/vehicleSnap";
+import SignUpForm from "./components/signup";
+import verifyForm from "./components/verify";
 
 class App extends Component {
   state = {
@@ -31,6 +33,14 @@ class App extends Component {
       this.setState({ user });
     }
   }
+
+  isAuthenticated = () => {
+    if (this.state.user.username === "Anonymous") {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   render() {
     const { user } = this.state;
@@ -73,6 +83,8 @@ class App extends Component {
             <Route path="/LocationTracking" component={LocationTracking} />
             <Route path="/home" component={Home} />
             <Route path="/loginForm" component={LoginForm} />
+            <Route path="/signup" component={SignUpForm} />
+            <Route path="/verify" component={verifyForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/adminDetails" component={AdminDetails} />
             <Route path="/seeSnaps" component={SeeSnaps} />

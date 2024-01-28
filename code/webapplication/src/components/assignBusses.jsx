@@ -3,6 +3,7 @@ import {
   getUnasignedChildren,
   rejectRequest,
   getMatchingBusses,
+  assignBus,
 } from "../services/busService";
 import Select from "./common/select";
 
@@ -76,15 +77,26 @@ class AssignBusses extends Component {
 class ChildBusSelect extends Component {
   state = {
     busses: [],
+    selectedBus: "",
   };
 
   async componentDidMount() {
     const { child } = this.props;
-    console.log(child.school);
+    //console.log(child.school);
     const busses = await this.fetchMatchingBusses({ School: child.school });
     this.setState({ busses });
-    console.log(busses);
+    //console.log(busses);
   }
+
+  handleBusChange = (event) => {
+    const { child } = this.props;
+    this.setState({ selectedBus: event.target.value }); // Update selected value
+    assignBus({
+      vehicleID: event.target.value,
+      parent_username: child.parent_username,
+      name: child.name,
+    });
+  };
 
   fetchMatchingBusses = async (school) => {
     try {
@@ -98,7 +110,16 @@ class ChildBusSelect extends Component {
 
   render() {
     const { busses } = this.state;
-    return <Select options={busses} label="Choose a vehicle" />;
+
+    return (
+      <Select
+        options={busses}
+        label="Choose a vehicle"
+        //value={selectedBus?}
+        onChange={this.handleBusChange}
+        value={this.state.selectedBus}
+      />
+    );
   }
 }
 

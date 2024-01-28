@@ -34,3 +34,9 @@ export async function getMatchingBusses(obj) {
   const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
   return http.get(urlWithQuery, { params: obj });
 }
+
+export async function assignBus(obj) {
+  const apiEndpoint = `${apiUrl}/Admin/assigningBusForChildren`;
+  const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
+  return http.put(urlWithQuery, obj);
+}

@@ -1,15 +1,22 @@
 import React from "react";
 
-const Select = ({ name, label, options, error, ...rest }) => {
+const Select = ({ name, label, value, options, onChange, error, ...rest }) => {
   return (
     <div className="form-group">
       {/* <label htmlFor={name}>{label}</label> */}
-      <select name={name} id={name} {...rest} className="form-control">
+      <select
+        name={name}
+        id={name}
+        {...rest}
+        onChange={onChange}
+        value={value}
+        className="form-control"
+      >
         <option value="" disabled selected>
           {label}
         </option>
         {options.map((option) => (
-          <option key={option} value={option}>
+          <option key={option.vehicleID} value={option.vehicleID}>
             {option.vehicleID}
           </option>
         ))}

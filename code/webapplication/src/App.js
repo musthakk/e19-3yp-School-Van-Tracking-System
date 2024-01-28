@@ -17,6 +17,7 @@ import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
 import auth from "./services/authService";
 import AdminDetails from "./components/adminDetails";
+import SeeSnaps from "./components/seeSnaps";
 
 class App extends Component {
   state = {
@@ -48,6 +49,7 @@ class App extends Component {
             "/LocationTracking",
             "/home",
             "/adminDetails",
+            "/seeSnaps",
           ]}
           render={() => <NavBar user={user} />}
         />
@@ -71,6 +73,7 @@ class App extends Component {
             <Route path="/loginForm" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/adminDetails" component={AdminDetails} />
+            <Route path="/seeSnaps" component={SeeSnaps} />
             <Redirect from="/" exact to="/loginForm" />
             <Redirect to="/not-found" />
           </Switch>

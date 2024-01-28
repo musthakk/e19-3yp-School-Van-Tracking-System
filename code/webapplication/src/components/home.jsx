@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import banner from "../images/banner.jpg";
+import AccidentAlers from "./accidentAlerts";
 
 class Home extends Component {
   state = {};
+
   render() {
     return (
       <>
@@ -77,6 +79,13 @@ class Home extends Component {
               <a href="/ExtraService" className="btn btn-primary">
                 Services
               </a>
+            </div>
+          </div>
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">Alerts</h5>
+              {/* <p className="card-text">You can alert ambulances from here</p> */}
+              <AccidentAlers />
             </div>
           </div>
         </div>

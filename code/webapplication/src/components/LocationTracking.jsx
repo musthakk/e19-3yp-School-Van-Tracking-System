@@ -64,6 +64,7 @@ const SocketClient = (props) => {
                 position={{ lat: message?.latitude, lng: message?.longitude }}
               />
             ))}
+            {/* <AnimatedMarker positions={messages} /> */}
 
             <Directions endAddress={bus?.SchoolAddress} />
           </Map>
@@ -254,5 +255,51 @@ const DynamicMarker = memo(({ position }) => {
 
   return null;
 });
+
+const AnimatedMarker = ({ positions }) => {
+  const map = useMap();
+  const markerRef = useRef(null);
+
+  useEffect(() => {
+    if (!map || !positions || positions.length === 0) return;
+
+    const lat = positions[positions.length - 1].latitude;
+    const lng = positions[positions.length - 1].longitude;
+    const lastPosition = { lat, lng };
+    if (!markerRef.current) {
+      markerRef.current = new window.L.Marker(lastPosition).addTo(map);
+    } else {
+      animateMarker(markerRef?.current, lastPosition);
+    }
+
+    return () => {
+      markerRef.current.remove();
+    };
+  }, [map, positions]);
+
+  const animateMarker = (marker, newPosition) => {
+    const start = marker.getLatLng();
+    const end = new window.L.LatLng(newPosition.lat, newPosition.lng);
+    let t = 0;
+    const duration = 1000; // Animation duration in milliseconds
+
+    const animate = () => {
+      if (t < duration) {
+        const lat = start.lat + ((end.lat - start.lat) * t) / duration;
+        const lng = start.lng + ((end.lng - start.lng) * t) / duration;
+        const newPos = new window.L.LatLng(lat, lng);
+        marker.setLatLng(newPos);
+        t += 16; // 60 frames per second
+        requestAnimationFrame(animate);
+      } else {
+        marker.setLatLng(end);
+      }
+    };
+
+    animate();
+  };
+
+  return null;
+};
 
 export default SocketClient;

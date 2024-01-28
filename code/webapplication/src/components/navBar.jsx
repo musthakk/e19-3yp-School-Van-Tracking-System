@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
-import S2 from "../images/S2.png";
+import S from "../images/S.png";
 
 const NavBar = ({ user }) => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/home">
-          <img src={S2} alt="SureWay Logo" height="30" />
+          <img src={S} alt="SureWay Logo" height="30" />
         </Link>
 
         <div className="collapse navbar-collapse" id="navbarNav">

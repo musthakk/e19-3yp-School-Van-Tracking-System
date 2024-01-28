@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, memo } from "react";
 import io from "socket.io-client";
 import {
   APIProvider,
   Map,
   useMapsLibrary,
   useMap,
+  Marker,
 } from "@vis.gl/react-google-maps";
 
 const SocketClient = (props) => {
@@ -17,7 +18,7 @@ const SocketClient = (props) => {
 
     // Event handler for receiving messages from the server
     socket.on(bus?.ThingName, (message) => {
-      console.log("Received message from server:", message);
+      //console.log("Received message from server:", message);
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
@@ -41,29 +42,217 @@ const SocketClient = (props) => {
 
   // Log the current state of messages whenever it changes
   useEffect(() => {
-    console.log("Current messages state:", messages);
+    //console.log("Current messages state:", messages);
   }, [messages]);
 
-  const possition = { lat: 6.801803, lng: 79.922684 };
+  //export default function LocationTracking() {
+  const cent = { lat: 7.291418, lng: 80.636696 };
 
   return (
-    <div style={{ height: "80vh", width: "100%" }}>
-      {/* <h1>Received AWS IoT Messages:</h1>
-      <ul>
-        {messages.map((message, index) => (
-          <li key={index}>{JSON.stringify(message)}</li>
-        ))}
-      </ul> */}
-      <APIProvider apiKey="AIzaSyD3iZ52fsbEPy64MJPTVxJLlePde16xAMc">
-        <Map
-          center={possition}
-          zoom={12}
-          mapId="5e1c67490bdc79a3"
-          // fullscreenControl={false}
-        ></Map>
-      </APIProvider>
-    </div>
+    <>
+      <div style={{ height: "80vh", width: "100%" }}>
+        <APIProvider apiKey="AIzaSyD3iZ52fsbEPy64MJPTVxJLlePde16xAMc">
+          <Map
+            center={cent}
+            zoom={12}
+            mapId="5e1c67490bdc79a3"
+            fullscreenControl={false}
+          >
+            {messages.map((message, index) => (
+              <DynamicMarker
+                key={index}
+                position={{ lat: message?.latitude, lng: message?.longitude }}
+              />
+            ))}
+
+            <Directions endAddress={bus?.SchoolAddress} />
+          </Map>
+        </APIProvider>
+      </div>
+      <div>
+        <h1>Received AWS IoT Messages:</h1>
+        <ul>
+          {messages.map((message, index) => (
+            <li key={index}>{JSON.stringify(message)}</li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
+//};
+
+function Directions({ endAddress }) {
+  const map = useMap();
+  const routesLibrary = useMapsLibrary("routes");
+  const [directionService, setDirectionService] = useState();
+  const [directionsRenderer, setDirectionsRenderer] = useState();
+  const [routes, setRoutes] = useState([]);
+  const [routeIndex, setRouteIndex] = useState(0);
+  const selected = routes[routeIndex];
+  const leg = selected?.legs[0];
+
+  useEffect(() => {
+    if (!map || !routesLibrary) return;
+    setDirectionService(new routesLibrary.DirectionsService());
+    setDirectionsRenderer(new routesLibrary.DirectionsRenderer({ map }));
+  }, [map, routesLibrary]);
+
+  useEffect(() => {
+    if (!directionService || !directionsRenderer) return;
+
+    const start = {
+      location:
+        "University of Peradeniya, Prof. E. O. E. Pereira Mawatha, Kandy",
+      stopover: true,
+    };
+    const end = { location: endAddress, stopover: true };
+
+    const waypoints = [
+      //{ location: "31, Colombo Road, Piliyandala 10300", stopover: true }, // Origin
+      {
+        location: "Kingswood College, Randles Hill, Peradeniya Rd, Kandy 20000",
+        stopover: true,
+      }, // Second destination
+      {
+        location: "Sangaraja Mawatha, Kandy",
+        stopover: true,
+      }, // Second destination
+      //{ location: "Maradana Rd, Colombo 01000", stopover: true }, // First destination
+      // Add more waypoints with stopover: true for each
+    ];
+
+    directionService
+      .route({
+        origin: start.location,
+        destination: end.location,
+        waypoints: waypoints.map((waypoint) => ({
+          location: waypoint.location,
+          stopover: waypoint.stopover,
+        })), // Exclude origin and destination from waypoints array
+        travelMode: "DRIVING",
+        provideRouteAlternatives: true,
+      })
+      .then((Response) => {
+        directionsRenderer.setDirections(Response);
+        console.log(Response);
+        setRoutes(Response.routes);
+      });
+  }, [directionService, directionsRenderer]);
+
+  //console.log("directionService", directionService);
+  console.log(routes.selected);
+
+  if (!leg) return null;
+
+  return (
+    <div className="card" style={{ width: "200px" }}>
+      <h1>Directions</h1>
+      <p1>Distance: {leg.distance.text}</p1>
+      <p1>Duration: {leg.duration.text}</p1>
+    </div>
+  );
+}
+
+// const DynamicMarker = ({ position }) => {
+//   const map = useMap();
+//   const markerRef = useRef(null);
+
+//   useEffect(() => {
+//     if (!map || !position) return;
+
+//     // Create marker if it doesn't exist
+//     if (!markerRef.current) {
+//       markerRef.current = new window.google.maps.Marker({
+//         position,
+//         map,
+//       });
+//     } else {
+//       // Update marker position if it exists
+//       markerRef.current.setPosition(position);
+//     }
+
+//     return () => {
+//       // Cleanup marker on unmount
+//       markerRef.current.setMap(null);
+//     };
+//   }, [map, position]);
+
+//   return null; // No need to render anything for the marker
+// };
+
+// const DynamicMarker = memo(({ position }) => {
+//   // Memoize the DynamicMarker component
+//   const map = useMap();
+//   const markerRef = useRef(null);
+
+//   useEffect(() => {
+//     if (!map || !position) return;
+
+//     // Create marker if it doesn't exist or update position
+//     if (!markerRef.current) {
+//       markerRef.current = new window.google.maps.Marker({
+//         position,
+//         map,
+//       });
+//     } else {
+//       markerRef.current.setPosition(position);
+//     }
+
+//     return () => {
+//       // Cleanup marker on unmount
+//       markerRef.current.setMap(null);
+//     };
+//   }, [map, position]); // Only re-run effect if map or position changes
+
+//   return null; // No need to render anything for the marker
+// });
+
+const DynamicMarker = memo(({ position }) => {
+  const map = useMap();
+  const markerRef = useRef(null);
+
+  useEffect(() => {
+    if (!map || !position) return;
+
+    if (!markerRef.current) {
+      markerRef.current = new window.google.maps.Marker({
+        position,
+        map,
+      });
+    } else {
+      // Animate marker to new position
+      animateMarker(markerRef.current, position);
+    }
+
+    return () => {
+      markerRef.current.setMap(null);
+    };
+  }, [map, position]);
+
+  const animateMarker = (marker, newPosition) => {
+    const start = marker.getPosition();
+    const end = new window.google.maps.LatLng(newPosition.lat, newPosition.lng);
+    let t = 0;
+    const duration = 1000; // Animation duration in milliseconds
+
+    const animate = () => {
+      if (t < duration) {
+        const lat = start.lat() + ((end.lat() - start.lat()) * t) / duration;
+        const lng = start.lng() + ((end.lng() - start.lng()) * t) / duration;
+        const newPos = new window.google.maps.LatLng(lat, lng);
+        marker.setPosition(newPos);
+        t += 16; // 60 frames per second
+        requestAnimationFrame(animate);
+      } else {
+        marker.setPosition(end);
+      }
+    };
+
+    animate();
+  };
+
+  return null;
+});
 
 export default SocketClient;

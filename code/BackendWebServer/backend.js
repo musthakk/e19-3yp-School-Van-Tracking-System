@@ -75,6 +75,9 @@ app.use("/Admin", gettingbusNotAssignedChildren);
 const gettingThingName = require("./admin/gettingThingName");
 app.use("/Admin", gettingThingName);
 
+const gettingPickupAddresses = require("./admin/gettingPickupAddresses");
+app.use("/Admin", gettingPickupAddresses);
+
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

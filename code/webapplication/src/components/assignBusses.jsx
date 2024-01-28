@@ -51,7 +51,7 @@ class AssignBusses extends Component {
                       class="btn btn-danger"
                       onClick={() => this.handleRejectRequest(child)}
                     >
-                      Danger
+                      Reject
                     </button>
                   </td>
                 </tr>

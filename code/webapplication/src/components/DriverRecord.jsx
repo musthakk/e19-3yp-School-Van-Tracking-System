@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SearchBox from "./common/searchBox";
 import { getDrivers } from "../services/driverRecordsservices";
 import userbanner from "../images/userbanner.jpg";
+import { Route } from "react-router-dom";
 
 class DriverRecord extends Component {
   state = {
@@ -33,11 +34,11 @@ class DriverRecord extends Component {
     if (!searchQuery) return drivers;
 
     const filtereddrivers = drivers.filter((user) =>
-      user.nicD.includes(searchQuery)
+      user?.nicD?.includes(searchQuery)
     );
 
     const remainingdrivers = drivers.filter(
-      (user) => !filtereddrivers.includes(user)
+      (user) => !filtereddrivers?.includes(user)
     );
 
     return [...filtereddrivers, ...remainingdrivers];
@@ -93,6 +94,22 @@ class DriverRecord extends Component {
                         NIC: {selectedDriver.NIC} <br />
                         Licence Number: {selectedDriver.licenseNumber} <br />
                         Bus: {selectedDriver.assignedVehicle} <br />
+                        <Route
+                          to="/seeSnaps"
+                          render={(props) => (
+                            <a
+                              href="/seeSnaps"
+                              className="btn btn-warning"
+                              onClick={() =>
+                                props.history.push("/seeSnaps", {
+                                  selectedDriver,
+                                })
+                              }
+                            >
+                              See Snaps
+                            </a>
+                          )}
+                        />
                       </p>
                     </div>
                   </div>

@@ -17,8 +17,14 @@ export async function getBuses() {
   return http.get(urlWithQuery);
 }
 
-export function getUnasignedChildren() {
+export async function getUnasignedChildren() {
   const apiEndpoint = `${apiUrl}/Admin/busNotAssignedChildren`;
   const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
   return http.get(urlWithQuery);
+}
+
+export async function rejectRequest(obj) {
+  const apiEndpoint = `${apiUrl}/Admin/rejectRequest`;
+  const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
+  return http.put(urlWithQuery, obj);
 }

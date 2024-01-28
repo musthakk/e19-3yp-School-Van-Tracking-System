@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getUnasignedChildren } from "../services/busService";
+import { getUnasignedChildren, rejectRequest } from "../services/busService";
 
 class AssignBusses extends Component {
   state = {
@@ -14,6 +14,18 @@ class AssignBusses extends Component {
       console.error("Error fetching users:", error.message);
     }
   }
+
+  handleRejectRequest = async (child) => {
+    try {
+      await rejectRequest(child);
+      // Update state to remove the deleted child
+      this.setState((prevState) => ({
+        children: prevState.children.filter((c) => c !== child),
+      }));
+    } catch (error) {
+      console.error("Error rejecting request:", error.message);
+    }
+  };
 
   render({ children } = this.state) {
     return (
@@ -30,11 +42,17 @@ class AssignBusses extends Component {
           <tbody>
             {children &&
               children.map((child) => (
-                <tr key={child}>
+                <tr key={child.parent_username}>
                   <td>{child.name}</td>
                   <td>{child.school}</td>
                   <td>
-                    <h1>OK</h1>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      onClick={() => this.handleRejectRequest(child)}
+                    >
+                      Danger
+                    </button>
                   </td>
                 </tr>
               ))}

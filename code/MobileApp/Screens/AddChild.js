@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, TextInput, Image, KeyboardAvoidingView, Alert, 
 import React, { useRef, useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SelectDropdown from 'react-native-select-dropdown';
-import { useNavigation } from '@react-navigation/native';
 
 import * as SecureStore from 'expo-secure-store';
 

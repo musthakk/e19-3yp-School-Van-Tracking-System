@@ -1,17 +1,19 @@
-import { View, Text, Alert, BackHandler, TouchableOpacity, StyleSheet, ScrollView, Image, RefreshControl } from 'react-native'
+import { View, Text, Alert, BackHandler, TouchableOpacity, StyleSheet, ScrollView, Image, RefreshControl, TouchableWithoutFeedback, Modal } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React,{useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 
 import * as SecureStore from 'expo-secure-store';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import colors from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-const UserHome = ({ navigation}) => {
+const UserHome = ({ navigation }) => {
 
   // refresh control..
   const [refreshing, setRefreshing] = useState(false);
+
+  // showOptions.
+  const [showOption, setShowOption] = useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -56,22 +58,6 @@ const UserHome = ({ navigation}) => {
     }, [])
   );
 
-  // Clear stored jwtToken and other userDetails from the SecuredStore when user Logout his self..
-  const handleLogout = async () => {
-    // Clear the token from SecureStore
-    await SecureStore.deleteItemAsync('jwtToken');
-
-    // clear user details..
-    await SecureStore.deleteItemAsync('identity');
-
-    await SecureStore.deleteItemAsync('username');
-  
-
-    // Navigate back to the login screen
-    navigation.replace('login');
-  };
-
-
   // onStart of this home page, send username to the backend and from there get and show the children details..
   const getUserHomeDetails = async () => {
 
@@ -98,7 +84,7 @@ const UserHome = ({ navigation}) => {
       const userAndChildrenDetails = await response.json();     // full name of ther user.. and children details..
 
       setFirstName(userAndChildrenDetails.parentFullName.split(" ")[0]);
-      
+
       setchildrenDetails(userAndChildrenDetails.childrenDetails);
 
     } catch (error) {
@@ -109,30 +95,39 @@ const UserHome = ({ navigation}) => {
 
   // function to navigate the user to the map view for track the varified child's travelling..
   const trackChildren = (verifiedStatus, childName) => {
-    if(verifiedStatus){
+    if (verifiedStatus) {
       // navigate the user to the tracking screen
-      navigation.navigate("mapScreen", {childName: childName});
+      navigation.navigate("mapScreen", { childName: childName });
 
-    }else{
+    } else {
       Alert.alert("Can't Track...", // Title of the alert
-      "The child has not been verified by the Admin yet." // Message of the alert
+        "The child has not been verified by the Admin yet." // Message of the alert
       )
     }
   };
 
   // Pre-define some profile images for the children
   const childProfileImages = {
+    'boy1.png': require('../assets/childProfiles/boy1.png'),
     'boy2.png': require('../assets/childProfiles/boy2.png'),
     'boy3.png': require('../assets/childProfiles/boy3.png'),
+    'boy4.png': require('../assets/childProfiles/boy4.png'),
     'boy5.png': require('../assets/childProfiles/boy5.jpg'),
+    'boy6.png': require('../assets/childProfiles/boy6.png'),
+    'boy7.png': require('../assets/childProfiles/boy7.png'),
     'girl1.png': require('../assets/childProfiles/girl1.jpg'),
     'girl2.png': require('../assets/childProfiles/girl2.png'),
     'girl3.png': require('../assets/childProfiles/girl3.png'),
     'girl4.png': require('../assets/childProfiles/girl4.png'),
     'girl5.png': require('../assets/childProfiles/girl5.png'),
+    'girl6.png': require('../assets/childProfiles/girl6.png'),
+    'girl7.png': require('../assets/childProfiles/girl7.png'),
+    'girl8.png': require('../assets/childProfiles/girl8.png'),
+    'girl9.png': require('../assets/childProfiles/girl9.png'),
+
   }
 
-  
+
 
   // color backgrounds for children Details container..
   let colorsArray = [colors.lightBluemui, colors.lightLime, colors.lightTeal, colors.lightOrangeMui, colors.lightBrown];
@@ -140,15 +135,15 @@ const UserHome = ({ navigation}) => {
 
   let childrenData = childrenDetails.map((child, index) => (
 
-    <TouchableOpacity 
-      key={index} 
+    <TouchableOpacity
+      key={index}
       style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}
-      onPress={()=>trackChildren(child.verifiedStatus, child.name)}
+      onPress={() => trackChildren(child.verifiedStatus, child.name)}
     >
 
       {/* chile profile avatar png */}
       <View style={styles.childAvatarContainer}>
-        <Image source={childProfileImages[child.profileAvatar]} style={styles.childAvatar}/>
+        <Image source={childProfileImages[child.profileAvatar]} style={styles.childAvatar} />
       </View>
 
       {/* Information about the child */}
@@ -175,20 +170,20 @@ const UserHome = ({ navigation}) => {
         <View style={styles.singleDetailBlock}>
           <Text style={styles.DetailPrompt}>Status: </Text>
           {
-            child.travellingStatus === 1 ? <Text style={{...styles.DetailData, color: colors.red}}>Travelling..</Text> 
-            : <Text style={{...styles.DetailData, color: colors.gray}}>Not Travelling..</Text>
+            child.travellingStatus === 1 ? <Text style={{ ...styles.DetailData, color: colors.red }}>Travelling..</Text>
+              : <Text style={{ ...styles.DetailData, color: colors.gray }}>Not Travelling..</Text>
           }
-          
+
         </View>
 
       </View>
 
       {/* indication symbol saying child is verified by the admin */}
       {
-        (child.verifiedStatus)?(
-          <Ionicons name='checkmark-circle' size={50} style={{color: colors.green, position:'absolute', right:15,}}/>
-        ):(
-          <Ionicons name='checkmark-circle' size={50} style={{color: colors.red, position:'absolute', right:15,}}/>
+        (child.verifiedStatus) ? (
+          <Ionicons name='checkmark-circle' size={50} style={{ color: colors.green, position: 'absolute', right: 15, }} />
+        ) : (
+          <Ionicons name='checkmark-circle' size={50} style={{ color: colors.red, position: 'absolute', right: 15, }} />
         )
       }
 
@@ -225,19 +220,67 @@ const UserHome = ({ navigation}) => {
             </Text>
           </TouchableOpacity>
 
-          {/* Settings Button */}
+          {/* options Button */}
           <TouchableOpacity
             style={{
               position: 'absolute',
-              right: 25
+              right: 16,
+              padding: 8,
+              borderRadius: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
+            onPress={() => setShowOption(true)}
           >
             <Ionicons
-              name='settings-outline'
+              name='ellipsis-vertical-sharp'
               size={28}
             />
           </TouchableOpacity>
         </View>
+
+        <Modal
+          animationType="none"
+          transparent={true}
+          visible={showOption}
+          onRequestClose={() => setShowOption(false)}
+        >
+          <TouchableWithoutFeedback onPress={() => setShowOption(false)}>
+            <View
+              style={{ flex: 1, }}>
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  paddingVertical: 15,
+                  borderRadius: 10,
+                  position: 'absolute',
+                  right: 16,
+                  top: 45,
+
+                  // shadown Details..
+                  shadowColor: colors.black,
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 3.84,
+                  elevation: 8,
+
+                }}
+              >
+                <TouchableOpacity style={styles.modalTouchable} onPress={() => navigation.navigate('userProfile')}>
+                  <Text style={styles.modalText}>Profile Info</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.modalTouchable} onPress={() => navigation.navigate('about')}>
+                  <Text style={styles.modalText}>About</Text>
+                </TouchableOpacity>
+
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
 
 
         <View style={styles.userGreetings}>
@@ -285,7 +328,7 @@ const UserHome = ({ navigation}) => {
                 >
                   <Image
                     source={require('../assets/fileNotFound2.jpg')}
-                    style={{ height: 300, width: 300 ,}}
+                    style={{ height: 300, width: 300, }}
                   />
                   <Text
                     style={{
@@ -298,11 +341,6 @@ const UserHome = ({ navigation}) => {
                 </View>
                 : childrenData
             }
-
-              {/* Logout button  */}
-              <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 50, marginBottom: 50, }}>
-                <Text style={{ color: 'white', textAlign: 'center' }}>Logout: userHome</Text>
-              </TouchableOpacity>
 
           </ScrollView>
         </View>
@@ -394,6 +432,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
+  modalText: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 18,
+  },
+
+  modalTouchable: {
+    marginBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 40,
+    paddingVertical: 3,
+  }
 
 });
 

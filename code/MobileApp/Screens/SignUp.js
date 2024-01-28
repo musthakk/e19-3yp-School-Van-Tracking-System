@@ -76,7 +76,7 @@ const SignUp = ({navigation}) => {
     }
   };
 
-  const debouncedValidateUsername = debounce(validateUsername, 500); // Adjust the debounce delay as neededT
+  const debouncedValidateUsername = debounce(validateUsername, 200); // Adjust the debounce delay as neededT
 
   const handleUsernameChange = (text) => {
     Setusername(text);
@@ -85,7 +85,7 @@ const SignUp = ({navigation}) => {
     // Debounce the username validation function
     debouncedValidateUsername(text);
   };
-
+  
   // Validate email whether it's already exist or not..
   const validateEmail = async (input) => {
     // Call the server endpoint to check whether the email exists

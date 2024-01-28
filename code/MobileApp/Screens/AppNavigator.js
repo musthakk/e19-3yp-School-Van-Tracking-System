@@ -3,13 +3,15 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
+
 // import screens..
 import UserHome from './UserHomePage';
-import UserProfile from './UserProfile';
-
+import ChildrenData from './ChildrenData';
 
 import colors from '../constants/colors';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +30,6 @@ const AppNavigator = () => {
                 bottom: 0,
                 elevation: 0,
                 borderTopWidth: 0,
-                
             },
             tabBarItemStyle: { marginVertical: 5},
             tabBarActiveTintColor: colors.black,
@@ -43,21 +44,36 @@ const AppNavigator = () => {
         options={{ 
           headerShown: false,
           tabBarIcon: ({focused})=>(
-            <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4}}>
+            <View style={{borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4, alignItems: 'center',}}>
               <Ionicons name={focused ? 'location-sharp': 'location-outline'} size={30} color={focused?'black': 'gray'}/>
+              <Text
+              style={{
+                fontFamily: focused? 'Outfit-Bold': 'Outfit-Regular',
+              }}
+              >
+                Track
+              </Text>
             </View>
           )
         }}
+
       />
 
       {/* profile Page */}
       <Tab.Screen 
-        name="Profile" 
-        component={UserProfile}
+        name="childrenData" 
+        component={ChildrenData}
         options={{ 
           tabBarIcon: ({focused})=>(
-            <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4}}>
-              <Ionicons name={focused ? "person" : "person-outline"} size={30} color={focused ? 'black' : 'gray'} />
+            <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4, alignItems: 'center',}}>
+              <Ionicons name={focused ? "people-sharp" : "people-outline"} size={30} color={focused ? 'black' : 'gray'} />
+              <Text
+              style={{
+                fontFamily: focused? 'Outfit-Bold': 'Outfit-Regular',
+              }}
+              >
+                Children
+              </Text>
             </View>
           ),
           headerTitle: () => (
@@ -65,14 +81,21 @@ const AppNavigator = () => {
               style={{
                   fontSize: 35,
                   fontFamily: 'Outfit-Regular',
-                  marginLeft: 10,
+                  alignSelf: 'center'
               }}
             >
-              Profile
+              Children Details
             </Text>
           ),
+          headerTitleAlign: 'center',
+          headerStyle: {
+            borderBottomWidth: 1,
+            borderBottomColor: colors.gray,
+          }
         }}
       />
+
+      
     </Tab.Navigator>
 
   );

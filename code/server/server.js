@@ -427,7 +427,7 @@ app.post('/getChildTravelInfo', async (req, res) => {
     const vehicle = await Vehicle.findOne({vehicleID: childDetails.vehicleID});
 
     // take the needed details from the vehicle collection..
-    const vehicleDetails = {
+    const vehicleDetails =(vehicle)?({
       driverUsername: vehicle.Driver,
       vehicleTravellingStatus: vehicle.travellingStatus,
       headingStatus: vehicle.heading,
@@ -435,7 +435,13 @@ app.post('/getChildTravelInfo', async (req, res) => {
       thingName: vehicle.ThingName,
       assignedSchool: vehicle.School,
       schoolAddress: vehicle.SchoolAddress,
-    }
+    }): ({driverUsername: "xxxxxxx",
+      vehicleTravellingStatus: "xxxxxxxxx",
+      headingStatus: "xxxxxxxxxx",
+      returningStatus: "xxxxxxxxxxxx",
+      thingName: "xxxxxxxxxxx",
+      assignedSchool: "xxxxxxxxxxxxx",
+      schoolAddress: "xxxxxxxxxxxxxx",});
 
     // access the driver collection using the drierUsername found above..
     const driver = await Driver.findOne({username: vehicleDetails.driverUsername});

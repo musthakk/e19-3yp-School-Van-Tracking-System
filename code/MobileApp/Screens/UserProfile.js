@@ -9,8 +9,8 @@ import * as SecureStore from 'expo-secure-store';
 import colors from '../constants/colors'
 import { Ionicons } from '@expo/vector-icons'
 
-const UserProfile = () => { 
-  
+const UserProfile = ({ navigation }) => {
+
   const [nameLetterAvatar, setNameLetterAvatar] = useState("");
   const [Username, setUsername] = useState('');
   const [fullName, SetfullName] = useState('');
@@ -25,11 +25,11 @@ const UserProfile = () => {
   const [editorVisible, setEditorVisible] = useState(false);
 
   // functin to handle editor's save button.. modify the fullname in the database through API end point..
-  const saveHandle = async()=>{
+  const saveHandle = async () => {
     setEditorVisible(false);
     SetfullName(newFullname);
 
-    try{
+    try {
       const response = await fetch('http://13.126.69.29:3000/ModifyFullname', {
         method: 'PUT',
         headers: {
@@ -41,7 +41,7 @@ const UserProfile = () => {
         }),
       });
 
-      if(!response.ok){
+      if (!response.ok) {
         // Handle non successfull response
         throw new Error('Server Error.');
       }
@@ -54,13 +54,13 @@ const UserProfile = () => {
         console.error('Update failed:', data.message);
       }
     }
-    catch(error){
+    catch (error) {
       Alert.alert('Error during update:', error.message);
     }
   };
 
   // function to handle editor's cancel button..
-  const cancelHandle = ()=>{
+  const cancelHandle = () => {
     setEditorVisible(false);
     setNewFullname(fullName);
   }
@@ -119,11 +119,27 @@ const UserProfile = () => {
     const nameArray = fullName.trim().split(" ");
     let nameLetters = "";
     for (let name of nameArray) {
-      if(name[0] !== undefined)
-      nameLetters += name[0];
+      if (name[0] !== undefined)
+        nameLetters += name[0];
     }
     setNameLetterAvatar(nameLetters);
   }, [fullName]);
+
+
+  // Clear stored jwtToken and other userDetails from the SecuredStore when user Logout his self..
+  const handleLogout = async () => {
+    // Clear the token from SecureStore
+    await SecureStore.deleteItemAsync('jwtToken');
+
+    // clear user details..
+    await SecureStore.deleteItemAsync('identity');
+
+    await SecureStore.deleteItemAsync('username');
+
+
+    // Navigate back to the login screen
+    navigation.replace('login');
+  };
 
   return (
     <SafeAreaView style={styles.safearea}>
@@ -176,44 +192,44 @@ const UserProfile = () => {
           </View>}
 
           {/* Editor for full name of the user */}
-          {editorVisible && 
-          <View style={styles.editorContainer}>
+          {editorVisible &&
+            <View style={styles.editorContainer}>
 
-            <Text style={{fontSize: 17, fontFamily: 'Roboto-Regular', marginBottom: 5,}}>Enter your fullname</Text>
+              <Text style={{ fontSize: 17, fontFamily: 'Roboto-Regular', marginBottom: 5, }}>Enter your fullname</Text>
 
-            <View
-              style={{
-                borderBottomColor: colors.blue,
-                borderBottomWidth: 1,
-                marginBottom: 10,
-              }}
-            >
-              <TextInput
-                value={newFullname}
+              <View
                 style={{
-                  fontSize: 17,
-                  fontFamily: 'Roboto-Bold',
+                  borderBottomColor: colors.blue,
+                  borderBottomWidth: 1,
+                  marginBottom: 10,
                 }}
-                onChangeText={(text)=>{setNewFullname(text)}}
-              />
-            </View>
+              >
+                <TextInput
+                  value={newFullname}
+                  style={{
+                    fontSize: 17,
+                    fontFamily: 'Roboto-Bold',
+                  }}
+                  onChangeText={(text) => { setNewFullname(text) }}
+                />
+              </View>
 
-            <View
-              style={{
-                flexDirection: 'row-reverse',                
-              }}
-            >
-              {/* Save */}
-              <TouchableOpacity onPress={saveHandle} style={{marginLeft: 12,}}>
-                <Text style={{color: colors.blue, fontFamily: 'Roboto-Regular', fontSize: 16}}>Save</Text>
-              </TouchableOpacity>
-              {/* Cancel */}
-              <TouchableOpacity onPress={cancelHandle}>
-                <Text style={{color: colors.blue, fontFamily: 'Roboto-Regular', fontSize: 16}}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
+              <View
+                style={{
+                  flexDirection: 'row-reverse',
+                }}
+              >
+                {/* Save */}
+                <TouchableOpacity onPress={saveHandle} style={{ marginLeft: 12, }}>
+                  <Text style={{ color: colors.blue, fontFamily: 'Roboto-Regular', fontSize: 16 }}>Save</Text>
+                </TouchableOpacity>
+                {/* Cancel */}
+                <TouchableOpacity onPress={cancelHandle}>
+                  <Text style={{ color: colors.blue, fontFamily: 'Roboto-Regular', fontSize: 16 }}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
 
-          </View>
+            </View>
           }
 
           {/* user name */}
@@ -259,6 +275,13 @@ const UserProfile = () => {
             </View>
 
           </View>}
+
+          {/* Logout button  */}
+          { !editorVisible && 
+            <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 10, marginBottom: 50, }}>
+              <Text style={{ color: 'white', textAlign: 'center', fontFamily:'Roboto-Bold', fontSize: 15, }}>Log out</Text>
+            </TouchableOpacity> 
+          }
 
         </View>
 
@@ -308,7 +331,7 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
 
-  editorContainer:{
+  editorContainer: {
     borderWidth: 1,
     borderColor: colors.lightGray,
     borderRadius: 10,

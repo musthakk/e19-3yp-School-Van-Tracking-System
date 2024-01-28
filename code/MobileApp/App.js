@@ -12,12 +12,17 @@ import SignUp from './Screens/SignUp';
 // Screens for Users
 import AppNavigator from './Screens/AppNavigator';
 import AddChild from './Screens/AddChild';
+import UserProfile from './Screens/UserProfile';
+
 
 // Screens for Drivers
 import DriverHome from './Screens/DriverHome';
 
 // GoogleMap API screen
 import MapScreen from './Screens/MapScreen';
+
+// About SureWay
+import About from './Screens/About';
 
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
 
@@ -105,6 +110,42 @@ export default function App() {
                 }}
               >
                 ADD CHILD
+              </Text>
+            ),
+          }}
+        />
+
+        {/* userProfile */}
+        <Stack.Screen
+          name='userProfile'
+          component={UserProfile}
+          options={{
+            headerTitle: () => (
+              <Text
+                style={{
+                    fontSize: 35,
+                    fontFamily: 'Outfit-Bold'
+                }}
+              >
+                Profile
+              </Text>
+            ),
+          }}
+        />
+
+        {/* About */}
+        <Stack.Screen
+          name='about'
+          component={About}
+          options={{
+            headerTitle: () => (
+              <Text
+                style={{
+                    fontSize: 35,
+                    fontFamily: 'Outfit-Bold'
+                }}
+              >
+                About
               </Text>
             ),
           }}

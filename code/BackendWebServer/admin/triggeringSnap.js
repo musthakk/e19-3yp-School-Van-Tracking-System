@@ -129,6 +129,7 @@ device.on("connect", function () {
 // API endpoint to publish a message under the topic esp32/sub
 triggeringSnap.post("/triggeringSnap", (req, res) => {
   const { thingName } = req.body;
+  console.log("request is", req.body);
   const publishTopic = "esp32/sub";
   const message = { action: "trigger_publish", thingName: thingName };
   device.publish(

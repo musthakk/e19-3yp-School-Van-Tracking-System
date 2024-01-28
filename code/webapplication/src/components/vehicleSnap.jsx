@@ -10,7 +10,7 @@ class VehicleSnap extends Component {
     const { bus } = this.props.location.state || {};
     console.log(bus.vehicleID);
     const { data } = await getVehicleSnap({ vehicleID: bus?.vehicleID });
-    this.setState({ snap: data.vehicleSnap[0].Snap });
+    this.setState({ snap: data?.vehicleSnap[0]?.Snap });
     console.log(this.state.snap);
   }
 

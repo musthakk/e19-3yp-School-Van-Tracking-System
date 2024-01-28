@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { getUnasignedChildren, rejectRequest } from "../services/busService";
+import {
+  getUnasignedChildren,
+  rejectRequest,
+  getMatchingBusses,
+} from "../services/busService";
 import Select from "./common/select";
 
 class AssignBusses extends Component {
   state = {
     children: [],
-    busses: [],
   };
 
   async componentDidMount() {
@@ -51,17 +54,15 @@ class AssignBusses extends Component {
                   <td>
                     <button
                       type="button"
-                      class="btn btn-danger"
+                      className="btn btn-danger"
                       onClick={() => this.handleRejectRequest(child)}
                     >
                       Reject
                     </button>
                   </td>
+
                   <td>
-                    <Select
-                      options={["Bus 1", "Bus 2", "Bus 3"]}
-                      label="Choose a vehicle"
-                    />
+                    <ChildBusSelect child={child} />
                   </td>
                 </tr>
               ))}
@@ -69,6 +70,35 @@ class AssignBusses extends Component {
         </table>
       </>
     );
+  }
+}
+
+class ChildBusSelect extends Component {
+  state = {
+    busses: [],
+  };
+
+  async componentDidMount() {
+    const { child } = this.props;
+    console.log(child.school);
+    const busses = await this.fetchMatchingBusses({ School: child.school });
+    this.setState({ busses });
+    console.log(busses);
+  }
+
+  fetchMatchingBusses = async (school) => {
+    try {
+      const { data } = await getMatchingBusses(school);
+      return data.gettingMatchingAvailableBus;
+    } catch (error) {
+      console.error("Error fetching matching busses:", error.message);
+      return [];
+    }
+  };
+
+  render() {
+    const { busses } = this.state;
+    return <Select options={busses} label="Choose a vehicle" />;
   }
 }
 

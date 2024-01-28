@@ -39,24 +39,28 @@ function createDevice() {
 let device = createDevice();
 
 // Callback function for handling received messages
+// Callback function for handling received messages
 async function onMessage(topic, payload) {
   try {
     if (topic === "esp32/pub") {
       // Handle image messages
       console.log(`Received image on topic ${topic}`);
 
-      // Assuming the payload is a binary image data
+      // Assuming the payload is a JSON object with thingName and image data
+      const { thingName, photo } = JSON.parse(payload.toString());
+      console.log(thingName);
+
       // You may need to implement the logic to save/process the image data
-      const thingName = "SN0013";
       const localImagePath = `received_image.jpg`; // Local directory path
 
       // Save the image locally
-      fs.writeFileSync(localImagePath, payload);
+      fs.writeFileSync(localImagePath, photo);
+
       // Upload the image to AWS S3
       const params = {
         Bucket: "snaps-of-esp32",
         Key: `images/${thingName}/${Date.now()}_received_image.jpg`, // Use a unique key for each image
-        Body: payload,
+        Body: Buffer.from(imageData, "base64"),
         ContentType: "image/jpeg",
       };
 

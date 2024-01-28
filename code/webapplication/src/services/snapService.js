@@ -13,5 +13,5 @@ export async function triggerSnap(obj) {
 
 export async function getVehicleSnap(obj) {
   const apiEndpoint = `${config.apiUrl}/Admin/gettingVehicleSnap`;
-  return http.get(apiEndpoint, obj);
+  return http.get(apiEndpoint, { params: obj });
 }

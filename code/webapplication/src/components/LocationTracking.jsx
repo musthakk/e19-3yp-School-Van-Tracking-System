@@ -60,6 +60,7 @@ const SocketClient = (props) => {
             zoom={12}
             mapId="5e1c67490bdc79a3"
             fullscreenControl={false}
+            //provideRouteAlternatives={true}
           >
             {messages.map((message, index) => (
               <DynamicMarker
@@ -134,6 +135,8 @@ function Directions({ endAddress }) {
   const [routeIndex, setRouteIndex] = useState(0);
   const selected = routes[routeIndex];
   const leg = selected?.legs[0];
+  //console.log("Selected legs are", selected?.legs);
+  console.log("Routes are", routes);
 
   useEffect(() => {
     if (!map || !routesLibrary) return;
@@ -161,6 +164,7 @@ function Directions({ endAddress }) {
         location: "Sangaraja Mawatha, Kandy",
         stopover: true,
       }, // Second destination
+      { location: "DS Senanayake Veediya, Kandy 20000", stopover: true },
       //{ location: "Maradana Rd, Colombo 01000", stopover: true }, // First destination
       // Add more waypoints with stopover: true for each
     ];
@@ -174,17 +178,18 @@ function Directions({ endAddress }) {
           stopover: waypoint.stopover,
         })), // Exclude origin and destination from waypoints array
         travelMode: "DRIVING",
-        provideRouteAlternatives: true,
+        //provideRouteAlternatives: true,
+        optimizeWaypoints: true,
       })
       .then((Response) => {
         directionsRenderer.setDirections(Response);
-        console.log(Response);
+        //console.log("response is", Response);
         setRoutes(Response.routes);
       });
   }, [directionService, directionsRenderer]);
 
   //console.log("directionService", directionService);
-  console.log(routes.selected);
+  //console.log("selected route is", routes.selected);
 
   if (!leg) return null;
 

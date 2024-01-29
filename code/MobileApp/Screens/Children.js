@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StyleSheet, RefreshControl, Image, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, RefreshControl, Image, Alert, TouchableOpacity, FlatList } from 'react-native';
 import React, { useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,10 +8,11 @@ import colors from '../constants/colors';
 
 
 
-const ChildrenData = () => {
+const Children = ({navigation}) => {
 
     // refresh control..
     const [refreshing, setRefreshing] = useState(false);
+
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -63,7 +64,13 @@ const ChildrenData = () => {
         // Call the function immediately
         getChildrenDetails();
     }, []);
-      
+
+
+    // navigate to childDetail page, 
+    const showDetailPage = (name, age, school, grade, pickupAdd, vehicleID, agency, profileAvatar, isVerified, clrIndex)=>{
+        navigation.navigate('childInfo', {name, age, school, grade, pickupAdd, vehicleID, agency, profileAvatar, isVerified, clrIndex})
+    }
+
 
 
     // Pre-define some profile avatars for the children
@@ -87,7 +94,7 @@ const ChildrenData = () => {
     }
 
     // color backgrounds for children Details container..
-    let colorsArray = [colors.lightBluemui, colors.lightLime, colors.lightTeal, colors.lightOrangeMui, colors.lightBrown];
+    let colorsArray = [colors.lightTeal, colors.lightOrangeMui, colors.lightLime, colors.lightBluemui, colors.lightBrown];
 
 
     let childrenData = childrenDetails.map((child, index) => (
@@ -95,7 +102,8 @@ const ChildrenData = () => {
         <TouchableOpacity
             key={index}
             style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}
-           
+            onPress={()=>showDetailPage(child.name, child.age, child.school, child.grade, 
+                child.pickupAddress, child.vehicleID, child.agency, child.profileAvatar, child.verifiedStatus, index%5)}
         >
 
             {/* chile profile avatar png */}
@@ -107,30 +115,7 @@ const ChildrenData = () => {
             <View>
                 {/* children name */}
                 <View style={styles.singleDetailBlock}>
-                    <Text style={styles.DetailPrompt}>Child name: </Text>
                     <Text style={styles.DetailData}>{child.name}</Text>
-                </View>
-
-                {/* Agency */}
-                <View style={styles.singleDetailBlock}>
-                    <Text style={styles.DetailPrompt}>Agency: </Text>
-                    <Text style={styles.DetailData}>{child.agency}</Text>
-                </View>
-
-                {/* Vehicle ID */}
-                <View style={styles.singleDetailBlock}>
-                    <Text style={styles.DetailPrompt}>Vehicle ID: </Text>
-                    <Text style={styles.DetailData}>{child.vehicleID}</Text>
-                </View>
-
-                {/* Travelling Status */}
-                <View style={styles.singleDetailBlock}>
-                    <Text style={styles.DetailPrompt}>Status: </Text>
-                    {
-                        child.travellingStatus === 1 ? <Text style={{ ...styles.DetailData, color: colors.red }}>Travelling..</Text>
-                            : <Text style={{ ...styles.DetailData, color: colors.gray }}>Not Travelling..</Text>
-                    }
-
                 </View>
 
             </View>
@@ -149,16 +134,15 @@ const ChildrenData = () => {
     ));
 
 
-
     return (
         <View style={{ flex: 1, backgroundColor: colors.white }}>
             <ScrollView
                 style={{
                     flex: 1,
                     paddingVertical: 8,
+                    marginBottom: 115,
                 }}
                 showsVerticalScrollIndicator={false}
-                pagingEnabled
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             >
                 {
@@ -183,16 +167,16 @@ const ChildrenData = () => {
                                 No children accounts found..
                             </Text>
                         </View>)
-                    :(
-                        <View
-                            style={{
-                                marginTop: 30,
-                            }}
-                        >
-                            {childrenData}
-                        </View>
-                    ) 
-                        
+                        : (
+                            <View
+                                style={{
+                                    marginTop: 30,
+                                }}
+                            >
+                                {childrenData}
+                            </View>
+                        )
+
                 }
             </ScrollView>
         </View>
@@ -204,13 +188,13 @@ const styles = StyleSheet.create({
     childTouchable: {
         flexDirection: 'row',
         height: 130,
-        width: '95%',
         borderRadius: 30,
+        width: '90%',
+        alignSelf:'center',
         borderColor: colors.black,
         alignItems: 'center',
-        marginBottom: 8,
+        marginBottom: 15,
         paddingHorizontal: 18,
-        alignSelf: 'center',
     },
 
     childAvatarContainer: {
@@ -218,7 +202,7 @@ const styles = StyleSheet.create({
         width: 95,
         borderWidth: 2,
         borderRadius: 50,
-        borderColor: colors.gray,
+        borderColor: colors.red,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -234,20 +218,14 @@ const styles = StyleSheet.create({
 
     },
 
-    DetailPrompt: {
+    DetailData: {
         marginLeft: 20,
         color: colors.black,
         fontFamily: 'Outfit-Bold',
-        fontSize: 14,
+        fontSize: 22,
     },
 
-    DetailData: {
-        marginLeft: 8,
-        color: colors.black,
-        fontFamily: 'Outfit-Regular',
-        fontSize: 14,
-    },
 
 });
 
-export default ChildrenData
+export default Children

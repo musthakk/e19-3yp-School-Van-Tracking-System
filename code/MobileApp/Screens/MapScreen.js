@@ -1,16 +1,19 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+
+import { io } from 'socket.io-client';
 
 // import colors module.
 import colors from '../constants/colors'
 import { Ionicons } from '@expo/vector-icons';
 
 
-
 const MapScreen = ({ navigation, route }) => {
+
+  const [messages, setMessages] = useState([]);
+
   // get the child name from the userHomePage.js
   const { childName } = route.params;
 
@@ -80,11 +83,41 @@ const MapScreen = ({ navigation, route }) => {
     // fetch the data from the database..
     getTravelInfo();
 
+    const socket = io("http://13.51.79.199:3001");
+
+    // Event handler for receiving messages from the server
+    socket.on("SN0013", (message) => {
+      console.log("Received message from server:", message);
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    // Event handler for connecting to the Socket.IO server
+    socket.on("connect", () => {
+      console.log("Connected to Socket.IO server");
+    });
+
+    // Event handler for potential errors
+    socket.on("error", (error) => {
+      console.error("Socket.IO error:", error);
+      // Handle the error as needed
+    });
+
+    // Cleanup on component unmount
+    return () => {
+      console.log("Disconnecting from Socket.IO server");
+      socket.disconnect();
+    };
+
   }, []);
+
+  // Log the current state of messages whenever it changes
+  useEffect(() => {
+    console.log("Current messages state:", messages);
+  }, [messages]);
 
 
   // data array to access the renderData
-  const data = [0,1];
+  const data = [0, 1];
 
   // vehicle detail and driver detail to be rendered in a flat list..
   const renderData = [
@@ -107,7 +140,7 @@ const MapScreen = ({ navigation, route }) => {
       </View>
 
       {/* Texts */}
-      <View style={{...styles.TextContainer, justifyContent: 'center'}}>
+      <View style={{ ...styles.TextContainer, justifyContent: 'center' }}>
 
         {/* Transportation Status */}
         <View
@@ -246,7 +279,13 @@ const MapScreen = ({ navigation, route }) => {
             coordinate={{ latitude: 7.251916, longitude: 80.592455 }}
             title="Your Location"
             description="This is your current location"
-          />
+          >
+            <Image
+              source={require('../assets/car2.png')}
+              style={{ width: 50, height: 50, resizeMode: 'contain', }} // Adjust the size here
+            />
+
+          </Marker>
 
         </MapView>
 
@@ -269,6 +308,23 @@ const MapScreen = ({ navigation, route }) => {
         <Text style={{ alignSelf: 'center', fontSize: 30, fontFamily: 'Outfit-Bold' }}>{childName}</Text>
 
       </View>
+
+      {/* when children is not in travelling */}
+      {
+        (childDetail.childTravellingStatus === 0) ? (
+          <View style={styles.noTravelContainer}>
+            <Text
+              style={{
+                fontSize: 22,
+                fontFamily: 'Roboto-Bold',
+                color: colors.white
+              }}
+            >
+              Your child is not in travel.!
+            </Text>
+          </View>
+        ) : (<></>)
+      }
 
       {/* showInfo or Info */}
       <View style={styles.footer}>
@@ -294,7 +350,7 @@ const MapScreen = ({ navigation, route }) => {
               <FlatList
                 style={styles.flatList}
                 data={data}
-                renderItem={({item}) => renderData[item]} 
+                renderItem={({ item }) => renderData[item]}
                 horizontal={true}
                 // showsHorizontalScrollIndicator={false}
                 bounces={false}
@@ -355,6 +411,19 @@ const styles = StyleSheet.create({
 
   },
 
+  noTravelContainer: {
+    position: 'absolute',
+    top: 120,
+    left: 58,
+    zIndex: 1,
+    borderRadius: 10,
+    backgroundColor: colors.red,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
   footer: {
     position: 'absolute',
     bottom: 10,
@@ -392,7 +461,7 @@ const styles = StyleSheet.create({
     height: 220,
     position: 'absolute',
     bottom: 90,
-  },  
+  },
 
   DetailsContainer: {
     flexDirection: 'row',

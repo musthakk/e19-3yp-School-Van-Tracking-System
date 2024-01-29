@@ -5,6 +5,8 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import colors from './constants/colors';
+
 // import Screens
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
@@ -13,7 +15,7 @@ import SignUp from './Screens/SignUp';
 import AppNavigator from './Screens/AppNavigator';
 import AddChild from './Screens/AddChild';
 import UserProfile from './Screens/UserProfile';
-
+import ChildInfo from './Screens/ChildInfo';
 
 // Screens for Drivers
 import DriverHome from './Screens/DriverHome';
@@ -24,7 +26,7 @@ import MapScreen from './Screens/MapScreen';
 // About SureWay
 import About from './Screens/About';
 
-import {Ionicons, MaterialIcons} from '@expo/vector-icons'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
 
 import MacondoRegular from "./assets/fonts/Macondo-Regular.ttf";
@@ -42,7 +44,7 @@ const Stack = createNativeStackNavigator(); // Initialize the native navigation 
 
 
 export default function App() {
-  
+
   const [fontsLoaded] = useFonts({
     'Macondo-Regular': MacondoRegular,
     'Acme-Regular': AcmeRegular,
@@ -57,8 +59,7 @@ export default function App() {
 
   });
 
-  if(!fontsLoaded)
-  {
+  if (!fontsLoaded) {
     return null;
   }
 
@@ -69,32 +70,32 @@ export default function App() {
       >
 
         {/* Login Screen */}
-        <Stack.Screen 
-          name='login' 
+        <Stack.Screen
+          name='login'
           component={Login}
-          options={{ headerShown: false }}  
+          options={{ headerShown: false }}
         />
 
         {/* SignUp Screen */}
-        <Stack.Screen 
-          name='SignUp' 
+        <Stack.Screen
+          name='SignUp'
           component={SignUp}
-          options={{ headerShown: false }} 
-        />  
+          options={{ headerShown: false }}
+        />
 
         {/* DriverHome Screen */}
-        <Stack.Screen 
-          name='driverHome' 
+        <Stack.Screen
+          name='driverHome'
           component={DriverHome}
-          options={{ headerShown: false }} 
-        />  
+          options={{ headerShown: false }}
+        />
 
 
         {/* Screens with Bottom NavBar for Users.. It contains pges which are at the bottom navBar */}
         <Stack.Screen
           name='userNavScreen'
           component={AppNavigator}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
 
         {/* Add child screen for adding children inside the user Account */}
@@ -105,8 +106,8 @@ export default function App() {
             headerTitle: () => (
               <Text
                 style={{
-                    fontSize: 35,
-                    fontFamily: 'Outfit-Bold'
+                  fontSize: 35,
+                  fontFamily: 'Outfit-Bold'
                 }}
               >
                 ADD CHILD
@@ -123,8 +124,8 @@ export default function App() {
             headerTitle: () => (
               <Text
                 style={{
-                    fontSize: 35,
-                    fontFamily: 'Outfit-Bold'
+                  fontSize: 35,
+                  fontFamily: 'Outfit-Bold'
                 }}
               >
                 Profile
@@ -141,8 +142,8 @@ export default function App() {
             headerTitle: () => (
               <Text
                 style={{
-                    fontSize: 35,
-                    fontFamily: 'Outfit-Bold'
+                  fontSize: 35,
+                  fontFamily: 'Outfit-Bold'
                 }}
               >
                 About
@@ -152,11 +153,35 @@ export default function App() {
         />
 
         {/* Map Screen */}
-        <Stack.Screen 
-          name='mapScreen' 
+        <Stack.Screen
+          name='mapScreen'
           component={MapScreen}
-          options={{ headerShown: false }} 
-        />  
+          options={{ headerShown: false }}
+        />
+
+        {/* Child Info */}
+        <Stack.Screen
+          name='childInfo'
+          component={ChildInfo}
+          options={{
+            headerTitle: () => (
+              <Text
+                style={{
+                  fontSize: 35,
+                  fontFamily: 'Outfit-Regular',
+                  alignSelf: 'center'
+                }}
+              >
+                Child Info
+              </Text>
+            ),
+            headerTitleAlign: 'center',
+            headerStyle: {
+              borderBottomWidth: 1,
+              borderBottomColor: colors.gray,
+            }
+          }}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>
@@ -164,7 +189,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1
   }
 });

@@ -8,7 +8,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 // import screens..
 import UserHome from './UserHomePage';
-import ChildrenData from './ChildrenData';
+import ChildrenData from './Children';
 
 import colors from '../constants/colors';
 
@@ -84,7 +84,7 @@ const AppNavigator = () => {
                   alignSelf: 'center'
               }}
             >
-              Children Details
+              Children
             </Text>
           ),
           headerTitleAlign: 'center',

@@ -516,6 +516,57 @@ app.post('/AddChild', async (req, res) => {
 
 
 
+
+// End point for delete a child
+app.delete('/children/:name', async (req, res) => {
+  const { name } = req.params;
+  const { username } = req.body;
+
+  try {
+    const child = await Children.findOne({ name: name, parent_username: username });
+
+
+    if (!child) {
+      return res.status(404).json({ message: 'Child not found' });
+    }
+    else if(child)
+    {
+      if(!child.isVerified)
+      {
+        await Children.deleteOne({name: name, parent_username: username});
+        // console.log("unverified child is deleted");
+      }
+      else{
+
+        const combinedName = name+" "+username;
+
+        // Find the assigned vehicle of the verified children..
+        const vehicle = await Vehicle.findOne({vehicleID: child.vehicleID});
+
+        if(vehicle)
+        {
+          // Remove the combinedName from the Children array and decrease the seatsFilled by 1
+          await Vehicle.updateOne({ vehicleID: child.vehicleID }, { $pull: { Children: combinedName }, $inc: { seatsFilled: -1 } });
+          // delete th cihld..
+          await Children.deleteOne({name: name, parent_username: username});
+        }
+
+        // console.log("verified Child is deleted");
+
+      }
+    }
+
+    res.json({ message: 'Child deleted successfully' });
+    
+  } catch (error) {
+    console.error('Failed to delete child:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
+
 app.listen(port, '0.0.0.0',() => {
   console.log(`Server is running on http://localhost:${port}`);
 });

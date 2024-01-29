@@ -133,63 +133,63 @@ const UserHome = ({ navigation }) => {
   let colorsArray = [colors.lightBluemui, colors.lightLime, colors.lightTeal, colors.lightOrangeMui, colors.lightBrown];
 
 
-  let childrenData = childrenDetails.map((child, index) => (
-
-    <TouchableOpacity
-      key={index}
-      style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}
-      onPress={() => trackChildren(child.verifiedStatus, child.name)}
-    >
-
-      {/* chile profile avatar png */}
-      <View style={styles.childAvatarContainer}>
-        <Image source={childProfileImages[child.profileAvatar]} style={styles.childAvatar} />
-      </View>
-
-      {/* Information about the child */}
-      <View>
-        {/* children name */}
-        <View style={styles.singleDetailBlock}>
-          <Text style={styles.DetailPrompt}>Child name: </Text>
-          <Text style={styles.DetailData}>{child.name}</Text>
-        </View>
-
-        {/* Agency */}
-        <View style={styles.singleDetailBlock}>
-          <Text style={styles.DetailPrompt}>Agency: </Text>
-          <Text style={styles.DetailData}>{child.agency}</Text>
-        </View>
-
-        {/* Vehicle ID */}
-        <View style={styles.singleDetailBlock}>
-          <Text style={styles.DetailPrompt}>Vehicle ID: </Text>
-          <Text style={styles.DetailData}>{child.vehicleID}</Text>
-        </View>
-
-        {/* Travelling Status */}
-        <View style={styles.singleDetailBlock}>
-          <Text style={styles.DetailPrompt}>Status: </Text>
-          {
-            child.travellingStatus === 1 ? <Text style={{ ...styles.DetailData, color: colors.red }}>Travelling..</Text>
-              : <Text style={{ ...styles.DetailData, color: colors.gray }}>Not Travelling..</Text>
-          }
-
-        </View>
-
-      </View>
-
-      {/* indication symbol saying child is verified by the admin */}
-      {
-        (child.verifiedStatus) ? (
-          <Ionicons name='checkmark-circle' size={50} style={{ color: colors.green, position: 'absolute', right: 15, }} />
-        ) : (
-          <Ionicons name='checkmark-circle' size={50} style={{ color: colors.red, position: 'absolute', right: 15, }} />
-        )
-      }
-
-    </TouchableOpacity>
-
-  ));
+  let childrenData = childrenDetails.map((child, index) => {
+    if (child.verifiedStatus) {
+      return (
+        <TouchableOpacity
+          key={index}
+          style={{ ...styles.childTouchable, backgroundColor: colorsArray[index % 5] }}
+          onPress={() => trackChildren(child.verifiedStatus, child.name)}
+        >
+          {/* Child profile avatar png */}
+          <View style={styles.childAvatarContainer}>
+            <Image source={childProfileImages[child.profileAvatar]} style={styles.childAvatar} />
+          </View>
+  
+          {/* Information about the child */}
+          <View>
+            {/* Children name */}
+            <View style={styles.singleDetailBlock}>
+              <Text style={styles.DetailPrompt}>Child name: </Text>
+              <Text style={styles.DetailData}>{child.name}</Text>
+            </View>
+  
+            {/* Agency */}
+            <View style={styles.singleDetailBlock}>
+              <Text style={styles.DetailPrompt}>Agency: </Text>
+              <Text style={styles.DetailData}>{child.agency}</Text>
+            </View>
+  
+            {/* Vehicle ID */}
+            <View style={styles.singleDetailBlock}>
+              <Text style={styles.DetailPrompt}>Vehicle ID: </Text>
+              <Text style={styles.DetailData}>{child.vehicleID}</Text>
+            </View>
+  
+            {/* Travelling Status */}
+            <View style={styles.singleDetailBlock}>
+              <Text style={styles.DetailPrompt}>Status: </Text>
+              {child.travellingStatus === 1 ? (
+                <Text style={{ ...styles.DetailData, color: colors.red }}>Travelling..</Text>
+              ) : (
+                <Text style={{ ...styles.DetailData, color: colors.gray }}>Not Travelling..</Text>
+              )}
+            </View>
+          </View>
+  
+          {/* Indication symbol saying child is verified by the admin */}
+          <Ionicons
+            name='checkmark-circle'
+            size={50}
+            style={{ color: colors.green, position: 'absolute', right: 15 }}
+          />
+        </TouchableOpacity>
+      );
+    } else {
+      return null;
+    }
+  });
+  
 
   useFocusEffect(
     React.useCallback(() => {

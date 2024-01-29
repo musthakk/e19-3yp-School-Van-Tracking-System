@@ -79,7 +79,7 @@ const RideScreen = () => {
             const data = await response.json();
 
             if (data.success) {
-                console.log(data.message);
+                Alert.alert("Success!", data.message);
             } else {
                 console.error('Update failed:', data.message);
             }
@@ -88,6 +88,40 @@ const RideScreen = () => {
             Alert.alert('Error during update of travelStart:', error.message);
         }
     };
+
+
+    // indicating user's that travelling has been stoped.. by changing parameter in vehicle collection..
+    const requestStop = async () => {
+
+        try {
+            const response = await fetch('http://13.126.69.29:3000/travelStopAction', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username
+                }),
+            });
+
+            if (!response.ok) {
+                // Handle non successfull response
+                throw new Error('Server Error.');
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                Alert.alert("Success!", data.message);
+            } else {
+                console.error('Update failed:', data.message);
+            }
+        }
+        catch (error) {
+            Alert.alert('Error during update of travelStart:', error.message);
+        }
+    };
+
 
 
 
@@ -105,9 +139,18 @@ const RideScreen = () => {
             {/* Icons */}
             <View style={styles.IconContainer}>
                 {/* present */}
-                <TouchableOpacity style={styles.Icons}>
-                    <Ionicons name='checkmark-circle' size={50} color={colors.red} />
-                </TouchableOpacity>
+                {
+                    (child.travellingStatus === 0) ?
+                        (
+                            <TouchableOpacity style={styles.Icons} onPress={()=>ToggleTravellingStateOfChild(child.name, child.parent_username, child.travellingStatus)}>
+                                <Ionicons name='checkmark-circle' size={50} color={colors.red} />
+                            </TouchableOpacity>) : (
+                            <TouchableOpacity style={styles.Icons} onPress={()=>ToggleTravellingStateOfChild(child.name, child.parent_username, child.travellingStatus)} >
+                                <Ionicons name='checkmark-circle' size={50} color={colors.green} />
+                            </TouchableOpacity>
+
+                        )
+                }
 
             </View>
 
@@ -188,7 +231,7 @@ const RideScreen = () => {
 
                     {/* render search Result */}
                     {(!clearSearch) && searchResults.map((child, index) => (
-                        <View key={index} style={{ marginTop: 20, width: '100%', backgroundColor: colors.lightBlue }}>
+                        <View key={index} style={{ marginTop: 20, width: '100%' }}>
                             <View style={{ ...styles.singleChild, width: '100%' }}>
                                 {/* Text */}
                                 <View style={styles.childText}>
@@ -199,9 +242,17 @@ const RideScreen = () => {
                                 {/* Icons */}
                                 <View style={styles.IconContainer}>
                                     {/* present */}
-                                    <TouchableOpacity style={styles.Icons}>
-                                        <Ionicons name='checkmark-circle' size={50} color={colors.red} />
-                                    </TouchableOpacity>
+                                    {   (child.travellingStatus === 0) ?
+                                        (
+                                            <TouchableOpacity style={styles.Icons}onPress={()=>ToggleTravellingStateOfChild(child.name, child.parent_username, child.travellingStatus)} >
+                                                <Ionicons name='checkmark-circle' size={50} color={colors.red} />
+                                            </TouchableOpacity>
+                                        ) : (
+                                            <TouchableOpacity style={styles.Icons}>
+                                                <Ionicons name='checkmark-circle' size={50} color={colors.green} onPress={()=>ToggleTravellingStateOfChild(child.name, child.parent_username, child.travellingStatus)} />
+                                            </TouchableOpacity>
+                                        )
+                                    }
                                 </View>
                             </View>
                         </View>
@@ -219,7 +270,7 @@ const RideScreen = () => {
 
 
                     {(travelStatus === 0) &&
-                        <TouchableOpacity style={styles.startButton} onPress={() => requestStart()}>
+                        <TouchableOpacity style={styles.startButton} onPress={() => setTravelStatus(1)} >
                             <Text style={{ fontSize: 40, fontFamily: "Roboto-Bold" }}>start</Text>
                         </TouchableOpacity>
                     }
@@ -330,7 +381,6 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         alignItems: 'center',
         marginTop: 20,
-        backgroundColor: colors.lightBlue,
         paddingTop: 20,
     },
 

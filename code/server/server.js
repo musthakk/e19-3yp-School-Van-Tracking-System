@@ -440,7 +440,7 @@ app.get('/getVehicleInfo', async (req, res) => {
     }
 
     const children = await Children.find({ vehicleID: vehicleInfo.vehicleID });
-    
+
     const childrenDetails = await Promise.all(children.map(async child => {
       const parent = await User.findOne({ username: child.parent_username });
       return {
@@ -452,7 +452,7 @@ app.get('/getVehicleInfo', async (req, res) => {
       };
     }));
 
-    res.json({vehicleInfo,childrenDetails});
+    res.json({ vehicleInfo, childrenDetails });
 
   } catch (error) {
     console.error('Failed to get user info:', error);
@@ -472,8 +472,7 @@ app.put('/travelStartAction', async (req, res) => {
       return res.status(404).json({ success: false, message: 'Vehicle not found' });
     }
 
-    if( (vehicle.travellingStatus === 0) && (vehicle.heading === 0 && vehicle.returning === 0))
-    {
+    if ((vehicle.travellingStatus === 0) && (vehicle.heading === 0 && vehicle.returning === 0)) {
       vehicle.heading = 1;
       vehicle.travellingStatus = 1;
 
@@ -481,8 +480,7 @@ app.put('/travelStartAction', async (req, res) => {
 
       res.json({ success: true, message: 'Travel started: Home -> School' });
     }
-    else if((vehicle.travellingStatus === 0) &&  (vehicle.heading === 1 && vehicle.returning === 0))
-    {
+    else if ((vehicle.travellingStatus === 0) && (vehicle.heading === 1 && vehicle.returning === 0)) {
       vehicle.returning = 1;
       vehicle.heading = 0;
       vehicle.travellingStatus = 1;
@@ -492,7 +490,7 @@ app.put('/travelStartAction', async (req, res) => {
       res.json({ success: true, message: 'Travel started: School -> Home' });
     }
 
-    
+
   } catch (error) {
     console.error('Failed to start travel:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
@@ -511,8 +509,7 @@ app.put('/travelStopAction', async (req, res) => {
       return res.status(404).json({ success: false, message: 'Vehicle not found' });
     }
 
-    if( (vehicle.travellingStatus === 1) && (vehicle.heading === 1 && vehicle.returning === 0))
-    {
+    if ((vehicle.travellingStatus === 1) && (vehicle.heading === 1 && vehicle.returning === 0)) {
       vehicle.travellingStatus = 0;
 
       await vehicle.save();
@@ -522,8 +519,7 @@ app.put('/travelStopAction', async (req, res) => {
 
       res.json({ success: true, message: 'Reached the School' });
     }
-    else if((vehicle.travellingStatus === 1) &&  (vehicle.heading === 0 && vehicle.returning === 1))
-    {
+    else if ((vehicle.travellingStatus === 1) && (vehicle.heading === 0 && vehicle.returning === 1)) {
       vehicle.returning = 0;
       vehicle.travellingStatus = 0;
 
@@ -535,13 +531,49 @@ app.put('/travelStopAction', async (req, res) => {
       res.json({ success: true, message: 'Returned to home' });
     }
 
-    
+
   } catch (error) {
     console.error('Failed to start travel:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
+
+
+
+
+// End point to toggle the travelling status of a child
+app.put('/toggleTravellingState', async (req, res) => {
+  try {
+    const { name, parent_username, travellingStatus } = req.body;
+
+    const child = await Children.findOne({ name: name, parent_username: parent_username });
+
+    if (!child) {
+      return res.status(404).json({ success: false, message: 'Child not found' });
+    }
+
+    if(travellingStatus === 0)
+    {
+      child.travellingStatus = 1;
+      await child.save();
+      res.json({ success: true, message: "status changed to 1" });
+    }
+    else{
+      child.travellingStatus = 0;
+      await child.save();
+      res.json({ success: true, message: "status changed to 0" });
+    }
+
+
+    
+
+
+  } catch (error) {
+    console.error('Failed to start travel:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
 
 
 // End point to modify the user's Fullname

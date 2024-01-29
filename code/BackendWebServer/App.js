@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const port = 8000;
+const port = 3000;
 const _dirname = path.dirname("");
 const buildPath = path.join(_dirname, "../webapplication/build");
 

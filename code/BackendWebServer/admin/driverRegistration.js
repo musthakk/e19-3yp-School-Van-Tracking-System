@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const driver = require("../models/driverModel");
+const bus = require("../models/vehicleModel");
 const bcrypt = require("bcrypt");
 
 router.post("/driverRegistration", async (req, res) => {
@@ -44,6 +45,23 @@ router.post("/driverRegistration", async (req, res) => {
 
     // Save the User document to the database
     await newDriver.save();
+
+    const foundVehicle = await child.findOne({
+      vehicleID: assignedVehicle,
+    });
+
+    if (foundVehicle) {
+      // Update the found child document
+      await bus.findByIdAndUpdate(
+        foundVehicle._id,
+        {
+          $set: {
+            Driver: userDname,
+          },
+        },
+        { new: true }
+      );
+    }
 
     // Send a response to the client
     res.json({ success: true, message: "Driver adding successful" });

@@ -7,7 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 
 // import custom color module..
 import colors from '../constants/colors'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
 const DriverProfile = ({ navigation }) => {
 
@@ -88,7 +88,7 @@ const DriverProfile = ({ navigation }) => {
             <View style={styles.container}>
 
                 {/* user profile Image with his name portions first letter */}
-                <View style={{ alignItems: 'center', marginTop: -28, }}>
+                <View style={{ alignItems: 'center', marginTop: -15, }}>
                     <View
                         style={{
                             height: 150,
@@ -173,7 +173,7 @@ const DriverProfile = ({ navigation }) => {
 
                     {/* Agency */}
                     <View style={styles.userdetailsInnerContainer}>
-                        <Ionicons name='mail-outline' size={22} style={{ color: colors.gray }} />
+                        <MaterialIcons name='corporate-fare' size={22} style={{ color: colors.gray }} />
 
                         <View style={styles.detailsTextContainer}>
                             <Text style={styles.promptText}>Agency</Text>
@@ -181,9 +181,9 @@ const DriverProfile = ({ navigation }) => {
                         </View>
                     </View>
 
-                    {/* Agency */}
+                    {/* vehicle */}
                     <View style={styles.userdetailsInnerContainer}>
-                        <Ionicons name='mail-outline' size={22} style={{ color: colors.gray }} />
+                        <Ionicons name='car-outline' size={25} style={{ color: colors.gray }} />
 
                         <View style={styles.detailsTextContainer}>
                             <Text style={styles.promptText}>Assigned Vehicle: </Text>
@@ -237,13 +237,13 @@ const styles = StyleSheet.create({
 
     promptText: {
         color: colors.gray,
-        fontSize: 14,
+        fontSize: 12,
     },
 
     dataText: {
         color: colors.black,
         fontWeight: 'bold',
-        fontSize: 16
+        fontSize: 15
     },
 
     editorContainer: {

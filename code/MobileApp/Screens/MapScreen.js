@@ -29,6 +29,11 @@ const MapScreen = ({ navigation, route }) => {
   const [vehicleDetail, setVehicleDetail] = useState({});
   const [driverDetail, setDriverDetail] = useState({});
 
+  const [latitude, setlattitude] = useState(7.251916);
+
+  const [longitude, setLongitude] = useState(80.592455);
+
+
 
   useEffect(() => {
 
@@ -87,8 +92,12 @@ const MapScreen = ({ navigation, route }) => {
 
     // Event handler for receiving messages from the server
     socket.on("SN0013", (message) => {
-      console.log("Received message from server:", message);
+      // console.log("Received message from server:", message);
       setMessages((prevMessages) => [...prevMessages, message]);
+      setlattitude(parseFloat(message.latitude));
+      setLongitude(parseFloat(message.longitude));
+      console.log(message.latitude+" "+message.longitude)
+      
     });
 
     // Event handler for connecting to the Socket.IO server
@@ -112,7 +121,9 @@ const MapScreen = ({ navigation, route }) => {
 
   // Log the current state of messages whenever it changes
   useEffect(() => {
-    console.log("Current messages state:", messages);
+    
+    // console.log("Current messages state:", messages);
+    
   }, [messages]);
 
 
@@ -129,7 +140,7 @@ const MapScreen = ({ navigation, route }) => {
         <Text
           style={{
             fontFamily: 'Outfit-Bold',
-            fontSize: 20,
+            fontSize: 18,
             marginBottom: 10,
             color: colors.black,
           }}
@@ -253,7 +264,6 @@ const MapScreen = ({ navigation, route }) => {
         style={{
           height: 43,
           width: "100%",
-          backgroundColor: colors.orange,
         }}
       >
 
@@ -269,14 +279,14 @@ const MapScreen = ({ navigation, route }) => {
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={{
-            latitude: 7.251916,
-            longitude: 80.592455,
+            latitude:latitude ,
+            longitude: longitude,
             latitudeDelta: 0.005,
             longitudeDelta: 0.005,
           }}
         >
           <Marker
-            coordinate={{ latitude: 7.251916, longitude: 80.592455 }}
+            coordinate={{ latitude: latitude, longitude: longitude }}
             title="Your Location"
             description="This is your current location"
           >
@@ -317,10 +327,10 @@ const MapScreen = ({ navigation, route }) => {
               style={{
                 fontSize: 22,
                 fontFamily: 'Roboto-Bold',
-                color: colors.white
+                color: colors.white,
               }}
             >
-              Your child is not in travel.!
+              Your child is not in travelling..
             </Text>
           </View>
         ) : (<></>)
@@ -413,15 +423,15 @@ const styles = StyleSheet.create({
 
   noTravelContainer: {
     position: 'absolute',
-    top: 120,
-    left: 58,
-    zIndex: 1,
+    top: '15%',
+    alignSelf: 'center',
     borderRadius: 10,
     backgroundColor: colors.red,
     paddingHorizontal: 10,
     paddingVertical: 5,
     justifyContent: 'center',
     alignItems: 'center'
+  
   },
 
   footer: {

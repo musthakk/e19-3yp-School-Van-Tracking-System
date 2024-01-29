@@ -175,7 +175,19 @@ const DriverHome = ({ navigation }) => {
         </View>
 
         <View style={styles.inspirationalTextContainer}>
-          <Text></Text>
+          <Text style={{marginLeft: 5, fontFamily: 'Outfit-Bold', fontSize: 18,}}>Dear {driverDetails.firstName + " " + driverDetails.lastName},</Text>
+          <Text 
+            style={{
+              marginHorizontal: 5, 
+              fontFamily: 'Outfit-Regular', 
+              fontSize: 15,
+              alignSelf: 'center',
+            }}
+          >
+            Each turn of the wheel steers the future of our precious cargo - the children. Your role is not just a job,
+            it's a responsibility we entrust to our brothers. Safe journeys!
+          </Text>
+
         </View>
 
         <View style={styles.MotiveBackgroundContainer}>
@@ -243,7 +255,7 @@ const styles = StyleSheet.create({
 
   vehicleID: {
     fontFamily: 'Outfit-Regular',
-    fontSize: 15,
+    fontSize: 13,
     color: colors.gray,
   },
 
@@ -260,22 +272,33 @@ const styles = StyleSheet.create({
   },
 
   inspirationalTextContainer: {
-    backgroundColor: colors.lightBlue,
+    backgroundColor: colors.white,
     height: 120,
     width: '90%',
     alignSelf: 'center',
     marginTop: 20,
+    alignContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 5,
+    borderRadius: 10,
+
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0,
+    shadowRadius: 2,
+    elevation: 8,
   },
 
-  inspirationalText: {
-
-  },
+ 
 
   MotiveBackgroundContainer: {
     // backgroundColor: colors.lightBlue,
     height: 300,
     width: '100%',
-    borderRadius: 30,
+    borderRadius: 10,
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center'
@@ -285,7 +308,7 @@ const styles = StyleSheet.create({
     height: 290,
     width: '90%',
     resizeMode: 'stretch',
-    borderRadius: 30,
+    borderRadius: 10,
 
     shadowColor: colors.black,
     shadowOffset: {
@@ -321,3 +344,11 @@ const styles = StyleSheet.create({
 });
 
 export default DriverHome
+
+
+
+
+"but valued members of our family." 
+"Each turn of the wheel steers the future of our precious cargo - the children." 
+
+

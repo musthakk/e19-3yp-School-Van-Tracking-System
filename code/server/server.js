@@ -18,17 +18,17 @@ const db = mongoose.connection;
 // Define a schema for the children collection
 // This childSchema will get data when user add children to his account..
 const DetailedChildSchema = new mongoose.Schema({
-  name: {type: String, required: true},
-  isVerified: {type: Boolean, default: false},
-  parent_username: {type: String, required: true},
-  age: {type: Number, required: true},
-  school: {type: String, required: true},
-  grade: {type: String, required: true},
-  pickupAddress: {type: String, required: true},
-  vehicleID: {type: String, default: ""},
-  travellingStatus: { type: Number, default: 0},
-  Agency: {type: String},
-  profileAvatar: {type: String},
+  name: { type: String, required: true },
+  isVerified: { type: Boolean, default: false },
+  parent_username: { type: String, required: true },
+  age: { type: Number, required: true },
+  school: { type: String, required: true },
+  grade: { type: String, required: true },
+  pickupAddress: { type: String, required: true },
+  vehicleID: { type: String, default: "" },
+  travellingStatus: { type: Number, default: 0 },
+  Agency: { type: String },
+  profileAvatar: { type: String },
 });
 
 
@@ -39,22 +39,22 @@ const userSchema = new mongoose.Schema({
   contactNumber: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
-  isVerified: {type: Boolean, default: false},
+  isVerified: { type: Boolean, default: false },
 });
 
 // Define a shema for the driver collection.
 const driverSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  username: { type: String, required: true , unique: true},
+  username: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
   contactNumber: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   address: { type: String, required: true },
-  NIC: { type: String, required: true , unique: true},
-  licenseNumber: { type: String, required: true , unique: true},
-  assignedVehicle: { type: String},
-  agency: {type: String}
+  NIC: { type: String, required: true, unique: true },
+  licenseNumber: { type: String, required: true, unique: true },
+  assignedVehicle: { type: String },
+  agency: { type: String }
 });
 
 // Definition of Agency schema to get the needed details of the agencies..
@@ -150,10 +150,10 @@ app.get('/validate-email', async (req, res) => {
 
 
 // Endpoint: Handles Registration.. When register button is pressed, data is sent to the mongoDb Atlas
-app.post('/signup', async(req, res) => {
+app.post('/signup', async (req, res) => {
   const { fullName, username, contactNumber, email, password } = req.body;
 
-  try{
+  try {
     // Hash the password before storing it
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -183,7 +183,7 @@ app.post('/signup', async(req, res) => {
     res.json({ success: true, message: 'Registration successful. Check your email for verification.' });
 
   }
-  catch(error){
+  catch (error) {
     console.error('Error during reigstration:', error.message);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
@@ -249,7 +249,7 @@ app.get('/verify-email', async (req, res) => {
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found.' });
-      
+
     }
 
     user.isVerified = true;
@@ -269,21 +269,21 @@ app.get('/verify-email', async (req, res) => {
 // Login endpoint
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  console.log("requested username and password for login:"+username+" "+password);
+  console.log("requested username and password for login:" + username + " " + password);
   // Find the user in your database (replace with a database query)
   const user = await User.findOne({ username });
 
   if (!user) {
 
     // If username is not in the User collection check it in the Driver collection..
-    const driver = await Driver.findOne({username: username});
+    const driver = await Driver.findOne({ username: username });
 
-    if(!driver){
+    if (!driver) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-    
+
     // Compare the entered password with the hashed password in the database
-    const passwordMatch = await bcrypt.compare(password, driver.hashedPassword )
+    const passwordMatch = await bcrypt.compare(password, driver.hashedPassword)
 
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
@@ -293,7 +293,7 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ driverId: driver.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
 
-    return res.json({ token, identification: "driver"});
+    return res.json({ token, identification: "driver" });
   }
 
   // Compare the entered password with the hashed password in the database
@@ -302,7 +302,7 @@ app.post('/login', async (req, res) => {
   if (!passwordMatch) {
     return res.status(401).json({ message: 'Invalid credentials' });
   }
-  else if (passwordMatch && user.isVerified == false){
+  else if (passwordMatch && user.isVerified == false) {
     return res.status(401).json({ message: 'User is not verified' });
   }
 
@@ -310,7 +310,7 @@ app.post('/login', async (req, res) => {
   const token = jwt.sign({ userId: user.id }, '21fb95d2a90a577450501e2f1bf8528b5c2fe54f067006c9b30c9d4a4fa79e54270dabb53621602f0df02bf8f390075feba92209f78ebbbf13d8b84d8807590f', { expiresIn: '2d' });
 
 
-  res.json({ token, identification: "user"});
+  res.json({ token, identification: "user" });
 });
 
 
@@ -339,10 +339,10 @@ app.post('/getUserAndChildrenInfo', async (req, res) => {
       travellingStatus: child.travellingStatus,
     }));
 
-    const user = await User.findOne({username});
+    const user = await User.findOne({ username });
     const parentFullName = user ? user.fullName : '';
 
-    res.json({childrenDetails, parentFullName});
+    res.json({ childrenDetails, parentFullName });
 
   } catch (error) {
     console.error(error);
@@ -362,7 +362,7 @@ app.post('/getUserInfo', async (req, res) => {
   try {
 
     // Find the user with specific username
-    const user = await User.findOne({username});
+    const user = await User.findOne({ username });
 
     // Map the user array to only include fullname, contactNumber, email.
     const userDetails = {
@@ -375,7 +375,7 @@ app.post('/getUserInfo', async (req, res) => {
     const VerifiedchildrenCount = (await Children.find({ parent_username: username, isVerified: true })).length;
 
 
-    res.json({userDetails, VerifiedchildrenCount});
+    res.json({ userDetails, VerifiedchildrenCount });
 
   } catch (error) {
     console.error(error);
@@ -439,7 +439,20 @@ app.get('/getVehicleInfo', async (req, res) => {
       returning: vehicle.returning,
     }
 
-    res.json(vehicleInfo);
+    const children = await Children.find({ vehicleID: vehicleInfo.vehicleID });
+    
+    const childrenDetails = await Promise.all(children.map(async child => {
+      const parent = await User.findOne({ username: child.parent_username });
+      return {
+        name: child.name,
+        pickupAddress: child.pickupAddress,
+        travellingStatus: child.travellingStatus,
+        parent_username: child.parent_username,
+        parent_fullName: parent ? parent.fullName : 'Parent not found'
+      };
+    }));
+
+    res.json({vehicleInfo,childrenDetails});
 
   } catch (error) {
     console.error('Failed to get user info:', error);
@@ -492,10 +505,10 @@ app.post('/getChildTravelInfo', async (req, res) => {
 
     // acess the vehicle collection using the vehicle ID which has been found from the childrenDetails..
 
-    const vehicle = await Vehicle.findOne({vehicleID: childDetails.vehicleID});
+    const vehicle = await Vehicle.findOne({ vehicleID: childDetails.vehicleID });
 
     // take the needed details from the vehicle collection..
-    const vehicleDetails =(vehicle)?({
+    const vehicleDetails = (vehicle) ? ({
       driverUsername: vehicle.Driver,
       vehicleTravellingStatus: vehicle.travellingStatus,
       headingStatus: vehicle.heading,
@@ -503,28 +516,30 @@ app.post('/getChildTravelInfo', async (req, res) => {
       thingName: vehicle.ThingName,
       assignedSchool: vehicle.School,
       schoolAddress: vehicle.SchoolAddress,
-    }): ({driverUsername: "xxxxxxx",
+    }) : ({
+      driverUsername: "xxxxxxx",
       vehicleTravellingStatus: "xxxxxxxxx",
       headingStatus: "xxxxxxxxxx",
       returningStatus: "xxxxxxxxxxxx",
       thingName: "xxxxxxxxxxx",
       assignedSchool: "xxxxxxxxxxxxx",
-      schoolAddress: "xxxxxxxxxxxxxx",});
+      schoolAddress: "xxxxxxxxxxxxxx",
+    });
 
     // access the driver collection using the drierUsername found above..
-    const driver = await Driver.findOne({username: vehicleDetails.driverUsername});
-  
+    const driver = await Driver.findOne({ username: vehicleDetails.driverUsername });
+
     // take needed details from the driver collection..
-    const driverDetails = (driver)? ({
-      fullName: (driver.firstName+ " " +driver.lastName),
+    const driverDetails = (driver) ? ({
+      fullName: (driver.firstName + " " + driver.lastName),
       contactNumber: driver.contactNumber,
-    }):({
+    }) : ({
       fullName: '-------------',
       contactNumber: 'XXXXXXXXXXXX',
     });
 
 
-    res.json({childDetails, vehicleDetails, driverDetails});
+    res.json({ childDetails, vehicleDetails, driverDetails });
 
   } catch (error) {
     console.error(error);
@@ -536,14 +551,14 @@ app.post('/getChildTravelInfo', async (req, res) => {
 
 
 // Endpoint to show the minimum agency details to the user front end..
-app.get('/getAgencyInfo', async(req, res) => {
+app.get('/getAgencyInfo', async (req, res) => {
 
-  try{
+  try {
 
-    const agencies = await Agency.find({isVerified: true},'name email contactNumber');
+    const agencies = await Agency.find({ isVerified: true }, 'name email contactNumber');
     res.json(agencies);
 
-  }catch(err){
+  } catch (err) {
 
     res.status(500).send(err);
 
@@ -558,23 +573,24 @@ app.post('/AddChild', async (req, res) => {
   const { childName, username, age, school, grade, pickupAddress, agency, selectedProfileImg } = req.body;
 
   try {
-      // Add child into the children collection..
-      const child = new Children({
-        name: childName,
-        parent_username: username,
-        age: parseInt(age),
-        school: school,
-        grade: grade,
-        pickupAddress: pickupAddress,
-        Agency: agency,
-        profileAvatar: selectedProfileImg});
+    // Add child into the children collection..
+    const child = new Children({
+      name: childName,
+      parent_username: username,
+      age: parseInt(age),
+      school: school,
+      grade: grade,
+      pickupAddress: pickupAddress,
+      Agency: agency,
+      profileAvatar: selectedProfileImg
+    });
 
-      await child.save();
+    await child.save();
 
-      res.json({ success: true });
+    res.json({ success: true });
   } catch (error) {
-      console.error('Error during child addition:', error.message);
-      res.json({ success: false, message: error.message });
+    console.error('Error during child addition:', error.message);
+    res.json({ success: false, message: error.message });
   }
 });
 
@@ -592,36 +608,33 @@ app.delete('/deleteChild', async (req, res) => {
     if (!child) {
       return res.status(404).json({ message: 'Child not found' });
     }
-    else if(child)
-    {
-      if(!child.isVerified)
-      {
-        await Children.deleteOne({name: name, parent_username: username});
+    else if (child) {
+      if (!child.isVerified) {
+        await Children.deleteOne({ name: name, parent_username: username });
         // console.log("unverified child is deleted");
       }
-      else{
+      else {
 
-        const combinedName = name+" "+username;
+        const combinedName = name + " " + username;
 
         // Find the assigned vehicle of the verified children..
-        const vehicle = await Vehicle.findOne({vehicleID: child.vehicleID});
+        const vehicle = await Vehicle.findOne({ vehicleID: child.vehicleID });
 
-        if(vehicle)
-        {
+        if (vehicle) {
 
           if (vehicle.Children.includes(combinedName)) {
             // Remove the combinedName from the Children array and decrease the seatsFilled by 1
             await Vehicle.updateOne({ vehicleID: child.vehicleID }, { $pull: { Children: combinedName }, $inc: { seatsFilled: -1 } });
 
             // delete th cihld..
-            await Children.deleteOne({name: name, parent_username: username});
+            await Children.deleteOne({ name: name, parent_username: username });
 
           } else {
             return res.json({ message: 'Child and parent name conflict' });
           }
         }
-        else{
-          return res.json({ message: 'Wrong verification! Verified Child has not been assigned to a vehicle.' }); 
+        else {
+          return res.json({ message: 'Wrong verification! Verified Child has not been assigned to a vehicle.' });
         }
 
         // console.log("verified Child is deleted");
@@ -640,6 +653,6 @@ app.delete('/deleteChild', async (req, res) => {
 
 
 
-app.listen(port, '0.0.0.0',() => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

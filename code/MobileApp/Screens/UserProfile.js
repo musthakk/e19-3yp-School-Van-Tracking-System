@@ -278,7 +278,7 @@ const UserProfile = ({ navigation }) => {
 
           {/* Logout button  */}
           { !editorVisible && 
-            <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 10, marginBottom: 50, }}>
+            <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 20, marginBottom: 50, }}>
               <Text style={{ color: 'white', textAlign: 'center', fontFamily:'Roboto-Bold', fontSize: 15, }}>Log out</Text>
             </TouchableOpacity> 
           }
@@ -322,13 +322,13 @@ const styles = StyleSheet.create({
 
   promptText: {
     color: colors.gray,
-    fontSize: 15,
+    fontSize: 12,
   },
 
   dataText: {
     color: colors.black,
     fontWeight: 'bold',
-    fontSize: 17
+    fontSize: 15
   },
 
   editorContainer: {

@@ -421,17 +421,17 @@ const styles = StyleSheet.create({
   },
 
   DetailPrompt: {
-    marginLeft: 20,
+    marginLeft: 10,
     color: colors.black,
     fontFamily: 'Outfit-Bold',
-    fontSize: 14,
+    fontSize: 13,
   },
 
   DetailData: {
-    marginLeft: 8,
+    marginLeft: 6,
     color: colors.black,
     fontFamily: 'Outfit-Regular',
-    fontSize: 14,
+    fontSize: 13,
   },
 
   modalText: {

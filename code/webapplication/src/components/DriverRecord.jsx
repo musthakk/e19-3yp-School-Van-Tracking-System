@@ -53,19 +53,20 @@ class DriverRecord extends Component {
         <div className="row">
           <div className="col-3">
             <ul className="list-group" style={{ marginTop: 16 }}>
-              {filteredDrivers.map((user) => (
-                <li
-                  key={user._id}
-                  className={
-                    user === selectedDriver
-                      ? "list-group-item active"
-                      : "list-group-item"
-                  }
-                  onClick={() => this.handleUserSelect(user)}
-                >
-                  {user.firstName}
-                </li>
-              ))}
+              {filteredDrivers &&
+                filteredDrivers.map((user) => (
+                  <li
+                    key={user._id}
+                    className={
+                      user === selectedDriver
+                        ? "list-group-item active"
+                        : "list-group-item"
+                    }
+                    onClick={() => this.handleUserSelect(user)}
+                  >
+                    {user.firstName}
+                  </li>
+                ))}
             </ul>
           </div>
 

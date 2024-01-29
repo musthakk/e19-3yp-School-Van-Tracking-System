@@ -66,7 +66,7 @@ class App extends Component {
           ]}
           render={() => <NavBar user={user} />}
         />
-        <main className="container">
+        <main className="container-fluid">
           <Switch>
             <Route path="/Track" component={Track} />
             <Route path="/Bus" component={Bus} />

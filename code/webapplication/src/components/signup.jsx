@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import Form from "./common/form";
 import { signUp } from "../services/signUpService";
 import { Link, withRouter } from "react-router-dom";
+import "./signup.css";
 
 class SignUpForm extends Form {
   state = {
@@ -37,7 +38,6 @@ class SignUpForm extends Form {
         email: data.email,
         contactNumber: data.contactNumber,
       });
-      // Optionally, you can redirect the user or perform other actions after the bus is successfully added.
       console.log("User added successfully!");
       this.props.history.push("/verify");
     } catch (error) {
@@ -47,19 +47,21 @@ class SignUpForm extends Form {
 
   render() {
     return (
-      <>
-        <h1>Sign Up</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("name", "Agency Name")}
-          {this.renderInput("username", "Username")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderInput("email", "Email")}
-          {this.renderInput("contactNumber", "Contact Number")}
-          {this.renderInput("address", "Address")}
-          {this.renderButton("Register")}
-          <Link to="/loginForm">Login</Link>
-        </form>
-      </>
+      <div className="login-container">
+        <div className="login-form">
+          <form onSubmit={this.handleSubmit}>
+            <h1>Sign Up</h1>
+            {this.renderInput("name", "Agency Name")}
+            {this.renderInput("username", "Username")}
+            {this.renderInput("password", "Password", "password")}
+            {this.renderInput("email", "Email")}
+            {this.renderInput("contactNumber", "Contact Number")}
+            {this.renderInput("address", "Address")} <br />
+            {this.renderButton("Register")}
+            <Link to="/loginForm">Login</Link>
+          </form>
+        </div>
+      </div>
     );
   }
 }

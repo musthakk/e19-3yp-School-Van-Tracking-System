@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import Form from "./common/form";
 import { verify } from "../services/signUpService";
 import { Link, withRouter } from "react-router-dom";
+import "./login.css";
 
 class verifyForm extends Form {
   state = {
@@ -40,14 +41,18 @@ class verifyForm extends Form {
   render() {
     return (
       <>
-        <h1>Verify</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderInput("verificationCode", "Verification Code")}
-          {this.renderButton("Verify")}
-          <Link to="/loginForm">Login</Link>
-        </form>
+        <div className="login-container">
+          <div className="login-form">
+            <form onSubmit={this.handleSubmit}>
+              <h1>Verify</h1>
+              {this.renderInput("username", "Username")}
+              {this.renderInput("password", "Password", "password")}
+              {this.renderInput("verificationCode", "Verification Code")}
+              {this.renderButton("Verify")} <br />
+              <Link to="/loginForm">Login</Link>
+            </form>
+          </div>
+        </div>
       </>
     );
   }

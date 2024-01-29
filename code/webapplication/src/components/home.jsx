@@ -4,6 +4,7 @@ import AccidentAlers from "./accidentAlerts";
 import "./components.css";
 import "../index.css";
 import map from "../images/map.png";
+import home from "../images/home.jpeg";
 
 class Home extends Component {
   state = {};
@@ -22,26 +23,47 @@ class Home extends Component {
                 marginBottom: "10px",
                 padding: "0px",
                 borderRadius: "20px",
-                height: "350px",
+                height: "400px",
                 border: "none",
                 boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                backgroundImage: `url(${home})`, // Set the image as background
+                backgroundSize: "cover", // Make the background image cover the whole card
               }}
             >
-              <div class="card-body">
-                <div className="card text-bg-dark">
-                  <img src={banner} className="card-img" alt="..." />
-                  <div className="card-img-overlay">
-                    {/* <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
-            <p className="card-text">
-              <small>Last updated 3 mins ago</small>
-            </p> */}
-                  </div>
-                </div>
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  background:
+                    "linear-gradient(to bottom, rgba(0,0,0,0) 0%, #FF8400 100%)", // Gradient color and direction
+                  borderRadius: "20px", // Match the card's border radius
+                }}
+              ></div>
+              <div
+                class="card-body"
+                style={{
+                  position: "absolute",
+                  bottom: "10px",
+                  left: "50%", // Center horizontally
+                  transform: "translateX(-50%)", // Adjust for centering
+                  color: "#fff",
+                  textAlign: "center", // Center align text
+                }}
+              >
+                {/* Your card content here */}
+                <p
+                  style={{
+                    marginBottom: "5px",
+                    fontWeight: "bold",
+                    color: "#fefcd2",
+                  }}
+                >
+                  "Ready to elevate the school transportation experience to the
+                  next level of comfort and safety with SureWay"
+                </p>
               </div>
             </div>
           </div>
@@ -270,43 +292,25 @@ class Home extends Component {
                 marginBottom: "20px",
                 padding: "20px",
                 borderRadius: "20px",
-                height: "400px",
+                height: "200px",
                 border: "none",
                 boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <div class="card-body">
-                <div class="row row-cols-1 row-cols-md-1 g-2">
-                  <div class="col">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 className="card-title">Driver records</h5>
-                        <p className="card-text">
-                          You can see records of all your drivers' here
-                        </p>
-                        <a href="/DriverRecord" className="btn btn-primary">
-                          Driver Records
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 className="card-title">Driver records</h5>
-                        <p className="card-text">
-                          You can see records of all your drivers' here
-                        </p>
-                        <a href="/DriverRecord" className="btn btn-primary">
-                          Driver Records
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+              <div class="card">
+                <div class="card-body">
+                  <h5 className="card-title">Driver records</h5>
+                  <p className="card-text">
+                    You can see records of all your drivers' here
+                  </p>
+                  <a href="/DriverRecord" className="btn btn-primary">
+                    Driver Records
+                  </a>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col">
             <a href="/Track" style={{ textDecoration: "none" }}>
               <div

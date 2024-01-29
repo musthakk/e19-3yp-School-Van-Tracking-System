@@ -461,6 +461,87 @@ app.get('/getVehicleInfo', async (req, res) => {
 });
 
 
+// End point to handle necessary actions on the db parameters when driver side Start comes
+app.put('/travelStartAction', async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    const vehicle = await Vehicle.findOne({ Driver: username });
+
+    if (!vehicle) {
+      return res.status(404).json({ success: false, message: 'Vehicle not found' });
+    }
+
+    if( (vehicle.travellingStatus === 0) && (vehicle.heading === 0 && vehicle.returning === 0))
+    {
+      vehicle.heading = 1;
+      vehicle.travellingStatus = 1;
+
+      await vehicle.save();
+
+      res.json({ success: true, message: 'Travel started: Home -> School' });
+    }
+    else if((vehicle.travellingStatus === 0) &&  (vehicle.heading === 1 && vehicle.returning === 0))
+    {
+      vehicle.returning = 1;
+      vehicle.heading = 0;
+      vehicle.travellingStatus = 1;
+
+      await vehicle.save();
+
+      res.json({ success: true, message: 'Travel started: School -> Home' });
+    }
+
+    
+  } catch (error) {
+    console.error('Failed to start travel:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+
+// End point to handle necessary actions on the db parameters when driver side Stop comes
+app.put('/travelStopAction', async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    const vehicle = await Vehicle.findOne({ Driver: username });
+
+    if (!vehicle) {
+      return res.status(404).json({ success: false, message: 'Vehicle not found' });
+    }
+
+    if( (vehicle.travellingStatus === 1) && (vehicle.heading === 1 && vehicle.returning === 0))
+    {
+      vehicle.travellingStatus = 0;
+
+      await vehicle.save();
+
+      // Find all children in this vehicle and set their travellingStatus to 0
+      await Children.updateMany({ vehicleID: vehicle.vehicleID }, { travellingStatus: 0 });
+
+      res.json({ success: true, message: 'Reached the School' });
+    }
+    else if((vehicle.travellingStatus === 1) &&  (vehicle.heading === 0 && vehicle.returning === 1))
+    {
+      vehicle.returning = 0;
+      vehicle.travellingStatus = 0;
+
+      await vehicle.save();
+
+      // Find all children in this vehicle and set their travellingStatus to 0
+      await Children.updateMany({ vehicleID: vehicle.vehicleID }, { travellingStatus: 0 });
+
+      res.json({ success: true, message: 'Returned to home' });
+    }
+
+    
+  } catch (error) {
+    console.error('Failed to start travel:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
 
 
 // End point to modify the user's Fullname

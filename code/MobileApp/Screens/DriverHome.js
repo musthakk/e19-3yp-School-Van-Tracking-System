@@ -185,7 +185,7 @@ const DriverHome = ({ navigation }) => {
             }}
           >
             Each turn of the wheel steers the future of our precious cargo - the children. Your role is not just a job,
-            it's a responsibility we entrust to our brothers. Safe journeys!
+            it's a responsibility we entrust to our brother. Safe journeys!
           </Text>
 
         </View>

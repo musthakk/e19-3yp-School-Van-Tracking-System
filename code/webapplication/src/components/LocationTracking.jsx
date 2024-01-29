@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, memo } from "react";
 import { Route } from "react-router-dom";
 //import { gettVehicleSnap } from "../services/snapService";
+import { gettingPickupaddresses } from "../services/busService";
 import { triggerSnap } from "../services/snapService";
 import io from "socket.io-client";
 import {
@@ -75,7 +76,7 @@ const SocketClient = (props) => {
             </div>
           </Map>
           <div>
-            <Directions endAddress={bus?.SchoolAddress} />
+            <Directions endAddress={bus?.SchoolAddress} bus={bus} />
           </div>
         </APIProvider>
       </div>
@@ -126,10 +127,11 @@ const SocketClient = (props) => {
 };
 //};
 
-function Directions({ endAddress }) {
+function Directions({ endAddress, bus }) {
   const map = useMap();
   let distance = 0;
   let duration = 0;
+  const [waypoints, setWaypoints] = useState([]);
   const routesLibrary = useMapsLibrary("routes");
   const [directionService, setDirectionService] = useState();
   const [directionsRenderer, setDirectionsRenderer] = useState();
@@ -137,6 +139,7 @@ function Directions({ endAddress }) {
   const [routeIndex, setRouteIndex] = useState(0);
   const selected = routes[routeIndex];
   const leg = selected?.legs[0];
+  //const pickUpAddresses = gettingPickupaddresses({ vehicleID: bus?.vehicleID });
   //console.log("Selected legs are", selected?.legs);
   console.log("Routes are", routes);
 
@@ -145,6 +148,25 @@ function Directions({ endAddress }) {
     setDirectionService(new routesLibrary.DirectionsService());
     setDirectionsRenderer(new routesLibrary.DirectionsRenderer({ map }));
   }, [map, routesLibrary]);
+
+  useEffect(() => {
+    // Fetch pickup addresses when the component mounts or when bus.vehicleID changes
+    gettingPickupaddresses({ vehicleID: bus?.vehicleID })
+      .then((addresses) => {
+        console.log("pickup addresses are", addresses);
+        const waypoints = addresses?.data.gettingPickupAddress.map(
+          (address) => ({
+            location: address.pickupAddress,
+            stopover: true,
+          })
+        );
+        setWaypoints(waypoints);
+        //console.log("waypoints are", waypoints);
+      })
+      .catch((error) => {
+        console.error("Error fetching pickup addresses:", error);
+      });
+  }, [bus?.vehicleID]);
 
   useEffect(() => {
     if (!directionService || !directionsRenderer) return;
@@ -156,20 +178,28 @@ function Directions({ endAddress }) {
     };
     const end = { location: endAddress, stopover: true };
 
-    const waypoints = [
-      //{ location: "31, Colombo Road, Piliyandala 10300", stopover: true }, // Origin
-      {
-        location: "Kingswood College, Randles Hill, Peradeniya Rd, Kandy 20000",
-        stopover: true,
-      }, // Second destination
-      {
-        location: "Sangaraja Mawatha, Kandy",
-        stopover: true,
-      }, // Second destination
-      { location: "DS Senanayake Veediya, Kandy 20000", stopover: true },
-      //{ location: "Maradana Rd, Colombo 01000", stopover: true }, // First destination
-      // Add more waypoints with stopover: true for each
-    ];
+    // //{ location: "31, Colombo Road, Piliyandala 10300", stopover: true }, // Origin
+    // {
+    //   location: "Kingswood College, Randles Hill, Peradeniya Rd, Kandy 20000",
+    //   stopover: true,
+    // }, // Second destination
+    // {
+    //   location: "Sangaraja Mawatha, Kandy",
+    //   stopover: true,
+    // }, // Second destination
+    // { location: "DS Senanayake Veediya, Kandy 20000", stopover: true },
+    // //{ location: "Maradana Rd, Colombo 01000", stopover: true }, // First destination
+    // // Add more waypoints with stopover: true for each
+    // let waypoints = [];
+
+    // for (let i = 0; i < pickUpAddresses?.length; i++) {
+    //   waypoints[i] = {
+    //     location: pickUpAddresses[i]?.pickupAddress,
+    //     stopover: true,
+    //   };
+    // }
+
+    console.log("waypoints are", waypoints);
 
     directionService
       .route({
@@ -188,7 +218,7 @@ function Directions({ endAddress }) {
         //console.log("response is", Response);
         setRoutes(Response.routes);
       });
-  }, [directionService, directionsRenderer]);
+  }, [directionService, directionsRenderer, endAddress, waypoints]);
 
   //console.log("directionService", directionService);
   //console.log("selected route is", routes.selected);

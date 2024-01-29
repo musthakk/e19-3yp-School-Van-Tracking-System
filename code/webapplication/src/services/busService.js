@@ -40,3 +40,8 @@ export async function assignBus(obj) {
   const urlWithQuery = `${apiEndpoint}?agency=${encodeURIComponent(agency)}`;
   return http.put(urlWithQuery, obj);
 }
+
+export async function gettingPickupaddresses(obj) {
+  const apiEndpoint = `${apiUrl}/Admin/gettingPickupAddress`;
+  return http.get(apiEndpoint, { params: obj });
+}

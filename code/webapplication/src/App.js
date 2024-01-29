@@ -21,6 +21,7 @@ import SeeSnaps from "./components/seeSnaps";
 import VehicleSnap from "./components/vehicleSnap";
 import SignUpForm from "./components/signup";
 import verifyForm from "./components/verify";
+import "./index.css";
 
 class App extends Component {
   state = {

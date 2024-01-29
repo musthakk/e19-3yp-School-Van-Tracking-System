@@ -544,10 +544,20 @@ app.delete('/deleteChild', async (req, res) => {
 
         if(vehicle)
         {
-          // Remove the combinedName from the Children array and decrease the seatsFilled by 1
-          await Vehicle.updateOne({ vehicleID: child.vehicleID }, { $pull: { Children: combinedName }, $inc: { seatsFilled: -1 } });
-          // delete th cihld..
-          await Children.deleteOne({name: name, parent_username: username});
+
+          if (vehicle.Children.includes(combinedName)) {
+            // Remove the combinedName from the Children array and decrease the seatsFilled by 1
+            await Vehicle.updateOne({ vehicleID: child.vehicleID }, { $pull: { Children: combinedName }, $inc: { seatsFilled: -1 } });
+
+            // delete th cihld..
+            await Children.deleteOne({name: name, parent_username: username});
+
+          } else {
+            return res.status(409).json({ message: 'Child and parent name conflict' });
+          }
+        }
+        else{
+          return res.status(409).json({ message: 'Wrong verification! Verified Child has not been assigned to a vehicle.' }); 
         }
 
         // console.log("verified Child is deleted");

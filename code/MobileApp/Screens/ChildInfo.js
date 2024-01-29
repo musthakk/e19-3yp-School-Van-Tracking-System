@@ -15,7 +15,7 @@ const ChildInfo = ({ navigation, route }) => {
             // get username of the user from the SecureStore.
             const username = await SecureStore.getItemAsync('username');
 
-            const response = await fetch('https://13.126.69.29:3000/children', {
+            const response = await fetch('http://13.126.69.29:3000/deleteChild', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

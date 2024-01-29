@@ -153,7 +153,6 @@ const AddChild = () => {
         const data = await response.json();
 
         if (data.success) {
-            console.log('child has been added successfully');
             Alert.alert("Child has been added succesfully... Wait for the Admin acceptance.");
             setKey(prevKey => prevKey + 1);
 

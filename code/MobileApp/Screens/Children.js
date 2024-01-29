@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
 
+import { useFocusEffect } from '@react-navigation/native';
+
+
 // import cusom colors module..
 import colors from '../constants/colors';
 
@@ -60,10 +63,13 @@ const Children = ({navigation}) => {
     };
 
 
-    React.useEffect(() => {
-        // Call the function immediately
-        getChildrenDetails();
-    }, []);
+    useFocusEffect(
+        React.useCallback(() => {
+          // Call the function immediately
+          getChildrenDetails();
+    
+        }, [])
+      );
 
 
     // navigate to childDetail page, 

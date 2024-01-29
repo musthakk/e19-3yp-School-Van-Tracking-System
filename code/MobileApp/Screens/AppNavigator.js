@@ -19,37 +19,38 @@ const AppNavigator = () => {
 
   return (
     <Tab.Navigator
-        screenOptions={{
-            tabBarStyle: { 
-                height: 60,
-                marginHorizontal: 8,
-                marginBottom: 10,
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: 0,
-                elevation: 0,
-                borderTopWidth: 0,
-            },
-            tabBarItemStyle: { marginVertical: 5},
-            tabBarActiveTintColor: colors.black,
-            tabBarShowLabel: false,
-        }}
+      screenOptions={{
+        tabBarStyle: {
+          height: 65,
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          elevation: 0,
+          borderTopWidth: 0,
+          paddingBottom: 5,
+          alignItems: 'center',
+          justifyContent: 'center'
+        },
+        tabBarItemStyle: { marginVertical: 5 },
+        tabBarActiveTintColor: colors.black,
+        tabBarShowLabel: false,
+      }}
     >
 
       {/* userHome */}
-      <Tab.Screen 
-        name="Home" 
-        component={UserHome} 
-        options={{ 
+      <Tab.Screen
+        name="Home"
+        component={UserHome}
+        options={{
           headerShown: false,
-          tabBarIcon: ({focused})=>(
-            <View style={{borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4, alignItems: 'center',}}>
-              <Ionicons name={focused ? 'location-sharp': 'location-outline'} size={30} color={focused?'black': 'gray'}/>
+          tabBarIcon: ({ focused }) => (
+            <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4, alignItems: 'center', }}>
+              <Ionicons name={focused ? 'location-sharp' : 'location-outline'} size={30} color={focused ? 'black' : 'gray'} />
               <Text
-              style={{
-                fontFamily: focused? 'Outfit-Bold': 'Outfit-Regular',
-              }}
+                style={{
+                  fontFamily: focused ? 'Outfit-Bold' : 'Outfit-Regular',
+                }}
               >
                 Track
               </Text>
@@ -60,17 +61,17 @@ const AppNavigator = () => {
       />
 
       {/* profile Page */}
-      <Tab.Screen 
-        name="childrenData" 
+      <Tab.Screen
+        name="childrenData"
         component={ChildrenData}
-        options={{ 
-          tabBarIcon: ({focused})=>(
-            <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4, alignItems: 'center',}}>
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4, alignItems: 'center', }}>
               <Ionicons name={focused ? "people-sharp" : "people-outline"} size={30} color={focused ? 'black' : 'gray'} />
               <Text
-              style={{
-                fontFamily: focused? 'Outfit-Bold': 'Outfit-Regular',
-              }}
+                style={{
+                  fontFamily: focused ? 'Outfit-Bold' : 'Outfit-Regular',
+                }}
               >
                 Children
               </Text>
@@ -79,9 +80,9 @@ const AppNavigator = () => {
           headerTitle: () => (
             <Text
               style={{
-                  fontSize: 35,
-                  fontFamily: 'Outfit-Regular',
-                  alignSelf: 'center'
+                fontSize: 35,
+                fontFamily: 'Outfit-Regular',
+                alignSelf: 'center'
               }}
             >
               Children
@@ -95,7 +96,7 @@ const AppNavigator = () => {
         }}
       />
 
-      
+
     </Tab.Navigator>
 
   );

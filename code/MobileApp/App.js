@@ -18,7 +18,7 @@ import UserProfile from './Screens/UserProfile';
 import ChildInfo from './Screens/ChildInfo';
 
 // Screens for Drivers
-import DriverHome from './Screens/DriverHome';
+import AppNavigatorDriver from './Screens/AppNavigatorDriver';
 
 // GoogleMap API screen
 import MapScreen from './Screens/MapScreen';
@@ -39,6 +39,7 @@ import OutfitBold from './assets/fonts/Outfit-Bold.ttf';
 import OutfitRegular from './assets/fonts/Outfit-Regular.ttf';
 import RobotoRegular from './assets/fonts/Roboto-Regular.ttf';
 import RobotoBold from './assets/fonts/Roboto-Bold.ttf';
+
 
 const Stack = createNativeStackNavigator(); // Initialize the native navigation stack..
 
@@ -83,18 +84,17 @@ export default function App() {
           options={{ headerShown: false }}
         />
 
-        {/* DriverHome Screen */}
-        <Stack.Screen
-          name='driverHome'
-          component={DriverHome}
-          options={{ headerShown: false }}
-        />
-
-
         {/* Screens with Bottom NavBar for Users.. It contains pges which are at the bottom navBar */}
         <Stack.Screen
           name='userNavScreen'
           component={AppNavigator}
+          options={{ headerShown: false }}
+        />
+
+        {/* Screens with Bottom NavBar for Users.. It contains pges which are at the bottom navBar */}
+        <Stack.Screen
+          name='driverNavScreen'
+          component={AppNavigatorDriver}
           options={{ headerShown: false }}
         />
 

@@ -66,7 +66,7 @@ const Login = ({navigation}) => {
             if(identity === "driver")
             {
                 // navigate to driver Home..
-                navigation.navigate('driverHome')
+                navigation.navigate('driverNavScreen')
             } 
             else{
 
@@ -89,6 +89,9 @@ const Login = ({navigation}) => {
         if(identity === 'driver')
         {
             // add your driver login page 
+            const initialRoute = isLoggedIn ? 'driverNavScreen' : 'login';
+
+            navigation.navigate(initialRoute);
 
         }else{
 

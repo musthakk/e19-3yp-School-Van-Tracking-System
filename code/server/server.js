@@ -54,6 +54,7 @@ const driverSchema = new mongoose.Schema({
   NIC: { type: String, required: true , unique: true},
   licenseNumber: { type: String, required: true , unique: true},
   assignedVehicle: { type: String},
+  agency: {type: String}
 });
 
 // Definition of Agency schema to get the needed details of the agencies..
@@ -382,6 +383,39 @@ app.post('/getUserInfo', async (req, res) => {
   }
 
 });
+
+
+
+
+// End point for get the driver Info
+app.get('/getDriverInfo', async (req, res) => {
+  const { username } = req.query;
+
+  try {
+    const driver = await Driver.findOne({ username });
+
+    if (!driver) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const driverInfo = {
+      firstName: driver.firstName,
+      lastName: driver.lastName,
+      contactNumber: driver.contactNumber,
+      email: driver.email,
+      address: driver.address,
+      assignedVehicle: driver.assignedVehicle,
+      agency: driver.agency
+    }
+
+    res.json(driverInfo);
+
+  } catch (error) {
+    console.error('Failed to get user info:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 
 

@@ -55,28 +55,52 @@ class Bus extends Form {
     return (
       <div className="row">
         <div className="col-4">
-          <h1>Add a new bus</h1>
-          <form onSubmit={this.handleSubmit}>
-            {this.renderInput("vehicleNumber", "Licence Plate")}
-            {this.renderInput("School", "School")}
-            {this.renderInput("SchoolAddress", "School Address")}
-            {this.renderInput("seats", "Seats")}
-            {this.renderInput("ThingName", "SureWay Serial Number")}
+          <div
+            className="card"
+            style={{
+              marginTop: "20px",
+              marginLeft: "20px",
+              marginRight: "10px",
+              marginBottom: "10px",
+              padding: "15px",
+              borderRadius: "20px",
+              height: "470px",
+              border: "none",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <h1>Add a new bus</h1>
+            <form onSubmit={this.handleSubmit}>
+              {this.renderInput("vehicleNumber", "Licence Plate")}
+              {this.renderInput("School", "School")}
+              {this.renderInput("SchoolAddress", "School Address")}
+              {this.renderInput("seats", "Seats")}
+              {this.renderInput("ThingName", "SureWay Serial Number")}
+              <br />
+              {this.renderButton("Save")}
+            </form>{" "}
             <br />
-            {this.renderButton("Save")}
-          </form>{" "}
-          <br />
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">Assign Busses to new users</h5>
-              <p className="card-text">
-                You can assign Busses to new users here
-              </p>
-              <a href="/assignBusses" className="btn btn-primary">
-                Assign Busses
-              </a>
-            </div>
           </div>
+          <a href="/assignBusses" style={{ TextDecoration: "none" }}>
+            <div
+              className="card"
+              style={{
+                marginTop: "10px",
+                marginLeft: "20px",
+                marginRight: "10px",
+                marginBottom: "20px",
+                padding: "15px",
+                borderRadius: "20px",
+                height: "120px",
+                border: "none",
+                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <div className="card-body">
+                <h5 className="card-title">Assign busses to new children</h5>
+              </div>
+            </div>
+          </a>
         </div>
 
         <div className="col">

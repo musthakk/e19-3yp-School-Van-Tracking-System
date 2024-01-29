@@ -44,3 +44,14 @@
   background-position: center;
   
 }
+
+.signup-form {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  background-image: url('../images/wall.png');
+  background-size: 100%; /* Adjust the background size to cover the element */
+  background-repeat: no-repeat; /* Prevent background image from repeating */
+  width: 100%;
+  padding: 20px; /* Adjust padding as needed */
+  height: 100vh;
+}

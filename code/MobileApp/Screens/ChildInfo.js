@@ -15,23 +15,27 @@ const ChildInfo = ({ navigation, route }) => {
             // get username of the user from the SecureStore.
             const username = await SecureStore.getItemAsync('username');
 
-            const response = await fetch(`https://13.126.69.29:3000/children/${name}`, {
+            const response = await fetch('https://13.126.69.29:3000/children', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    name : name,
                     username: username
                 })
             });
+
+            
 
             if (!response.ok) {
                 throw new Error('Child deletion failed');
             }
 
             const data = await response.json();
-            console.log("deleted..");
-            return data;
+            
+            // return data;
+
         } catch (error) {
             console.error('Failed to delete child:', error);
         }
@@ -49,7 +53,6 @@ const ChildInfo = ({ navigation, route }) => {
             {
                 text: 'OK',
                 onPress: async () => {
-                    console.log("deleted..");
                     await deleteTheChild();
                     navigation.replace('userNavScreen', { screen: 'childrenData' });
                 },

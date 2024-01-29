@@ -518,9 +518,8 @@ app.post('/AddChild', async (req, res) => {
 
 
 // End point for delete a child
-app.delete('/children/:name', async (req, res) => {
-  const { name } = req.params;
-  const { username } = req.body;
+app.delete('/deleteChild', async (req, res) => {
+  const { name, username } = req.body;
 
   try {
     const child = await Children.findOne({ name: name, parent_username: username });
@@ -557,7 +556,7 @@ app.delete('/children/:name', async (req, res) => {
     }
 
     res.json({ message: 'Child deleted successfully' });
-    
+
   } catch (error) {
     console.error('Failed to delete child:', error);
     res.status(500).json({ message: 'Internal server error' });

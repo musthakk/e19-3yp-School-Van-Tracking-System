@@ -33,3 +33,14 @@
 .cardlogo:hover {
   transform: scale(1.2); /* Adjust the scale factor as needed */
 }
+
+.gradient-background {
+  background: linear-gradient(to right, #fff4bd, #FCE205, #EFFD5F);
+}
+
+.card-with-bg {
+  background-image: url("../images/map.png");
+  background-size: cover;
+  background-position: center;
+  
+}

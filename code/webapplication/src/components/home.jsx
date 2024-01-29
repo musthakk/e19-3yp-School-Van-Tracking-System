@@ -8,6 +8,29 @@ class Home extends Component {
   render() {
     return (
       <>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+            <div class="card">
+              <div class="card-body"></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body"></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body"></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body"></div>
+            </div>
+          </div>
+        </div>
+
         <div className="card text-bg-dark">
           <img src={banner} className="card-img" alt="..." />
           <div className="card-img-overlay">

@@ -1,0 +1,12 @@
+/* App.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Or to target all elements */
+  * {
+    margin: 0;
+    padding: 0;
+  }

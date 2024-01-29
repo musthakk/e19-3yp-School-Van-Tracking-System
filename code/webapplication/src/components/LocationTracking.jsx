@@ -68,10 +68,17 @@ const SocketClient = (props) => {
               />
             ))}
             {/* <AnimatedMarker positions={messages} /> */}
+            <div className="card" style={{ width: "300px", marginTop: "70px" }}>
+              <h1 style={{ fontSize: "20px" }}>Current Speed:</h1>
+              <p1>{messages[messages.length - 1]?.speed}</p1>
+            </div>
           </Map>
-          <Directions endAddress={bus?.SchoolAddress} />
+          <div>
+            <Directions endAddress={bus?.SchoolAddress} />
+          </div>
         </APIProvider>
       </div>
+
       {/* <div className="card" style={{ width: "200px" }}>
         <h1>Directions</h1>
         <p1>Distance: {Directions(bus?.SchoolAddress)?.[0]}</p1>
@@ -96,7 +103,10 @@ const SocketClient = (props) => {
           </a>
         )}
       />
-      <div className="card" style={{ width: "200px" }}>
+      <div
+        className="card"
+        style={{ width: "200px", marginLeft: "500px", marginTop: "0px" }}
+      >
         <h1>Position</h1>
         <p1>PositionX: {messages[messages.length - 1]?.angularX}</p1>
         <p1>PositionY: {messages[messages.length - 1]?.angularY}</p1>
@@ -179,7 +189,7 @@ function Directions({ endAddress }) {
   if (!leg) return null;
 
   return (
-    <div className="card" style={{ width: "200px" }}>
+    <div className="card" style={{ width: "200px", marginTop: "70px" }}>
       <h1>Directions</h1>
       <p1>Distance: {leg.distance.text}</p1>
       <p1>Duration: {leg.duration.text}</p1>

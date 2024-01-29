@@ -145,7 +145,7 @@ const UserHome = ({ navigation }) => {
           <View style={styles.childAvatarContainer}>
             <Image source={childProfileImages[child.profileAvatar]} style={styles.childAvatar} />
           </View>
-  
+
           {/* Information about the child */}
           <View>
             {/* Children name */}
@@ -153,19 +153,19 @@ const UserHome = ({ navigation }) => {
               <Text style={styles.DetailPrompt}>Child name: </Text>
               <Text style={styles.DetailData}>{child.name}</Text>
             </View>
-  
+
             {/* Agency */}
             <View style={styles.singleDetailBlock}>
               <Text style={styles.DetailPrompt}>Agency: </Text>
               <Text style={styles.DetailData}>{child.agency}</Text>
             </View>
-  
+
             {/* Vehicle ID */}
             <View style={styles.singleDetailBlock}>
               <Text style={styles.DetailPrompt}>Vehicle ID: </Text>
               <Text style={styles.DetailData}>{child.vehicleID}</Text>
             </View>
-  
+
             {/* Travelling Status */}
             <View style={styles.singleDetailBlock}>
               <Text style={styles.DetailPrompt}>Status: </Text>
@@ -176,7 +176,7 @@ const UserHome = ({ navigation }) => {
               )}
             </View>
           </View>
-  
+
           {/* Indication symbol saying child is verified by the admin */}
           <Ionicons
             name='checkmark-circle'
@@ -189,7 +189,7 @@ const UserHome = ({ navigation }) => {
       return null;
     }
   });
-  
+
 
   useFocusEffect(
     React.useCallback(() => {
@@ -339,7 +339,9 @@ const UserHome = ({ navigation }) => {
                     No children accounts found..
                   </Text>
                 </View>
-                : childrenData
+                : (<View style={{marginBottom: 80,}}>
+                  {childrenData}
+                </View>)
             }
 
           </ScrollView>

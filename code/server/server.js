@@ -553,11 +553,11 @@ app.delete('/deleteChild', async (req, res) => {
             await Children.deleteOne({name: name, parent_username: username});
 
           } else {
-            return res.status(409).json({ message: 'Child and parent name conflict' });
+            return res.json({ message: 'Child and parent name conflict' });
           }
         }
         else{
-          return res.status(409).json({ message: 'Wrong verification! Verified Child has not been assigned to a vehicle.' }); 
+          return res.json({ message: 'Wrong verification! Verified Child has not been assigned to a vehicle.' }); 
         }
 
         // console.log("verified Child is deleted");

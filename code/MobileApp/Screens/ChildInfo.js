@@ -31,10 +31,9 @@ const ChildInfo = ({ navigation, route }) => {
             if (!response.ok) {
                 throw new Error('Child deletion failed');
             }
-
-            const data = await response.json();
             
-            // return data;
+            const data = await response.json();
+            console.log(data)
 
         } catch (error) {
             console.error('Failed to delete child:', error);

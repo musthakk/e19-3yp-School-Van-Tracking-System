@@ -128,6 +128,8 @@ const SocketClient = (props) => {
 
 function Directions({ endAddress }) {
   const map = useMap();
+  let distance = 0;
+  let duration = 0;
   const routesLibrary = useMapsLibrary("routes");
   const [directionService, setDirectionService] = useState();
   const [directionsRenderer, setDirectionsRenderer] = useState();
@@ -193,11 +195,22 @@ function Directions({ endAddress }) {
 
   if (!leg) return null;
 
+  {
+    selected?.legs.map((leg) => (distance += leg.distance.value));
+  }
+
+  {
+    selected?.legs.map((leg) => (duration += leg.duration.value));
+  }
+
+  const formattedDistance = (distance / 1000).toFixed(1);
+  const formattedDuration = (duration / 60).toFixed(0);
+
   return (
     <div className="card" style={{ width: "200px", marginTop: "70px" }}>
       <h1>Directions</h1>
-      <p1>Distance: {leg.distance.text}</p1>
-      <p1>Duration: {leg.duration.text}</p1>
+      <p1>Distance: {formattedDistance} KM</p1>
+      <p1>Duration: {formattedDuration} mins</p1>
     </div>
   );
 

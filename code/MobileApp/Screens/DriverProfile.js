@@ -9,10 +9,25 @@ import * as SecureStore from 'expo-secure-store';
 import colors from '../constants/colors'
 import { Ionicons } from '@expo/vector-icons'
 
-const DriverProfile = () => {
+const DriverProfile = ({ navigation }) => {
+
+    // handling log out functionality..
+    const handleLogout = async () => {
+        // Clear the token from SecureStore
+        await SecureStore.deleteItemAsync('jwtToken');
+
+        // clear user details..
+        await SecureStore.deleteItemAsync('identity');
+
+        await SecureStore.deleteItemAsync('username');
+
+        // Navigate back to the login screen
+        navigation.replace('login');
+    };
 
 
     const [nameLetterAvatar, setNameLetterAvatar] = useState("");
+    const [fullName, SetfullName] = useState("");
     const [username, setUsername] = useState('');
     const [driverDetails, setDriverDetails] = useState({});
 
@@ -22,10 +37,9 @@ const DriverProfile = () => {
         try {
             // get username of the user from the SecureStore.
             let username = await SecureStore.getItemAsync('username');
-
             setUsername(username);
 
-            const response = await fetch(`http://13.126.69.29:3000/getUserInfo?username=${username}`, {
+            const response = await fetch(`http://13.126.69.29:3000/getDriverInfo?username=${username}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,12 +53,11 @@ const DriverProfile = () => {
 
             // get the response..
             const DriverProfileInfo = await response.json();     // driver personal information..
-            console.log(DriverProfileInfo);
             setDriverDetails(DriverProfileInfo);
-
+            SetfullName(DriverProfileInfo.firstName + " " + DriverProfileInfo.lastName);
 
         } catch (error) {
-            Alert.alert('Error in fetching the children data', error.message);
+            Alert.alert('Error in fetching the driver data', error.message);
         }
     };
 
@@ -55,9 +68,18 @@ const DriverProfile = () => {
             getDriverInfo();
         }, [])
     );
-    
 
-    
+    /* Get the First letters from the frist name and last name of the full name and put those letters as Profile Avatar*/
+    useEffect(() => {
+        const nameArray = fullName.trim().split(" ");
+        let nameLetters = "";
+        for (let name of nameArray) {
+            if (name[0] !== undefined)
+                nameLetters += name[0];
+        }
+        setNameLetterAvatar(nameLetters);
+    }, [fullName]);
+
 
 
     return (
@@ -66,18 +88,18 @@ const DriverProfile = () => {
             <View style={styles.container}>
 
                 {/* user profile Image with his name portions first letter */}
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: 'center', marginTop: -28, }}>
                     <View
                         style={{
                             height: 150,
                             width: 150,
                             borderRadius: 80,
-                            backgroundColor: colors.lightTeal,
+                            backgroundColor: colors.black,
                             justifyContent: 'center',
                             alignItems: 'center',
                         }}
                     >
-                        <Text style={{ fontSize: 40, }}></Text>
+                        <Text style={{ fontSize: 45, fontFamily: 'Roboto-Bold', color: colors.white }}>{nameLetterAvatar}</Text>
                     </View>
                 </View>
 
@@ -92,7 +114,26 @@ const DriverProfile = () => {
 
                         <View style={styles.detailsTextContainer}>
                             <Text style={styles.promptText}>Full-name</Text>
-                            <Text style={styles.dataText}>{driverDetails.firstName+" "+driverDetails.lastName}</Text>
+
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={styles.dataText}>{driverDetails.firstName + " " + driverDetails.lastName}</Text>
+
+                                <Text
+                                    style={{
+                                        fontSize: 16,
+                                        borderRadius: 15,
+                                        backgroundColor: colors.gold,
+                                        paddingHorizontal: 10,
+                                        textAlign: 'center',
+                                        paddingVertical: 1,
+                                        fontFamily: "Roboto-Bold",
+                                        marginLeft: 10,
+                                    }}
+                                >
+                                    Driver
+                                </Text>
+
+                            </View>
                         </View>
 
                     </View>
@@ -128,16 +169,35 @@ const DriverProfile = () => {
                             <Text style={styles.promptText}>Mail</Text>
                             <Text style={styles.dataText}>{driverDetails.email}</Text>
                         </View>
+                    </View>
 
+                    {/* Agency */}
+                    <View style={styles.userdetailsInnerContainer}>
+                        <Ionicons name='mail-outline' size={22} style={{ color: colors.gray }} />
+
+                        <View style={styles.detailsTextContainer}>
+                            <Text style={styles.promptText}>Agency</Text>
+                            <Text style={styles.dataText}>{driverDetails.agency}</Text>
+                        </View>
+                    </View>
+
+                    {/* Agency */}
+                    <View style={styles.userdetailsInnerContainer}>
+                        <Ionicons name='mail-outline' size={22} style={{ color: colors.gray }} />
+
+                        <View style={styles.detailsTextContainer}>
+                            <Text style={styles.promptText}>Assigned Vehicle: </Text>
+                            <Text style={styles.dataText}>{driverDetails.assignedVehicle}</Text>
+                        </View>
                     </View>
 
 
                     {/* Logout button  */}
-                    {!editorVisible &&
-                        <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 10, marginBottom: 50, }}>
-                            <Text style={{ color: 'white', textAlign: 'center', fontFamily: 'Roboto-Bold', fontSize: 15, }}>Log out</Text>
-                        </TouchableOpacity>
-                    }
+
+                    <TouchableOpacity onPress={handleLogout} style={{ padding: 10, backgroundColor: 'red', borderRadius: 5, marginTop: 10, marginBottom: 50, }}>
+                        <Text style={{ color: 'white', textAlign: 'center', fontFamily: 'Roboto-Bold', fontSize: 15, }}>Log out</Text>
+                    </TouchableOpacity>
+
 
                 </View>
 
@@ -158,7 +218,7 @@ const styles = StyleSheet.create({
     },
 
     userdetailsContainer: {
-        marginTop: 40,
+        marginTop: 25,
     },
 
     userdetailsInnerContainer: {
@@ -166,8 +226,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: colors.lightGray,
         alignItems: 'center',
-        paddingBottom: 13,
-        marginBottom: 13,
+        paddingBottom: 12,
+        marginBottom: 11,
     },
 
     detailsTextContainer: {
@@ -177,13 +237,13 @@ const styles = StyleSheet.create({
 
     promptText: {
         color: colors.gray,
-        fontSize: 15,
+        fontSize: 14,
     },
 
     dataText: {
         color: colors.black,
         fontWeight: 'bold',
-        fontSize: 17
+        fontSize: 16
     },
 
     editorContainer: {

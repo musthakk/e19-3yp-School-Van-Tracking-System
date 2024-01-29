@@ -418,6 +418,36 @@ app.get('/getDriverInfo', async (req, res) => {
 
 
 
+// End point for get the Vehicle Info
+app.get('/getVehicleInfo', async (req, res) => {
+  const { username } = req.query;
+
+  try {
+    const vehicle = await Vehicle.findOne({ Driver: username });
+
+    if (!vehicle) {
+      return res.status(404).json({ message: 'Vehicle not found' });
+    }
+
+    const vehicleInfo = {
+      vehicleID: vehicle.vehicleID,
+      seatsFilled: vehicle.seatsFilled,
+      Children: vehicle.Children,
+      agency: vehicle.agency,
+      travellingStatus: vehicle.travellingStatus,
+      heading: vehicle.heading,
+      returning: vehicle.returning,
+    }
+
+    res.json(vehicleInfo);
+
+  } catch (error) {
+    console.error('Failed to get user info:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 
 
 // End point to modify the user's Fullname

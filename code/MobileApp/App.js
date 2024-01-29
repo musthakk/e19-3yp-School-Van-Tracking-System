@@ -19,6 +19,7 @@ import ChildInfo from './Screens/ChildInfo';
 
 // Screens for Drivers
 import AppNavigatorDriver from './Screens/AppNavigatorDriver';
+import RideScreen from './Screens/RideScreen';
 
 // GoogleMap API screen
 import MapScreen from './Screens/MapScreen';
@@ -179,6 +180,29 @@ export default function App() {
             headerStyle: {
               borderBottomWidth: 1,
               borderBottomColor: colors.gray,
+            }
+          }}
+        />
+
+        {/* Travel Info */}
+        <Stack.Screen
+          name='travelInfo'
+          component={RideScreen}
+          options={{
+            headerTitle: () => (
+              <Text
+                style={{
+                  fontSize: 35,
+                  fontFamily: 'Outfit-Regular',
+                  alignSelf: 'center'
+                }}
+              >
+                Travel Info
+              </Text>
+            ),
+            headerTitleAlign: 'center',
+            headerStyle: {
+              borderBottomWidth: 1,
             }
           }}
         />

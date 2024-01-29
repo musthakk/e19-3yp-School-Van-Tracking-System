@@ -128,7 +128,6 @@ const AppNavigatorDriver = () => {
                     headerTitleAlign: 'center',
                     headerStyle: {
                         borderBottomWidth: 1,
-                        borderBottomColor: colors.gray,
                     }
                 }}
             />

@@ -9,19 +9,15 @@ app.use(express.json());
 
 const port = 3000;
 const _dirname = path.dirname("");
-const buildPath = path.join(_dirname, "../webapplication/build");
-
+const buildPath = path.join(_dirname, "./build");
 app.use(express.static(buildPath));
 
 app.get("/*", function (req, res) {
-  res.sendFile(
-    path.join(__dirname, "../webapplication/build/index.html"),
-    function (err) {
-      if (err) {
-        res.status(500).send(err);
-      }
+  res.sendFile(path.join(__dirname, "./build/index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
     }
-  );
+  });
 });
 
 app.get("/*", function (req, res) {

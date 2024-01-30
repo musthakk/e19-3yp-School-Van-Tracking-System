@@ -15,7 +15,7 @@ class VehicleSnap extends Component {
   }
 
   render() {
-    return <img src={this.state.snap} alt="snap" />;
+    return <img src={this.state.snap} alt="snap" style={{ margin: "40px" }} />;
   }
 }
 

@@ -1,7 +1,7 @@
 .login-container {
     display: flex;
-    justify-content: flex-end; /* Align form to the right */
-    align-items: flex-start; /* Align form to the top */
+    justify-content: flex-end;
+    align-items: center; 
     height: 100vh;
     background-image: url("../images/wall.png");
     background-size: cover;
@@ -9,14 +9,15 @@
   }
   
   .login-form {
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
-    padding: 20px;
-    border-radius: 10px;
-    color: white; /* Text color */
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 20px; /* Increased border radius */
+    color: white;
     width: 500px;
-    margin-right: 50px;
+    margin-right: 70px;
     margin-left: 30px;
-    margin-top: 200px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
   
@@ -33,37 +34,34 @@
   .login-form button,
   .login-form a {
     margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
+    color: white; /* Text color */
+    border: 1px solid white; /* White border */
+    border-radius: 20px; /* Border radius */
+    padding: 10px;
+    padding-left: 30px; /* Add padding for the icon */
   }
   
   .login-form input[type="text"],
-  .login-form input[type="password"],
-  .login-form input[type="email"] {
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
+  .login-form input[type="password"] {
+    background-color: transparent; /* Transparent background */
   }
   
   .login-form input[type="submit"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
     cursor: pointer;
-    background-color: #007bff; /* Button background color */
-    color: white; /* Button text color */
+    background-color: orange; /* Orange button background color */
   }
   
   .login-form input[type="submit"]:hover {
-    background-color: #0056b3; /* Hover state background color */
+    background-color: #ffa500; /* Hover state background color */
   }
   
   .login-form a {
-    color: #ffffff; /* Link text color */
+    color: white;
     text-decoration: none;
   }
   
   .login-form a:hover {
-    text-decoration: underline; /* Hover state link underline */
+    text-decoration: underline;
   }
   

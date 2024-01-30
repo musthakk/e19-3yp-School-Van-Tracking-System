@@ -42,8 +42,12 @@ class LoginForm extends Form {
             <h1>Login</h1>
             {this.renderInput("username", "Username")}
             {this.renderInput("password", "Password", "password")} <br />
-            {this.renderButton("Login")}
-            <Link to="/signup">Sign Up</Link>
+            {this.renderButton("Login")} <br />
+            <p1>
+              {" "}
+              Don't have an account?
+              <Link to="/signup"> Sign Up</Link>
+            </p1>
           </form>
         </div>
       </div>

@@ -47,8 +47,8 @@ class SignUpForm extends Form {
 
   render() {
     return (
-      <div className="login-container">
-        <div className="login-form">
+      <div className="log-container">
+        <div className="log-form">
           <form onSubmit={this.handleSubmit}>
             <h1>Sign Up</h1>
             {this.renderInput("name", "Agency Name")}
@@ -58,7 +58,11 @@ class SignUpForm extends Form {
             {this.renderInput("contactNumber", "Contact Number")}
             {this.renderInput("address", "Address")} <br />
             {this.renderButton("Register")}
-            <Link to="/loginForm">Login</Link>
+            <p1>
+              {" "}
+              Already have an account?
+              <Link to="/loginForm"> Login</Link>
+            </p1>
           </form>
         </div>
       </div>

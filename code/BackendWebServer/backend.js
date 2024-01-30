@@ -84,6 +84,9 @@ app.use("/Admin", gettingPickupAddresses);
 const deleteVerifiedChildren = require("./admin/deleteVerifiedChildren");
 app.use("/Admin", deleteVerifiedChildren);
 
+const deleteDriver = require("./admin/deleteDriver");
+app.use("/Admin", deleteDriver);
+
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

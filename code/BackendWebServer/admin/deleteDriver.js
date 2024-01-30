@@ -1,26 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const child = require("../models/childModel");
+const driver = require("../models/driverModel");
+const bus = require("../models/vehicleModel");
 
-router.put("/rejectRequest", async (req, res) => {
-  const { parent_username, name } = req.body;
-  const { agency } = req.query; // Assuming the agency parameter is passed in the query string
-
-  if (!agency) {
-    return res.status(400).json({
-      success: false,
-      message: "Agency parameter is required",
-    });
-  }
+router.put("/deleteDriver", async (req, res) => {
+  const { username } = req.body;
 
   try {
-    const foundChild = await child.findOne({
-      isVerified: false,
-      Agency: agency,
-      parent_username,
-      name,
+    const foundDriver = await driver.findOne({
+      username,
     });
-    const foundBus = await bus.findOne({ vehicleID: foundChild.vehicleID });
+    const foundBus = await bus.findOne({
+      vehicleID: foundDriver.assignedVehicle,
+    });
 
     if (!foundBus) {
       return res.status(404).json({
@@ -29,14 +21,21 @@ router.put("/rejectRequest", async (req, res) => {
       });
     }
 
-    if (!foundChild) {
+    if (!foundDriver) {
       return res.status(404).json({
         success: false,
-        message: "Child not found",
+        message: "Driver not found",
       });
     }
-    await foundBus.updateOne({ Driver: "" });
-    await child.deleteOne({ _id: foundChild._id });
+    await bus.findByIdAndUpdate(
+      foundBus._id,
+      {
+        $set: { Driver: "" }, // Set the Driver property to an empty string
+      },
+      { new: true } // To get the updated document after the update
+    );
+
+    await driver.deleteOne({ _id: foundDriver._id });
 
     // Send a response to the client with a status code of 204 (No Content) for successful deletion
     res.status(204).end();

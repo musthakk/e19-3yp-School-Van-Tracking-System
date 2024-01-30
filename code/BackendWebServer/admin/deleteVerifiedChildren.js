@@ -36,8 +36,8 @@ router.put("/deleteVerifiedChildren", async (req, res) => {
       {
         $inc: { seatsFilled: -1 },
         $pull: { Children: concatenatedName },
-      }
-      // { new: true }
+      },
+      { new: true }
     );
 
     // Send a response to the client with a status code of 204 (No Content) for successful deletion

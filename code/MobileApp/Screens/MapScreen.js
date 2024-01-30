@@ -102,7 +102,7 @@ const MapScreen = ({ navigation, route }) => {
         longitude: parseFloat(message.longitude),
         latitudeDelta: 0.005,
         longitudeDelta: 0.005,
-      }, 1000);
+      }, 300);
 
       setlattitude(parseFloat(message.latitude));
       setLongitude(parseFloat(message.longitude));

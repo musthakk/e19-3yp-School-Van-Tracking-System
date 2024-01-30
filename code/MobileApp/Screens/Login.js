@@ -1,15 +1,117 @@
-import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Keyboard} from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, TouchableOpacity, Alert} from 'react-native'
+import React, { useState, useEffect, useRef} from 'react'
+import axios from 'axios';
+import * as SecureStore from 'expo-secure-store';
+
 import colors from '../constants/colors';
 
 import {Ionicons, MaterialIcons} from '@expo/vector-icons'
 
 const Login = ({navigation}) => {
 
+    // Tracking username..
+    const [username, setUsername] = useState("");
+
+    // Track Password..
+    const [password, SetPassword] = useState("");
+
     // Tracking Password visibility..
     const [isPasswordShown, SetPasswordShown] = useState(false);
 
+    // Function to check if the user is already logged in
+    const checkLoggedIn = async () => {
+        try {
+            // Retrieve the JWT token from SecureStore
+            const jwtToken = await SecureStore.getItemAsync('jwtToken');
+        
+            // Return true if the token exists, false otherwise
+            return !!jwtToken;
+        } catch (error) {
+            console.error('Error checking login state:', error);
+            return false;
+        }
+    };
 
+    // Login Authentication..
+    const handleLogin = async () => {
+        try {
+            const response = await fetch('http://13.126.69.29:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
+            });
+
+            if (!response.ok) {
+                // Handle non-successful response
+                throw new Error('Invalid username or password.');
+            }
+
+            const responseData = await response.json();
+            const jwtToken = responseData.token;
+            const identity = responseData.identification;    // user or driver..
+
+            // Save the token securely using expo-secure-store
+            await SecureStore.setItemAsync('jwtToken', jwtToken);
+
+            await SecureStore.setItemAsync('identity', identity.toString());      // storing user role inside the system
+
+            await SecureStore.setItemAsync('username', username.toString());      // storing username..
+
+            // Navigate to the next screen or perform other actions
+            if(identity === "driver")
+            {
+                // navigate to driver Home..
+                navigation.navigate('driverNavScreen')
+            } 
+            else{
+
+                // navigate to userHomeScreen..
+                navigation.navigate('userNavScreen');
+            }
+            
+
+        } catch (error) {
+            Alert.alert('Login failed', error.message);
+        }
+    };
+
+    // Check login state and navigate accordingly
+    const checkLoginAndNavigate = async () => {
+        const isLoggedIn = await checkLoggedIn();
+
+        const identity = await SecureStore.getItemAsync('identity');
+
+        if(identity === 'driver')
+        {
+            // add your driver login page 
+            const initialRoute = isLoggedIn ? 'driverNavScreen' : 'login';
+
+            navigation.navigate(initialRoute);
+
+        }else{
+
+            const initialRoute = isLoggedIn ? 'userNavScreen' : 'login';
+
+            navigation.navigate(initialRoute);
+        }
+        
+    };
+    
+    // Call checkLoginAndNavigate when the app starts
+    useEffect(() => {
+        checkLoginAndNavigate();
+    }, []);
+
+
+    // Element References..
+    const passwordRef = useRef(null);
+    const LoginButtonRef = useRef(null);
+    
     return (
     <SafeAreaView style = {styles.safearea}>
         <View style ={styles.container}>
@@ -29,17 +131,22 @@ const Login = ({navigation}) => {
             <View style={styles.inputBox}>
                 <Ionicons name='person-circle-outline' size={20} style={styles.icons}/>
                 <TextInput
-                    placeholder='Username'
+                    placeholder='username'
                     style = {styles.textInput}
+                    onChangeText={(text)=>setUsername(text)}
+                    onSubmitEditing={()=>passwordRef.current.focus()}
                 />
             </View>
 
             <View style={styles.inputBox}>
                 <Ionicons name='lock-closed-outline' size={20} style={styles.icons}/>
                 <TextInput
+                    ref={passwordRef}
                     placeholder='Password'
                     secureTextEntry = {!isPasswordShown}
                     style = {styles.textInput}
+                    onChangeText={(text)=>SetPassword(text)}
+                    onSubmitEditing={()=>LoginButtonRef.current.focus()}
                 />
 
                 <TouchableOpacity 
@@ -56,13 +163,14 @@ const Login = ({navigation}) => {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.submitButton}>
+            <TouchableOpacity 
+                ref={LoginButtonRef}
+                style={styles.submitButton}
+                onPress={handleLogin}
+            >
                 <Text style={{fontSize: 20, color:colors.black, fontFamily: 'NotoSansMono-Bold'}}>Login</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity>
-                <Text style={{fontSize: 13, textDecorationLine: 'underline'}}>Forgot Password ?</Text>
-            </TouchableOpacity>
 
             
             <View style={styles.signupPrompt}>

@@ -1,0 +1,69 @@
+.login-container {
+    display: flex;
+    justify-content: flex-end; /* Align form to the right */
+    align-items: flex-start; /* Align form to the top */
+    height: 100vh;
+    background-image: url("../images/wall.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .login-form {
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+    padding: 20px;
+    border-radius: 10px;
+    color: white; /* Text color */
+    width: 500px;
+    margin-right: 50px;
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .login-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-form h1 {
+    margin-bottom: 20px;
+  }
+  
+  .login-form input,
+  .login-form button,
+  .login-form a {
+    margin-bottom: 10px;
+  }
+  
+  .login-form input[type="text"],
+  .login-form input[type="password"],
+  .login-form input[type="email"] {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+  
+  .login-form input[type="submit"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+  }
+  
+  .login-form input[type="submit"]:hover {
+    background-color: #0056b3; /* Hover state background color */
+  }
+  
+  .login-form a {
+    color: #ffffff; /* Link text color */
+    text-decoration: none;
+  }
+  
+  .login-form a:hover {
+    text-decoration: underline; /* Hover state link underline */
+  }
+  

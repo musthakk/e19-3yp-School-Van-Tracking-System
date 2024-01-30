@@ -21,6 +21,7 @@ import SeeSnaps from "./components/seeSnaps";
 import VehicleSnap from "./components/vehicleSnap";
 import SignUpForm from "./components/signup";
 import verifyForm from "./components/verify";
+import "./index.css";
 
 class App extends Component {
   state = {
@@ -65,7 +66,7 @@ class App extends Component {
           ]}
           render={() => <NavBar user={user} />}
         />
-        <main className="container">
+        <main className="container-fluid">
           <Switch>
             <Route path="/Track" component={Track} />
             <Route path="/Bus" component={Bus} />

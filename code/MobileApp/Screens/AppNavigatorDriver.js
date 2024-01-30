@@ -9,7 +9,6 @@ import colors from '../constants/colors';
 
 // Import Screens
 import DriverHome from './DriverHome';
-import RouteScreen from './RouteScreen';
 import DriverProfile from './DriverProfile';
 
 const Tab = createBottomTabNavigator();
@@ -58,42 +57,6 @@ const AppNavigatorDriver = () => {
                     )
                 }}
 
-            />
-
-            {/* route Page */}
-            <Tab.Screen
-                name="routeScreen"
-                component={RouteScreen}
-                options={{
-                    tabBarIcon: ({ focused }) => (
-                        <View style={{ borderBottomWidth: focused ? 2 : 0, borderBottomColor: 'black', paddingBottom: 4, alignItems: 'center', }}>
-                            <Ionicons name={focused ? "navigate" : "navigate-outline"} size={30} color={focused ? 'black' : 'gray'} />
-                            <Text
-                                style={{
-                                    fontFamily: focused ? 'Outfit-Bold' : 'Outfit-Regular',
-                                }}
-                            >
-                                Route
-                            </Text>
-                        </View>
-                    ),
-                    headerTitle: () => (
-                        <Text
-                            style={{
-                                fontSize: 35,
-                                fontFamily: 'Outfit-Regular',
-                                alignSelf: 'center'
-                            }}
-                        >
-                            Route
-                        </Text>
-                    ),
-                    headerTitleAlign: 'center',
-                    headerStyle: {
-                        borderBottomWidth: 1,
-                        borderBottomColor: colors.gray,
-                    }
-                }}
             />
 
 

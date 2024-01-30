@@ -80,6 +80,7 @@ const RideScreen = () => {
 
             if (data.success) {
                 Alert.alert("Success!", data.message);
+                getVehicleInfo();
             } else {
                 console.error('Update failed:', data.message);
             }
@@ -113,6 +114,43 @@ const RideScreen = () => {
 
             if (data.success) {
                 Alert.alert("Success!", data.message);
+                getVehicleInfo();
+            } else {
+                console.error('Update failed:', data.message);
+            }
+        }
+        catch (error) {
+            Alert.alert('Error during update of travelStart:', error.message);
+        }
+    };
+
+
+    // indicating user's that travelling has been stoped.. by changing parameter in vehicle collection..
+    const ToggleTravellingStateOfChild = async (name, parent_username, travellingStatus) => {
+
+        try {
+            const response = await fetch('http://13.126.69.29:3000/toggleTravellingState', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name,
+                    parent_username,
+                    travellingStatus
+                }),
+            });
+
+            if (!response.ok) {
+                // Handle non successfull response
+                throw new Error('Server Error.');
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log(data.message);
+                getVehicleInfo();
             } else {
                 console.error('Update failed:', data.message);
             }
@@ -270,7 +308,7 @@ const RideScreen = () => {
 
 
                     {(travelStatus === 0) &&
-                        <TouchableOpacity style={styles.startButton} onPress={() => setTravelStatus(1)} >
+                        <TouchableOpacity style={styles.startButton} onPress={() => requestStart()} >
                             <Text style={{ fontSize: 40, fontFamily: "Roboto-Bold" }}>start</Text>
                         </TouchableOpacity>
                     }
@@ -285,7 +323,7 @@ const RideScreen = () => {
                     >
                         {childrenData}
 
-                        <TouchableOpacity style={styles.FinishButton} onPress={() => setTravelStatus(0)}>
+                        <TouchableOpacity style={styles.FinishButton} onPress={() => requestStop()}>
                             <Text style={{ fontSize: 40, fontFamily: "Roboto-Bold", color: colors.white }}>Finish</Text>
                         </TouchableOpacity>
 

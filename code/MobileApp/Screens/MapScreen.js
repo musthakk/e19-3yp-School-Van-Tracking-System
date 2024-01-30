@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
@@ -94,11 +94,21 @@ const MapScreen = ({ navigation, route }) => {
     socket.on("SN0013", (message) => {
       // console.log("Received message from server:", message);
       setMessages((prevMessages) => [...prevMessages, message]);
+
+      console.log(message.latitude + " " + message.longitude)
+
+      mapref.current.animateToRegion({
+        latitude: parseFloat(message.latitude),
+        longitude: parseFloat(message.longitude),
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      }, 1000);
+
       setlattitude(parseFloat(message.latitude));
       setLongitude(parseFloat(message.longitude));
-      console.log(message.latitude+" "+message.longitude)
-      
+
     });
+
 
     // Event handler for connecting to the Socket.IO server
     socket.on("connect", () => {
@@ -121,9 +131,9 @@ const MapScreen = ({ navigation, route }) => {
 
   // Log the current state of messages whenever it changes
   useEffect(() => {
-    
+
     // console.log("Current messages state:", messages);
-    
+
   }, [messages]);
 
 
@@ -257,6 +267,9 @@ const MapScreen = ({ navigation, route }) => {
 
   ]
 
+  // map reference
+  const mapref = useRef(null);
+
   return (
 
     <View style={styles.container}>
@@ -276,10 +289,11 @@ const MapScreen = ({ navigation, route }) => {
         }}
       >
         <MapView
+          ref={mapref}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={{
-            latitude:latitude ,
+            latitude: latitude,
             longitude: longitude,
             latitudeDelta: 0.005,
             longitudeDelta: 0.005,
@@ -431,7 +445,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     justifyContent: 'center',
     alignItems: 'center'
-  
+
   },
 
   footer: {

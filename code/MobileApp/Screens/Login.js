@@ -171,9 +171,6 @@ const Login = ({navigation}) => {
                 <Text style={{fontSize: 20, color:colors.black, fontFamily: 'NotoSansMono-Bold'}}>Login</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity>
-                <Text style={{fontSize: 13, textDecorationLine: 'underline'}}>Forgot Password ?</Text>
-            </TouchableOpacity>
 
             
             <View style={styles.signupPrompt}>

@@ -47,9 +47,13 @@ class verifyForm extends Form {
               <h1>Verify</h1>
               {this.renderInput("username", "Username")}
               {this.renderInput("password", "Password", "password")}
-              {this.renderInput("verificationCode", "Verification Code")}
+              {this.renderInput("verificationCode", "Verification Code")} <br />
               {this.renderButton("Verify")} <br />
-              <Link to="/loginForm">Login</Link>
+              <p1>
+                {" "}
+                Already have an account?
+                <Link to="/loginForm"> Login</Link>
+              </p1>
             </form>
           </div>
         </div>

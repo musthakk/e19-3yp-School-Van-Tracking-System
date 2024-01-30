@@ -65,28 +65,43 @@ class RegisterForm extends Form {
 
   render() {
     return (
-      <div>
-        <h1>Register a new driver</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("firstName", "First Name")}
-          {this.renderInput("lastDName", "Last Name")}
-          {this.renderInput("userDname", "Username")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderInput("contactDNumber", "Contact Number")}
-          {this.renderInput("emailD", "Email")}
-          {this.renderInput("addressD", "Address")}
-          {this.renderInput("nicD", "NIC")}
-          {this.renderInput("licensenumberD", "License Number")} <br />
-          {/* {this.renderInput("licensenumberD", "License Number")} <br /> */}
-          {this.renderSelect(
-            "assignedVehicle",
-            "Assigned Vehicle",
-            this.state.vehicles
-          )}{" "}
-          <br />
-          {this.renderButton("Register")} <br />
-          {/* {this.renderSelect("genreId", "Genre", this.state.bu)} */}
-        </form>
+      <div
+        className="card"
+        style={{
+          margin: "20px",
+
+          width: "1287px",
+          padding: "40px",
+          borderRadius: "20px",
+          height: "800px",
+          border: "none",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+          transition: "transform 0.2s, background-color 0.2s",
+        }}
+      >
+        <div>
+          <h1>Register a new driver</h1>
+          <form onSubmit={this.handleSubmit}>
+            {this.renderInput("firstName", "First Name")}
+            {this.renderInput("lastDName", "Last Name")}
+            {this.renderInput("userDname", "Username")}
+            {this.renderInput("password", "Password", "password")}
+            {this.renderInput("contactDNumber", "Contact Number")}
+            {this.renderInput("emailD", "Email")}
+            {this.renderInput("addressD", "Address")}
+            {this.renderInput("nicD", "NIC")}
+            {this.renderInput("licensenumberD", "License Number")} <br />
+            {/* {this.renderInput("licensenumberD", "License Number")} <br /> */}
+            {this.renderSelect(
+              "assignedVehicle",
+              "Assigned Vehicle",
+              this.state.vehicles
+            )}{" "}
+            <br />
+            {this.renderButton("Register")} <br />
+            {/* {this.renderSelect("genreId", "Genre", this.state.bu)} */}
+          </form>
+        </div>
       </div>
     );
   }

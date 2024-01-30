@@ -54,7 +54,14 @@ const SocketClient = (props) => {
 
   return (
     <>
-      <div style={{ height: "80vh", width: "100%" }}>
+      <div
+        style={{
+          height: "80vh",
+
+          marginLeft: "30px",
+          marginRight: "30px",
+        }}
+      >
         <APIProvider apiKey="AIzaSyD3iZ52fsbEPy64MJPTVxJLlePde16xAMc">
           <Map
             center={cent}
@@ -70,9 +77,28 @@ const SocketClient = (props) => {
               />
             ))}
             {/* <AnimatedMarker positions={messages} /> */}
-            <div className="card" style={{ width: "300px", marginTop: "70px" }}>
-              <h1 style={{ fontSize: "20px" }}>Current Speed:</h1>
-              <p1>{messages[messages.length - 1]?.speed}</p1>
+            <div
+              className="card"
+              style={{
+                margin: "30px",
+                marginTop: "60px",
+                marginLeft: "10px",
+                cornerRadius: "0",
+                padding: "15px",
+                borderRadius: "0px",
+                height: "60px",
+                width: "300px",
+                border: "none",
+                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                backgroundColor: "#ffffff",
+                transition: "transform 0.2s, background-color 0.2s",
+                fontWeight: "bold",
+              }}
+            >
+              <h1 style={{ fontSize: "20px" }}>
+                Current Speed:{" "}
+                <p1>{messages[messages.length - 1]?.speed} m/s</p1>
+              </h1>
             </div>
           </Map>
           <div>
@@ -86,10 +112,34 @@ const SocketClient = (props) => {
         <p1>Distance: {Directions(bus?.SchoolAddress)?.[0]}</p1>
         <p1>Duration: {Directions(bus?.SchoolAddress)?.[1]}</p1>
       </div> */}
+
+      <div
+        className="card"
+        style={{
+          margin: "30px",
+          marginTop: "30px",
+          padding: "15px",
+          borderRadius: "10px",
+          height: "155px",
+          width: "350px",
+          border: "none",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#ffffff",
+          transition: "transform 0.2s, background-color 0.2s",
+          fontWeight: "bold",
+        }}
+      >
+        <h1>POSITION</h1>
+        <p1>Position X: {messages[messages.length - 1]?.angularX}</p1>
+        <p1>Position Y: {messages[messages.length - 1]?.angularY}</p1>
+        <p1>Position Z: {messages[messages.length - 1]?.angularZ}</p1>
+      </div>
+
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-warning"
         onClick={() => triggerSnap({ thingName: bus?.ThingName })}
+        style={{ marginLeft: "30px", marginTop: "0px", width: "150px" }}
       >
         Snap
       </button>
@@ -98,22 +148,14 @@ const SocketClient = (props) => {
         render={(props) => (
           <a
             href="/vehicleSnap"
-            className="btn btn-primary"
+            className="btn btn-warning"
             onClick={() => props.history.push("/vehicleSnap", { bus })}
+            style={{ marginLeft: "30px", marginTop: "0px", width: "150px" }}
           >
             See Last Snap
           </a>
         )}
       />
-      <div
-        className="card"
-        style={{ width: "200px", marginLeft: "500px", marginTop: "0px" }}
-      >
-        <h1>Position</h1>
-        <p1>PositionX: {messages[messages.length - 1]?.angularX}</p1>
-        <p1>PositionY: {messages[messages.length - 1]?.angularY}</p1>
-        <p1>PositionZ: {messages[messages.length - 1]?.angularZ}</p1>
-      </div>
       <div>
         <h1>Received AWS IoT Messages:</h1>
         <ul>
@@ -237,7 +279,25 @@ function Directions({ endAddress, bus }) {
   const formattedDuration = (duration / 60).toFixed(0);
 
   return (
-    <div className="card" style={{ width: "200px", marginTop: "70px" }}>
+    <div
+      className="card"
+      style={{
+        margin: "30px",
+        marginTop: "30px",
+        marginLeft: "390px",
+        marginRight: "30px",
+        padding: "15px",
+        borderRadius: "10px",
+        height: "155px",
+        width: "875px",
+        border: "none",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        backgroundColor: "#ffffff",
+        transition: "transform 0.2s, background-color 0.2s",
+        fontWeight: "bold",
+        color: "#000000",
+      }}
+    >
       <h1>Directions</h1>
       <p1>Distance: {formattedDistance} KM</p1>
       <p1>Duration: {formattedDuration} mins</p1>

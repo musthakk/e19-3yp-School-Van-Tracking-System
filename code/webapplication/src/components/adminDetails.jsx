@@ -17,13 +17,36 @@ class AdminDetails extends Component {
   render() {
     const { user } = this.state;
     return (
-      <div className="card">
+      <div
+        className="card"
+        style={{
+          margin: "30px",
+          padding: "15px",
+          borderRadius: "10px",
+          height: "250px",
+          border: "none",
+          width: "600px",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#ffffff",
+          transition: "transform 0.2s, background-color 0.2s",
+        }}
+      >
         {/* <img src={userbanner} className="card-img-top" alt="..." /> */}
         <div className="card-body">
-          <h5 className="card-title"> {user.name}</h5>
-          <p className="card-text"></p>
-          Email: {user.email} <br />
-          Contact Number: {user.contactNumber}
+          <h5
+            className="card-title"
+            style={{ fontWeight: "bold", fontSize: "40px" }}
+          >
+            {" "}
+            {user.name}
+          </h5>
+          <p
+            className="card-text"
+            style={{ fontWeight: "bold", fontSize: "20px" }}
+          >
+            Email: {user.email} <br />
+            Contact Number: {user.contactNumber}
+          </p>
         </div>
       </div>
     );

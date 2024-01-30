@@ -295,6 +295,7 @@ class Home extends Component {
                 height: "200px",
                 border: "none",
                 boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                overflowY: "auto",
               }}
             >
               <AccidentAlers />

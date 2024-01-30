@@ -81,6 +81,9 @@ app.use("/Admin", gettingThingName);
 const gettingPickupAddresses = require("./admin/gettingPickupAddresses");
 app.use("/Admin", gettingPickupAddresses);
 
+const deleteVerifiedChildren = require("./admin/deleteVerifiedChildren");
+app.use("/Admin", deleteVerifiedChildren);
+
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

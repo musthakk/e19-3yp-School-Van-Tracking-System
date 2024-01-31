@@ -57,11 +57,11 @@ class SignUpForm extends Form {
             {this.renderInput("email", "Email")}
             {this.renderInput("contactNumber", "Contact Number")}
             {this.renderInput("address", "Address")} <br />
-            {this.renderButton("Register")}
+            {this.renderButton("Register")} <br />
             <p1>
               {" "}
               Already have an account?
-              <Link to="/loginForm"> Login</Link>
+              <Link to="/loginForm">Login</Link>
             </p1>
           </form>
         </div>

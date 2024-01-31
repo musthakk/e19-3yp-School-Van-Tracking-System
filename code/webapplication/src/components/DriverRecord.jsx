@@ -114,6 +114,7 @@ class DriverRecord extends Component {
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
                     backgroundColor: "#ffffff",
                     transition: "transform 0.2s, background-color 0.2s",
+                    overflowY: "auto",
                   }}
                 >
                   <div className="row g-0">

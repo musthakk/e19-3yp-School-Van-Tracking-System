@@ -95,6 +95,7 @@ class UserRecord extends Component {
             border: "none",
             boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
             transition: "transform 0.2s, background-color 0.2s",
+            overflowY: "auto",
           }}
         >
           <div className="col">

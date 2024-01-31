@@ -69,6 +69,7 @@ class Bus extends Form {
               border: "none",
               backgroundColor: "#fefcd2",
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+              overflowY: "auto",
             }}
           >
             <h1>Add a new bus</h1>
@@ -143,6 +144,7 @@ class Bus extends Form {
               backgroundColor: "#fefcd2",
               border: "none",
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+              overflowY: "auto",
             }}
           >
             <h1>Busses</h1>

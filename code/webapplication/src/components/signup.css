@@ -19,6 +19,7 @@
     margin-left: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
+    overflow: scroll;
   }
   
   .log-form form {
@@ -32,15 +33,23 @@
   
   .log-form input,
   .log-form button,
-  .log-form a {
+  .log-form  a{
     margin-bottom: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
     background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
     color: white; /* Text color */
     border: 1px solid white; /* White border */
     border-radius: 20px; /* Border radius */
     padding: 10px;
-    padding-left: 30px; /* Add padding for the icon */
+    /* padding-left: 30px;  */
+    padding-left: 30px;
+    padding-right: 30px;
   }
+
+  
+
+  
   
   .log-form input[type="text"],
   .log-form input[type="password"] {

@@ -5,9 +5,17 @@ import "./components.css";
 import "../index.css";
 import map from "../images/map.png";
 import home from "../images/home.jpeg";
+import { getBuses } from "../services/busService";
 
 class Home extends Component {
-  state = {};
+  state = {
+    busses: [],
+  };
+
+  async componentDidMount() {
+    const { data } = await getBuses();
+    this.setState({ busses: data.registeredVehicles });
+  }
 
   render() {
     return (
@@ -298,7 +306,15 @@ class Home extends Component {
                 overflowY: "auto",
               }}
             >
-              <AccidentAlers />
+              <h1>Received AWS IoT Messages:</h1>
+              {this.state.busses.map((bus) => (
+                <>
+                  <p>{bus?.vehicleID}:</p>{" "}
+                  <p>
+                    <AccidentAlers bus={bus} />
+                  </p>
+                </>
+              ))}
             </div>
           </div>
 

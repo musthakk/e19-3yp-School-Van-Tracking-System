@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-const AccidentAlers = () => {
+const AccidentAlers = (props) => {
+  const { bus } = props.location.state || {}; // Add default value for destructuring
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -9,11 +10,11 @@ const AccidentAlers = () => {
     const socket = io("http://13.51.79.199:3002");
 
     // Replace 'SN0013' with the specific thingName you are interested in
-    const thingName = "SN0014";
+    //const thingName = "SN0014";
 
     // Event handler for receiving messages from the server based on thingName
-    socket.on(thingName, (message) => {
-      console.log(`Received message for ${thingName} from server:`, message);
+    socket.on(bus?.ThingName, (message) => {
+      // console.log(`Received message for ${thingName} from server:`, message);
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
@@ -45,7 +46,6 @@ const AccidentAlers = () => {
 
   return (
     <div>
-      <h1>Received AWS IoT Messages for SN0013:</h1>
       <ul>
         {messages.map((message, index) => (
           <li key={index}>{JSON.stringify(message)}</li>

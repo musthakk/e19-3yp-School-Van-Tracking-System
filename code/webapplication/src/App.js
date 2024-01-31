@@ -21,6 +21,7 @@ import SeeSnaps from "./components/seeSnaps";
 import VehicleSnap from "./components/vehicleSnap";
 import SignUpForm from "./components/signup";
 import verifyForm from "./components/verify";
+import AccidentAlers from "./components/accidentAlerts";
 import "./index.css";
 
 class App extends Component {
@@ -90,6 +91,7 @@ class App extends Component {
             <Route path="/adminDetails" component={AdminDetails} />
             <Route path="/seeSnaps" component={SeeSnaps} />
             <Route path="/vehicleSnap" component={VehicleSnap} />
+            <Route path="/accidentAlerts" component={AccidentAlers} />
             <Redirect from="/" exact to="/loginForm" />
             <Redirect to="/not-found" />
           </Switch>

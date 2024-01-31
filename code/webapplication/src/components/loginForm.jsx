@@ -46,7 +46,7 @@ class LoginForm extends Form {
             <p1>
               {" "}
               Don't have an account?
-              <Link to="/signup"> Sign Up</Link>
+              <Link to="/signup">Sign Up</Link>
             </p1>
           </form>
         </div>

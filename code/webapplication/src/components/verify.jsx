@@ -52,7 +52,7 @@ class verifyForm extends Form {
               <p1>
                 {" "}
                 Already have an account?
-                <Link to="/loginForm"> Login</Link>
+                <Link to="/loginForm">Login</Link>
               </p1>
             </form>
           </div>

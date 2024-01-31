@@ -19,6 +19,7 @@
     margin-left: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
+    overflow: scroll;
   }
   
   .login-form form {
@@ -32,14 +33,17 @@
   
   .login-form input,
   .login-form button,
-  .login-form a {
+  .login-form  a{
     margin-bottom: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
     background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
     color: white; /* Text color */
     border: 1px solid white; /* White border */
     border-radius: 20px; /* Border radius */
     padding: 10px;
     padding-left: 30px; /* Add padding for the icon */
+    padding-right: 30px;
   }
   
   .login-form input[type="text"],

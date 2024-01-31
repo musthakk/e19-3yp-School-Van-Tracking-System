@@ -307,11 +307,11 @@ class Home extends Component {
               }}
             >
               <h1>Received AWS IoT Messages:</h1>
-              {this.state.busses.map((bus) => (
+              {this?.state.busses.map((bus) => (
                 <>
                   <p>{bus?.vehicleID}:</p>{" "}
                   <p>
-                    <AccidentAlers bus={bus} />
+                    <AccidentAlers props={bus} />
                   </p>
                 </>
               ))}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 const AccidentAlers = (props) => {
-  const { bus } = props.location.state || {}; // Add default value for destructuring
+  const { bus } = props?.location?.state || {}; // Add default value for destructuring
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {

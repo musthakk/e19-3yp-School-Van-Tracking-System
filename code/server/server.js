@@ -220,7 +220,7 @@ const sendEmail = async (to, subject, html) => {
 // Function to send a verification email
 const sendVerificationEmail = (userEmail, verificationToken) => {
   const subject = 'Verify Your Email';
-  const verificationLink = `http://52.66.141.134:3000/verify-email?token=${verificationToken}`;
+  const verificationLink = `http://13.126.69.29:3000/verify-email?token=${verificationToken}`;
 
   const htmlContent = `
     <h3>SureWay..</h3>

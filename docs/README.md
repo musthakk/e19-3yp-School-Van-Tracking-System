@@ -107,17 +107,25 @@ This architecture allows for efficient tracking and monitoring of school vans, e
 
 <!-- First row of images -->
 <div align="center">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0013.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0014.jpg" alt="Image 2" width="200" height="400" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0015.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/IMG-20231209-WA0013.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/IMG-20231209-WA0014.jpg" alt="Image 2" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/IMG-20231209-WA0015.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
 </div>
-
 <!-- Second row of images -->
 <div align="center">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0016.jpg" alt="Image 4" width="200" height="400" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0017.jpg" alt="Image 5" width="200" height="400" style="margin: 5px;">
-  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/IMG-20231209-WA0018.jpg" alt="Image 6" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/IMG-20231209-WA0016.jpg" alt="Image 4" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/IMG-20231209-WA0017.jpg" alt="Image 5" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/IMG-20231209-WA0018.jpg" alt="Image 6" width="200" height="400" style="margin: 5px;">
 </div>
+
+
+<!-- Fourth row of images -->
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Mobile%20App/with%20wrong%20input%20field.jpg" alt="Image 7" width="200" height="400" style="margin: 5px;">
+</div>
+
+
+
 
 ### SureWay: A User-Friendly Mobile App for School Van Tracking
 
@@ -172,6 +180,56 @@ SureWay is not just an app; it's a commitment to ensuring the safety and well-be
 ![Alt text](https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/Circuit.jpg?raw=true)
 
 Presenting our meticulously engineered hardware design! This compact yet powerful setup integrates the SIM 800L, NEO 6M, ADXL, and an I2C module, all powered by a 9V battery. The design ensures seamless connectivity and optimal performance, making it the heart of our school van tracking system. It's not just a schematic; it's the blueprint of safety and reliability!
+
+## Hardware Processing...
+In the pursuit of creating an efficient and comprehensive School Van Tracking System, our project team embarked on the integration of crucial hardware components. This meticulous process involved the individual testing and verification of each component to ensure optimal functionality before the amalgamation of the entire system. The components under scrutiny include the GPS NEO 6M module, the MPU6050 accelerometer, the ESP32 camera module, the ESP8266 microcontroller, an LED display, and the SIM900A module.
+
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/circuit_final.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
+</div>
+
+<div>
+  <a href="https://youtu.be/Gqk0iZkY1xY" target="_blank">
+    <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/blob/main/docs/images/circuit_full.jpg alt="DEMONSTATION">
+  </a>
+
+#### GPS NEO 6M Module:
+The GPS NEO 6M module was rigorously tested to guarantee accurate and reliable location data acquisition. Its compatibility with the overall system was assessed, considering factors such as signal strength and satellite connectivity.
+
+####  MPU6050 Accelerometer:
+The MPU6050 accelerometer underwent extensive testing to ensure precise motion tracking. Acceleration, tilt, and rotation data were meticulously analyzed to ascertain the accelerometer's capability to provide real-time vehicle movement information.
+
+####  ESP32 Camera Module:
+The ESP32 camera module, a pivotal component for capturing visual data, was individually examined for proper initialization and image acquisition. Image quality, resolution, and compression capabilities were scrutinized to meet the project's stringent requirements.
+
+#### ESP8266 Microcontroller:
+The ESP8266 microcontroller, serving as the central processing unit, was tested for its ability to efficiently manage and process data from various sensors. Its power requirements were considered in relation to the overall power management strategy.
+
+### Power Management
+Addressing the diverse power requirements of the integrated components, a comprehensive power management strategy was adopted. A 7.4V power supply was selected and regulated using a buck converter to provide the specific voltages required by each component. The ESP8266 operated at 3.3V, the ESP32 camera module at 5V, the LED display at 5V, and the SIM900A module at 4V. This meticulous power management approach ensures optimal performance and longevity of the entire system.
+
+## AWS IoT Core and MQTT in Our Project
+In the intricate web of our School Van Tracking System, the marriage of AWS IoT Core and the MQTT (Message Queuing Telemetry Transport) protocol assumes a crucial role, ensuring seamless and secure communication between our embedded devices and the expansive cloud infrastructure.
+
+### AWS IoT Core 
+In the realm of IoT, AWS IoT Core emerges as the linchpin, offering an array of robust tools and services tailored for the development of scalable, secure, and reliable IoT applications. It stands as the guardian of our system, providing end-to-end security through device authentication, authorization, and data encryption. The scalability it brings to the table is pivotal for accommodating the dynamic growth of our project. Additionally, AWS IoT Core simplifies device management, allowing for remote monitoring, control, and updates, while facilitating efficient data processing and analytics through seamless integration with other AWS services.
+
+### MQTT Protocol
+At the heart of our communication architecture lies the MQTT protocol, a lightweight and efficient messaging solution that plays a fundamental role in the exchange of information between the various components of our School Van Tracking System. MQTT's design, characterized by low bandwidth overhead, aligns perfectly with the need for efficient data transmission in our IoT application. Embracing a publish-subscribe model, MQTT fosters smooth communication, enabling devices to publish data and subscribe to relevant topics. Its asynchronous nature empowers devices to communicate independently, enhancing system responsiveness, especially in scenarios demanding real-time updates.
+
+In the intricate dance of our School Van Tracking System, AWS IoT Core and MQTT seamlessly interconnect the ESP8266, ESP32 camera module, GPS NEO 6M, accelerometer MPU6050, and the AWS cloud. Employing MQTT as the communication protocol, our devices publish data to specific topics, and AWS IoT Core, acting as the diligent broker, orchestrates the secure and efficient delivery of messages to their intended destinations.
+
+
+# Mobile Application
+The School Van Tracking System project has achieved significant milestones in developing a mobile app that enhances student transportation safety. The system employs AWS IoT Core for real-time location tracking and integrates Google APIs for mapping services. Key accomplishments include the implementation of a secure user registration system with email verification using JWT authentication, ensuring the privacy and integrity of user data. Real-time location tracking is enabled through AWS IoT Core, and the Google APIs provide users with an intuitive map interface to visualize van locations. In the next phase, the focus will be on developing a driver module, allowing users to access relevant driver details. The ongoing refinement of the user interface, rigorous testing, and documentation efforts aim to create a reliable and user-friendly School Van Tracking System.
+
+<div align="center">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/Login.jpg" alt="Image 1" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/register.jpg" alt="Image 2" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/checking.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
+  <img src="https://github.com/cepdnaclk/e19-3yp-School-Van-Tracking-System/raw/main/docs/images/email.jpg" alt="Image 3" width="200" height="400" style="margin: 5px;">
+</div>
+
 
 # Data Security in Our System
 

@@ -1,0 +1,76 @@
+.log-container {
+    display: flex;
+    justify-content: flex-end;
+    
+    height: 100vh;
+    background-image: url("../images/wall.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .log-form {
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 20px; /* Increased border radius */
+    color: white;
+    width: 500px;
+    margin-right: 70px;
+    margin-left: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: scroll;
+  }
+  
+  .log-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .log-form h1 {
+    margin-bottom: 20px;
+  }
+  
+  .log-form input,
+  .log-form button,
+  .log-form  a{
+    margin-bottom: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
+    color: white; /* Text color */
+    border: 1px solid white; /* White border */
+    border-radius: 20px; /* Border radius */
+    padding: 10px;
+    /* padding-left: 30px;  */
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  
+
+  
+  
+  .log-form input[type="text"],
+  .log-form input[type="password"] {
+    background-color: transparent; /* Transparent background */
+  }
+  
+  .log-form input[type="submit"] {
+    cursor: pointer;
+    background-color: orange; /* Orange button background color */
+  }
+  
+  .log-form input[type="submit"]:hover {
+    background-color: #ffa500; /* Hover state background color */
+  }
+  
+  .log-form a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .log-form a:hover {
+    text-decoration: underline;
+  }
+  

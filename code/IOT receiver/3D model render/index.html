@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESP Web Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/107/three.min.js"></script>
+  </head>
+  <body>
+    <div class="content">
+      <div class="cards">
+        <div class="card">
+          <p class="card-title">GYROSCOPE</p>
+          <p>
+            <span class="reading">X: <span id="gyroX"></span> rad</span>
+          </p>
+          <p>
+            <span class="reading">Y: <span id="gyroY"></span> rad</span>
+          </p>
+          <p>
+            <span class="reading">Z: <span id="gyroZ"></span> rad</span>
+          </p>
+        </div>
+      </div>
+      <div class="cube-content">
+        <div id="3Dcube"></div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+    <script src="script.js"></script>
+
+    <!-- <script src="socketClient.js"></script> -->
+  </body>
+</html>
